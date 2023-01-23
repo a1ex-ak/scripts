@@ -1,0 +1,62 @@
+#!/bin/bash
+clear
+echo " ===================================================================="
+echo " *                 Скрипт подключения к OpenVPN v3                  *"
+echo " * Copyright (c) 2023 Alexey Kamaev. Released under the MIT License.*"
+echo " *                       версия - 2023.01.22                        *"
+echo " *                                                                  *"
+echo " *     https://community.openvpn.net/openvpn/wiki/OpenVPN3Linux     *"
+echo " ===================================================================="
+
+# /net/openvpn/v3/sessions/a16d69adsc856s4597sba5bsbd04cf749feb
+
+# путь расположения скрипта и профиля
+ovpnFILEDIR="$PWD"
+
+# =========================================================
+# имя профиля (конфигурационного файла) .ovpn (менять тут)
+ovpnCONFIGFILE='ovpn-profile.ovpn'
+# =========================================================
+
+# Проверка наличия файла конфигурации
+echo ""
+if [ -f "$ovpnFILEDIR/$ovpnCONFIGFILE" ]; then
+    echo "OpenVPN configuration file exist!"
+else
+    echo "ERROR: OpenVPN configuration file NOT exist!"
+    sleep 2
+    exit 1
+fi
+
+# Отображение активной сессии OpenVPN
+echo ""
+     openvpn3 sessions-list
+
+# Подключение к OpenVPN
+    echo
+    echo " Select an option (Выбирите вариант):"
+    echo "    1) Connect OpenVPN"
+    echo "    2) Disconnect OpenVPN"
+    echo "    3) Exit"
+    read -p " Option: " option
+    until [[ "$option" =~ ^[1-3]$ ]]; do
+        echo "ERROR: You need selection connect, disconnect or exit!"
+	read -p " Option: " option
+    done
+    case "$option" in
+	1)
+		echo
+		 openvpn3 session-start --config "$ovpnFILEDIR/$ovpnCONFIGFILE"
+		sleep 2
+		exit
+	;;
+	2)
+		echo
+		 openvpn3 session-manage --config "$ovpnFILEDIR/$ovpnCONFIGFILE" --disconnect
+		sleep 2
+		exit
+	;;
+	3)
+		exit
+	;;
+    esac
