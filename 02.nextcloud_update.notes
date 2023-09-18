@@ -1,0 +1,29 @@
+//////////////////////////////////
+//     Обновление Nextcloud     //
+//////////////////////////////////
+
+----------------------------------------------------------------
+1. "запуск команды в терминале из корневой деректории" 
+----------------------------------------------------------------
+sudo -u www-data php /var/www/nextcloud/updater/updater.phar --no-interaction
+
+---------------------------------------------------------------
+# "если права не работают от www-data"
+sudo -u root php /var/www/nextcloud/updater/updater.phar --no-interaction
+
+---------------------------------------------------------------
+# "после обновления сервер уйдет в режим обслуживания"
+# "Config is set to be read-only via option "config_is_read_only""
+# "для его возвращения редактируем
+sudo nano /var/www/nextcloud/config/config.php
+
+# меняем значение
+'config_is_read_only' => true, на 'config_is_read_only' => false,
+'maintenance' => true, на 'maintenance' => false,
+
+--------------------------------------------------------------
+2. Открываем nextcloud и продолжаем обновление из web
+--------------------------------------------------------------
+
+# "меняем владельца /var/www/nextcloud/"
+sudo chown -R www-data:www-data /var/www/nextcloud/
