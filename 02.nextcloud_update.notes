@@ -27,3 +27,11 @@ sudo nano /var/www/nextcloud/config/config.php
 
 # "меняем владельца /var/www/nextcloud/"
 sudo chown -R www-data:www-data /var/www/nextcloud/
+
+--------------------------------------------------------------
+3. Проверяем работу cron
+--------------------------------------------------------------
+
+sudo crontab -e -u www-data
+# вставить в конце, не забыть про перенос на новую строку в конце
+ */5  *  *  *  * php -f /var/www/nextcloud/cron.php
