@@ -12,6 +12,10 @@ sudo -u www-data php /var/www/nextcloud/updater/updater.phar --no-interaction
 sudo -u root php /var/www/nextcloud/updater/updater.phar --no-interaction
 
 ---------------------------------------------------------------
+# если засралось обновление
+sudo -u www-data php /var/www/nextcloud/occ maintenance:repair
+
+---------------------------------------------------------------
 # "после обновления сервер уйдет в режим обслуживания"
 # "Config is set to be read-only via option "config_is_read_only""
 # "для его возвращения редактируем
