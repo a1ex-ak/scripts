@@ -35,7 +35,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 sudo nano /etc/apt/sources.list
 
-дописать в конце - deb http://ftp.debian.org/debian bookworm-backports main
+#дописать в конце - deb http://ftp.debian.org/debian bookworm-backports main
 
 sudo apt update
 
