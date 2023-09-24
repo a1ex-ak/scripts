@@ -3,6 +3,11 @@
 /////////////////////////////////////////////
 
 ---------------------------
+sudo nano /etc/apt/sources.list
+
+дописываем - contrib non-free
+
+---------------------------
 # Удаление лишних программ
 sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-music libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 gnome-documents zutty
 
@@ -27,6 +32,13 @@ echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf - устан
   
 ----------------------------------
 # установка tlp
+
+sudo nano /etc/apt/sources.list
+
+дописать в конце - deb http://ftp.debian.org/debian bookworm-backports main
+
+sudo apt update
+
 sudo apt install tlp tlp-rdw
 sudo systemctl enable tlp
 
@@ -35,10 +47,25 @@ sudo systemctl enable tlp
 sudo apt install ffmpeg
 
 ----------------------------------
-# Настройка сетевых папок - SAMBA
-sudo apt install samba
+# установка ZSH
+sudo apt install git zsh
 
-https://dzen.ru/a/YwiCaenDbjRkMQuW
+git clone https://github.com/zplug/zplug ~/.zplug
+
+grep tecmint /etc/passwd
+chsh -s $(which zsh)
+grep tecmint /etc/passwd
+
+----------------------------------
+# установка драйверов NVidia
+sudo apt install linux-headers-amd64
+
+sudo apt update
+sudo apt install nvidia-driver firmware-misc-nonfree
+
+# nvidia x32
+sudo dpkg --add-architecture i386 && sudo apt update
+sudo apt install nvidia-driver-libs:i386
 
 --------------------------------------------
 # Debian 12/Sid включение Wayland с Nvidia
@@ -82,4 +109,16 @@ fi
 # Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
 sudo apt install nvidia-vaapi-driver
 
+-----------------------------------
 # Затем  в about:config переключить параметр media.ffmpeg.vaapi.enabled в true.
+
+----------------------------------
+# Настройка сетевых папок - SAMBA
+sudo apt install samba
+
+https://dzen.ru/a/YwiCaenDbjRkMQuW
+
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrServerLinux.sh | sudo bash
