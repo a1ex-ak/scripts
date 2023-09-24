@@ -1,0 +1,78 @@
+//////////////////////////////////////////////
+// 001. НАСТРОЙКА DEBIAN 12 ПОСЛЕ УСТАНОВКИ //
+/////////////////////////////////////////////
+
+---------------------------
+# Удаление лишних программ
+sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-music libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 gnome-documents zutty
+
+-------------------------------
+# Установка поддержки Flatpak
+sudo apt install flatpak
+sudo apt install gnome-software-plugin-flatpak
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+----------------------------------
+# настройка swap
+echo -e "vm.dirty_background_ratio = 50" | sudo tee -a /etc/sysctl.conf
+echo -e "vm.dirty_ratio = 80" | sudo tee -a /etc/sysctl.conf
+echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf
+  
+----------------------------------
+# установка tlp
+sudo apt install tlp tlp-rdw
+sudo systemctl enable tlp
+
+----------------------------------
+# установка ffmpeg
+sudo apt install ffmpeg
+
+----------------------------------
+# Настройка сетевых папок - SAMBA
+sudo apt install samba
+
+https://dzen.ru/a/YwiCaenDbjRkMQuW
+
+--------------------------------------------
+# Debian 12/Sid включение Wayland с Nvidia
+--------------------------------------------
+sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
+
+----------------------------------------
+# Нужно закомментировать данные строки:
+# Check if suspend/resume services necessary for working wayland support is ava>
+#TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
+#TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
+#IMPORT{program}="/bin/sh -c \"sed -e 's/: /=/g' -e 's/\([^[:upper:]]\)\([[:upp>
+#ENV{NVIDIA_PRESERVE_VIDEO_MEMORY_ALLOCATIONS}!="1", GOTO="gdm_disable_wayland"
+#IMPORT{program}="/bin/sh -c 'echo NVIDIA_HIBERNATE=`systemctl is-enabled nvidi>
+#ENV{NVIDIA_HIBERNATE}!="enabled", GOTO="gdm_disable_wayland"
+#IMPORT{program}="/bin/sh -c 'echo NVIDIA_RESUME=`systemctl is-enabled nvidia-r>
+#ENV{NVIDIA_RESUME}!="enabled", GOTO="gdm_disable_wayland"
+#IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia->
+#ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
+#LABEL="gdm_nvidia_end"
+
+# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
+#LABEL="gdm_hybrid_nvidia_laptop_check"
+#TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_>
+#TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_lap>
+#TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidi>
+#GOTO="gdm_disable_wayland"
+
+sudo sudo gnome-text-editor /etc/default/grub
+# Добавить
+GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1"
+
+# Затем выполнить
+sudo update-grub
+
+# В файле .profile в домашней директории нужно добавить:
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export MOZ_ENABLE_WAYLAND=1
+fi
+
+# Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
+sudo apt install nvidia-vaapi-driver
+
+# Затем  в about:config переключить параметр media.ffmpeg.vaapi.enabled в true.
