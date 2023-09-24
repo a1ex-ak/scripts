@@ -32,12 +32,6 @@ echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf - устан
   
 ----------------------------------
 # установка tlp
-
-#sudo nano /etc/apt/sources.list
-#дописать в конце - deb http://ftp.debian.org/debian bookworm-backports main
-
-sudo apt update
-
 sudo apt install tlp tlp-rdw
 sudo systemctl enable tlp
 
