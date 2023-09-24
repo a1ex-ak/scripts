@@ -16,7 +16,9 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # настройка swap
 echo -e "vm.dirty_background_ratio = 50" | sudo tee -a /etc/sysctl.conf
 echo -e "vm.dirty_ratio = 80" | sudo tee -a /etc/sysctl.conf
-echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf
+echo -e "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf - устанвливаем для ssd
+
+echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf - устанваливаем для hdd
   
 ----------------------------------
 # установка tlp
