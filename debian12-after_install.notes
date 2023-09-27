@@ -39,12 +39,12 @@ sudo systemctl start tlp
 sudo systemctl status tlp
 
 ----------------------------------
-# установка ffmpeg
-sudo apt install ffmpeg
+# установка кодеков
+sudo apt install ffmpeg libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
 
 ----------------------------------
 # установка ZSH
-sudo apt install git zsh
+sudo apt install git neofetch zsh
 
 git clone https://github.com/zplug/zplug ~/.zplug
 
