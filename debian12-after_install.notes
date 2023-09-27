@@ -53,6 +53,10 @@ chsh -s $(which zsh)
 grep tecmint /etc/passwd
 
 ----------------------------------
+# Archer T3U Plus
+https://github.com/cilynx/rtl88x2bu
+
+----------------------------------
 # установка драйверов NVidia
 sudo apt install linux-headers-amd64
 
