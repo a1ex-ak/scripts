@@ -49,17 +49,36 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 # ВИДЕОКАРТЫ
 # AMD
 
-# Nvidia
-sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-power nvidia-settings 
+# NVIDIA
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+sudo dnf install gcc kernel-headers kernel-devel akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs xorg-x11-drv-nvidia-power nvidia-settings
+
+# Если используется 64-битная ОС, но требуется запускать ещё и Steam и 32-битные версии игр, то установим также 32-битный драйвер (устанавливать сразу после предыдущих):
+sudo dnf install xorg-x11-drv-nvidia-libs.i686
+
+sudo akmods --force
+sudo dracut --force
+
+sudo systemctl enable nvidia-{suspend,resume,hibernate}
+
 sudo reboot
+
+# активация VA-API на видеокартах Nvidia
+sudo dnf install libva-nvidia-driver
+
+# INTEL
+# активация VA-API на видеокартах Intel
+sudo dnf install libva-intel-driver intel-media-driver
 
 # Иконки Papirus
 sudo dnf install papirus-icon-theme
+wget -qO- https://git.io/papirus-icon-theme-install | sh
 
 # Терминал на ZSH
+sudo dnf install neofetch git zsh
 
-# Устанавливаем ZSH в Fedora Linux
-sudo dnf install zsh
+git clone https://github.com/zplug/zplug ~/.zplug
 
 # Делаем ZSH по умолчанию для нашего терминала:
 grep tecmint /etc/passwd
