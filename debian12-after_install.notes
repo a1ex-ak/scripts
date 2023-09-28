@@ -58,7 +58,8 @@ https://github.com/cilynx/rtl88x2bu
 
 ----------------------------------
 # установка драйверов NVidia
-sudo apt install linux-headers-amd64
+#sudo apt install linux-headers-amd64
+sudo apt install linux-headers-$(uname -r)
 
 sudo apt update
 sudo apt install nvidia-driver firmware-misc-nonfree
