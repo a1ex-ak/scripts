@@ -33,7 +33,7 @@
 # Установка tlp (не обязательно)
 	sudo apt install tlp tlp-rdw
 	sudo systemctl enable tlp
-# Запуск tlp
+# Запуск tlp (не обязательно)
 	sudo systemctl start tlp
 	sudo systemctl status tlp
 
@@ -41,6 +41,20 @@
 # Установка кодеков
 	sudo apt install ffmpeg libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
 
+----------------------------------
+# Установка брандмауэр (firewall) UFW
+	sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg
+ 
+	sudo apt install ufw
+ 	sudo systemctl enable ufw --now
+  
+ 	sudo ufw enable
+	
+ 	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+
+ 	sudo ufw status verbose
+ 
 ----------------------------------
 # Установка ZSH
 	sudo apt install git neofetch zsh
