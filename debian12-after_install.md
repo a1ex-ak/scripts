@@ -54,6 +54,8 @@
 	sudo ufw default allow outgoing
 
  	sudo ufw status verbose
+ # Открываем RDP
+ 	sudo ufw allow 3389/tcp
  
 ----------------------------------
 # Установка ZSH
