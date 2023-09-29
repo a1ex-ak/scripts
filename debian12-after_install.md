@@ -115,6 +115,7 @@
 	TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_lap>
 	TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidi>
 	GOTO="gdm_disable_wayland"
+ 	LABEL="gdm_hybrid_nvidia_laptop_check_end"
 
 # Обновляем GRUB
 	sudo sudo gnome-text-editor /etc/default/grub
