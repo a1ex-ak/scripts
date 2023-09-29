@@ -53,7 +53,7 @@ chsh -s $(which zsh)
 grep tecmint /etc/passwd
 
 ----------------------------------
-# Archer T3U Plus
+# Archer T3U Plus (WiFi)
 https://github.com/cilynx/rtl88x2bu
 
 ----------------------------------
