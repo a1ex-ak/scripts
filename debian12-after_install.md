@@ -112,6 +112,7 @@
 
 # Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
 	sudo apt install nvidia-vaapi-driver
+ 	sudo apt install intel-vaapi-driver
 
 -----------------------------------
 # Затем  в about:config переключить параметр 
