@@ -7,7 +7,7 @@
 	contrib non-free
 
 ---------------------------
-# Удаление лишних программ
+	--> # Удаление лишних программ
 	sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-music libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 gnome-documents zutty
 
 -------------------------------
