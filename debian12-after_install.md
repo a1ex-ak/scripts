@@ -46,23 +46,27 @@
 	sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg
  
 	sudo apt install ufw
- 	sudo systemctl enable ufw --now
-  
- 	sudo ufw enable
-	
- 	sudo ufw default deny incoming
-	sudo ufw default allow outgoing
 
- 	sudo ufw status verbose
- # Открываем RDP
+# Применяем политики по умолчанию
+	sudo ufw default deny incoming
+	sudo ufw default allow outgoing
+# Открываем RDP
  	sudo ufw allow 3389/tcp
- 
+# Включаем 
+ 	sudo systemctl enable ufw --now
+ 	sudo ufw enable
+# Проверяем
+ 	sudo ufw status verbose
+  
 ----------------------------------
-# Установка ZSH
+# Установка ZSH Neofetch Git
 	sudo apt install git neofetch zsh
 
 # Клонируем .zplug
 	git clone https://github.com/zplug/zplug ~/.zplug
+
+# Запускаем 
+	zsh
 
 # ZSH по умолчанию
 	grep tecmint /etc/passwd
