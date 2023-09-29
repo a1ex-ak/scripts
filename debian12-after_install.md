@@ -3,7 +3,7 @@
 /////////////////////////////////////////////
 
 ---------------------------
-sudo nano /etc/apt/sources.list
+  sudo nano /etc/apt/sources.list
 
 дописываем - contrib non-free
 
