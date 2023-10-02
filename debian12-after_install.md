@@ -146,8 +146,8 @@
  	sudo apt install intel-media-va-driver
 
 	-----------------------------------
-	--> Затем  в about:config переключить параметр 
-	media.ffmpeg.vaapi.enabled в true.
+	--> Затем в Firefox --> about:config - переключить параметр в true
+	media.ffmpeg.vaapi.enabled
 
 -----------------------------------
 # GS Connect (KDE Connect)
