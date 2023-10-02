@@ -21,6 +21,21 @@
 	sudo apt install gnome-software-plugin-flatpak
 	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
+-------------------------------
+# Установка Extension Manager
+	flatpak install flathub com.mattjakeman.ExtensionManager
+
+-------------------------------
+# Установка Flatseal
+	flatpak install flathub com.github.tchx84.Flatseal
+
+-------------------------------
+# Перезапуск системы
+	sudo reboot
+
+# Удаление зависимостей
+	sudo apt autoremove
+
 ----------------------------------
 # Настройка swap (не обязательно)
 	echo -e "vm.dirty_background_ratio = 50" | sudo tee -a /etc/sysctl.conf
@@ -151,12 +166,18 @@
 
 -----------------------------------
 # GS Connect (KDE Connect)
+	--> GS Connect
+	https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
+ 
 	--> Настраиваем Firewall:
  	sudo ufw allow 1714:1764/tcp
   	sudo ufw allow 1714:1764/udp
 
 	--> OpenSSL:
  	sudo apt install openssl
+
+   	--> Устанавливаем KDE Connect
+    	https://f-droid.org/packages/org.kde.kdeconnect_tp/
 
 ----------------------------------
 # Настройка сетевых папок - SAMBA
