@@ -44,34 +44,39 @@
 ----------------------------------
 # Установка брандмауэр (firewall) UFW
 	sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg
- 
 	sudo apt install ufw
 
-# Применяем политики по умолчанию
+	--> Применяем политики по умолчанию
 	sudo ufw default deny incoming
 	sudo ufw default allow outgoing
-# Открываем RDP
+ 
+	--> Открываем RDP
  	sudo ufw allow 3389/tcp
-# Включаем 
+  
+	--> Включаем 
  	sudo systemctl enable ufw --now
  	sudo ufw enable
-# Проверяем
+  
+	--> Проверяем
  	sudo ufw status verbose
   
 ----------------------------------
 # Установка ZSH Neofetch Git
 	sudo apt install git neofetch zsh
 
-# Клонируем .zplug
+	--> Клонируем .zplug
 	git clone https://github.com/zplug/zplug ~/.zplug
 
-# Запускаем 
+	--> Запускаем 
 	zsh
 
-# ZSH по умолчанию
+	--> ZSH по умолчанию
 	grep tecmint /etc/passwd
 	chsh -s $(which zsh)
 	grep tecmint /etc/passwd
+ 
+ 	--> Перезапускаем
+	sudo reboot
 
 ----------------------------------
 # Archer T3U Plus (WiFi)
@@ -79,13 +84,13 @@
 
 ----------------------------------
 # установка драйверов NVidia
-#sudo apt install linux-headers-amd64
+	#sudo apt install linux-headers-amd64
 	sudo apt install linux-headers-$(uname -r)
 
 	sudo apt update
 	sudo apt install nvidia-driver firmware-misc-nonfree
 
-# nvidia x32
+	--> nvidia x32
 	sudo dpkg --add-architecture i386 && sudo apt update
 	sudo apt install nvidia-driver-libs:i386
 
@@ -93,8 +98,10 @@
 # Debian 12/Sid включение Wayland с Nvidia
 --------------------------------------------
 	sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
+
 ----------------------------------------
-# Нужно закомментировать данные строки:
+	--> Нужно закомментировать данные строки:
+ 
 	# Check if suspend/resume services necessary for working wayland support is ava>
 	TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
 	TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
@@ -108,7 +115,8 @@
 	ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
 	LABEL="gdm_nvidia_end"
 
-# а так же эти
+	--> а так же эти:
+ 
 	# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
 	LABEL="gdm_hybrid_nvidia_laptop_check"
 	TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_>
@@ -117,27 +125,36 @@
 	GOTO="gdm_disable_wayland"
  	LABEL="gdm_hybrid_nvidia_laptop_check_end"
 
-# Обновляем GRUB
+	--> Обновляем GRUB
 	sudo sudo gnome-text-editor /etc/default/grub
 
-# Добавить
+	--> добавить в файл
 	GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1"
 
-# Затем выполнить
+	--> Затем выполнить
 	sudo update-grub
 
-# В файле .profile в домашней директории нужно добавить:
+	-->В файле .profile в домашней директории нужно добавить:
 	if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
 	    export MOZ_ENABLE_WAYLAND=1
 	fi
 
-# Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
+	--> Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
 	sudo apt install nvidia-vaapi-driver
  	sudo apt install intel-vaapi-driver
 
------------------------------------
-# Затем  в about:config переключить параметр 
+	-----------------------------------
+	--> Затем  в about:config переключить параметр 
 	media.ffmpeg.vaapi.enabled в true.
+
+-----------------------------------
+# GS Connect (KDE Connect)
+	--> Настраиваем Firewall:
+ 	sudo ufw allow 1714:1764/tcp
+  	sudo ufw allow 1714:1764/udp
+
+	--> OpenSSL:
+ 	sudo apt install openssl
 
 ----------------------------------
 # Настройка сетевых папок - SAMBA
