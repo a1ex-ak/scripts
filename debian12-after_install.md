@@ -187,10 +187,14 @@
 # Настройка сетевых папок - SAMBA
 	sudo apt install samba
 
-https://dzen.ru/a/YwiCaenDbjRkMQuW
+	https://dzen.ru/a/YwiCaenDbjRkMQuW
+----------------------------------
+# Чтобы Linux не засыпал
 
 	sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 	sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+----------------------------------
+# TorrServer
 
 	curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrServerLinux.sh | sudo bash
 
