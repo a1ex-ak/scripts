@@ -56,6 +56,10 @@
 # Установка кодеков
 	sudo apt install ffmpeg libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
 
+---------------------------------
+# Установка архиваторов
+	sudo apt install p7zip-rar rar unrar unace arj cabextract -y
+
 ----------------------------------
 # Установка брандмауэр (firewall) UFW
 	sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg
