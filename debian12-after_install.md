@@ -12,7 +12,7 @@
 
 -------------------------------
 # Обновление системы
-	sudo apt update && sudo apr upgrade -y
+	sudo apt update && sudo apt upgrade -y
 	sudo apt full-upgrade
 
 -------------------------------
