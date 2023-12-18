@@ -1,4 +1,4 @@
-# *** настройка DEBIAN 12 после установки ***
+# *** Настройка DEBIAN 12 после установки ***
 
 ----------------------------------------------------------------------
 # Редактирование источников обновления
@@ -8,7 +8,7 @@
 
 ---------------------------
 # Удаление лишних программ
-	sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-music libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 gnome-documents zutty
+	sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-contacts gnome-music gnome-weather libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 transmission-common gnome-documents firefox-esr zutty
 
 -------------------------------
 # Обновление системы
@@ -37,20 +37,8 @@
 	sudo apt autoremove
 
 ----------------------------------
-# Настройка swap (не обязательно)
-	echo -e "vm.dirty_background_ratio = 50" | sudo tee -a /etc/sysctl.conf
-	echo -e "vm.dirty_ratio = 80" | sudo tee -a /etc/sysctl.conf
-	echo -e "vm.vfs_cache_pressure=50" | sudo tee -a /etc/sysctl.conf - устанвливаем для ssd
-
-	echo -e "vm.vfs_cache_pressure=1000" | sudo tee -a /etc/sysctl.conf - устанваливаем для hdd
-  
-----------------------------------
-# Установка tlp (не обязательно)
-	sudo apt install tlp tlp-rdw
-	sudo systemctl enable tlp
-# Запуск tlp (не обязательно)
-	sudo systemctl start tlp
-	sudo systemctl status tlp
+# Установка шрифта Noto-emoji
+	sudo apt-get -y install fonts-noto-color-emoji
 
 ----------------------------------
 # Установка кодеков
