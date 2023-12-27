@@ -13,6 +13,7 @@ systemctl restart systemd-resolved
 `Ctrl X` - для выхода    
 `Y` для сохранения    
 
+------------------------------------------
 :ballot_box_with_check: Перезапуск DNS    
 ```yaml
 systemctl restart systemd-resolved
