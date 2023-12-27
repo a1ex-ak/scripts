@@ -43,89 +43,143 @@ flatpak install flathub com.mattjakeman.ExtensionManager
 ```
 
 -------------------------------
-# Установка Flatseal
-	flatpak install flathub com.github.tchx84.Flatseal
+:ballot_box_with_check: Установка Flatseal
+```yaml
+flatpak install flathub com.github.tchx84.Flatseal
+```
 
 -------------------------------
-# Перезапуск системы
-	sudo reboot
-
-# Удаление зависимостей
-	sudo apt autoremove
+:ballot_box_with_check: Перезапуск системы
+```yaml
+sudo reboot
+```
+:ballot_box_with_check: Удаление зависимостей
+```yaml
+sudo apt autoremove
+```
 
 ----------------------------------
-# Установка шрифта Noto-emoji
-	sudo apt-get -y install fonts-noto-color-emoji
+:ballot_box_with_check: Установка шрифта Noto-emoji
+```yaml
+sudo apt install fonts-noto-color-emoji -y
+```
 
 ----------------------------------
-# Установка кодеков
-	sudo apt install ffmpeg libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi
+:ballot_box_with_check: Установка кодеков
+```yaml
+sudo apt install ffmpeg libavcodec-extra gstreamer1.0-libav gstreamer1.0-plugins-ugly gstreamer1.0-vaapi -y
+```
 
 ---------------------------------
-# Установка архиваторов
-	sudo apt install p7zip-rar rar unrar unace arj cabextract -y
+:ballot_box_with_check: Установка архиваторов
+```yaml
+sudo apt install p7zip-rar rar unrar unace arj cabextract -y
+```
 
 ----------------------------------
-# Установка брандмауэр (firewall) UFW
-	sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg
-	sudo apt install ufw
+:ballot_box_with_check: Установка брандмауэр (firewall) UFW
+```yaml
+sudo apt install apt-transport-https lsb-release ca-certificates curl dirmngr gnupg -y
+```
 
- 	sudo systemctl enable ufw --now
+```yaml
+sudo apt install ufw
+```
 
-	--> Применяем политики по умолчанию
-	sudo ufw default deny incoming
-	sudo ufw default allow outgoing
+```yaml
+sudo systemctl enable ufw --now
+```
+
+--> Применяем политики по умолчанию
+```yaml
+sudo ufw default deny incoming
+```
+```yaml
+sudo ufw default allow outgoing
+```
  
-	--> Открываем RDP
- 	sudo ufw allow 3389/tcp
+--> Открываем RDP
+```yaml
+sudo ufw allow 3389/tcp
+```
   
-	--> Включаем 
- 	sudo ufw enable
+--> Включаем 
+```yaml
+sudo ufw enable
+```
   
-	--> Проверяем
- 	sudo ufw status verbose
+--> Проверяем
+```yaml
+sudo ufw status verbose
+```
 
-  	--> Просмотр профилей приложений UFW
-   	sudo ufw app list
+--> Просмотр профилей приложений UFW
+```yaml
+sudo ufw app list
+```
   
 ----------------------------------
-# Установка ZSH Neofetch Git
-	sudo apt install git neofetch zsh
-
-	--> Клонируем .zplug
-	git clone https://github.com/zplug/zplug ~/.zplug
-
-	--> Запускаем 
-	zsh
-
-	--> ZSH по умолчанию
-	grep tecmint /etc/passwd
-	chsh -s $(which zsh)
-	grep tecmint /etc/passwd
- 
- 	--> Перезапускаем
-	sudo reboot
+:ballot_box_with_check: Установка ZSH Neofetch Git
+```yaml
+sudo apt install git neofetch zsh
+```
+--> Клонируем .zplug
+```yaml
+git clone https://github.com/zplug/zplug ~/.zplug
+```
+--> Запускаем 
+```yaml
+zsh
+```
+--> ZSH по умолчанию
+```yaml
+grep tecmint /etc/passwd
+```
+```yaml
+chsh -s $(which zsh)
+```
+```yaml
+grep tecmint /etc/passwd
+```
+--> Перезапускаем
+```yaml
+sudo reboot
+```
 
 ----------------------------------
-# Archer T3U Plus (WiFi)
-	https://github.com/cilynx/rtl88x2bu
+:ballot_box_with_check: Archer T3U Plus (WiFi)
+```yaml
+https://github.com/cilynx/rtl88x2bu
+```
 
 ----------------------------------
-# установка драйверов NVidia
-	#sudo apt install linux-headers-amd64
-	sudo apt install linux-headers-$(uname -r)
-
-	sudo apt update
-	sudo apt install nvidia-driver firmware-misc-nonfree
-
-	--> nvidia x32
-	sudo dpkg --add-architecture i386 && sudo apt update
-	sudo apt install nvidia-driver-libs:i386
+:ballot_box_with_check: установка драйверов NVidia
+```yaml
+#sudo apt install linux-headers-amd64
+```
+```yaml
+sudo apt install linux-headers-$(uname -r)
+```
+```yaml
+sudo apt update
+```
+```yaml
+sudo apt install nvidia-driver firmware-misc-nonfree
+```
+--> nvidia x32
+```yaml
+sudo dpkg --add-architecture i386 && sudo apt update
+```
+```yaml
+sudo apt install nvidia-driver-libs:i386
+```
 
 --------------------------------------------
-# Debian 12/Sid включение Wayland с Nvidia
+:ballot_box_with_check: Debian 12/Sid включение Wayland с Nvidia
 --------------------------------------------
-	sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
+```yaml
+sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
+```
 
 ----------------------------------------
 	--> Нужно закомментировать данные строки:
