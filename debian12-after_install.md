@@ -182,86 +182,105 @@ sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
 ```
 
 ----------------------------------------
-	--> Нужно закомментировать данные строки:
- 
-	# Check if suspend/resume services necessary for working wayland support is ava>
-	TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
-	TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
-	IMPORT{program}="/bin/sh -c \"sed -e 's/: /=/g' -e 's/\([^[:upper:]]\)\([[:upp>
-	ENV{NVIDIA_PRESERVE_VIDEO_MEMORY_ALLOCATIONS}!="1", GOTO="gdm_disable_wayland"
-	IMPORT{program}="/bin/sh -c 'echo NVIDIA_HIBERNATE=`systemctl is-enabled nvidi>
-	ENV{NVIDIA_HIBERNATE}!="enabled", GOTO="gdm_disable_wayland"
-	IMPORT{program}="/bin/sh -c 'echo NVIDIA_RESUME=`systemctl is-enabled nvidia-r>
-	ENV{NVIDIA_RESUME}!="enabled", GOTO="gdm_disable_wayland"
-	IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia->
-	ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
-	LABEL="gdm_nvidia_end"
-
-	--> а так же эти:
- 
-	# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
-	LABEL="gdm_hybrid_nvidia_laptop_check"
-	TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_>
-	TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_lap>
-	TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidi>
-	GOTO="gdm_disable_wayland"
- 	LABEL="gdm_hybrid_nvidia_laptop_check_end"
-
-	--> Обновляем GRUB
-	sudo sudo gnome-text-editor /etc/default/grub
-
-	--> добавить в файл
-	GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1"
-
-	--> Затем выполнить
-	sudo update-grub
-
-	-->В файле .profile в домашней директории нужно добавить:
-	if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-	    export MOZ_ENABLE_WAYLAND=1
-	fi
-
-	--> Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
-	sudo apt install nvidia-vaapi-driver
-
-  	-->> 
- 	sudo apt install intel-media-va-driver
-
-	-----------------------------------
-	--> Затем в Firefox --> about:config - переключить параметр в true
-	media.ffmpeg.vaapi.enabled
+--> Нужно закомментировать данные строки:
+```yaml
+# Check if suspend/resume services necessary for working wayland support is ava>
+TEST{0711}!="/usr/bin/nvidia-sleep.sh", GOTO="gdm_disable_wayland"
+TEST{0711}!="/usr/lib/systemd/system-sleep/nvidia", GOTO="gdm_disable_wayland"
+IMPORT{program}="/bin/sh -c \"sed -e 's/: /=/g' -e 's/\([^[:upper:]]\)\([[:upp>
+ENV{NVIDIA_PRESERVE_VIDEO_MEMORY_ALLOCATIONS}!="1", GOTO="gdm_disable_wayland"
+IMPORT{program}="/bin/sh -c 'echo NVIDIA_HIBERNATE=`systemctl is-enabled nvidi>
+ENV{NVIDIA_HIBERNATE}!="enabled", GOTO="gdm_disable_wayland"
+IMPORT{program}="/bin/sh -c 'echo NVIDIA_RESUME=`systemctl is-enabled nvidia-r>
+ENV{NVIDIA_RESUME}!="enabled", GOTO="gdm_disable_wayland"
+IMPORT{program}="/bin/sh -c 'echo NVIDIA_SUSPEND=`systemctl is-enabled nvidia->
+ENV{NVIDIA_SUSPEND}!="enabled", GOTO="gdm_disable_wayland"
+LABEL="gdm_nvidia_end"
+```
+--> а так же эти:
+```yaml
+# If this is a hybrid graphics laptop with vendor nvidia driver, disable wayland
+LABEL="gdm_hybrid_nvidia_laptop_check"
+TEST!="/run/udev/gdm-machine-is-laptop", GOTO="gdm_hybrid_nvidia_laptop_check_>
+TEST!="/run/udev/gdm-machine-has-hybrid-graphics", GOTO="gdm_hybrid_nvidia_lap>
+TEST!="/run/udev/gdm-machine-has-vendor-nvidia-driver", GOTO="gdm_hybrid_nvidi>
+GOTO="gdm_disable_wayland"
+LABEL="gdm_hybrid_nvidia_laptop_check_end"
+```
+--> Обновляем GRUB
+```yaml
+sudo sudo gnome-text-editor /etc/default/grub
+```
+--> добавить в файл
+```yaml
+GRUB_CMDLINE_LINUX="nvidia-drm.modeset=1"
+```
+--> Затем выполнить
+```yaml
+sudo update-grub
+```
+-->В файле .profile в домашней директории нужно добавить:
+```yaml
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    export MOZ_ENABLE_WAYLAND=1
+fi
+```
+--> Чтобы работало аппаратное видеоускорение в Firefox в Wayland нужно установить пакет nvidia-vaapi-driver:
+```yaml
+sudo apt install nvidia-vaapi-driver
+```
+-->> 
+```yaml
+sudo apt install intel-media-va-driver
+```
+-----------------------------------
+--> Затем в Firefox --> about:config - переключить параметр в true
+media.ffmpeg.vaapi.enabled = true
 
 -----------------------------------
-# GS Connect (KDE Connect)
-	--> GS Connect
-	https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
- 
-	--> Настраиваем Firewall:
- 	sudo ufw allow 1714:1764/tcp
-  	sudo ufw allow 1714:1764/udp
-
-	--> OpenSSL:
- 	sudo apt install openssl
-
-   	--> Устанавливаем KDE Connect
-    	https://f-droid.org/packages/org.kde.kdeconnect_tp/
-
+:ballot_box_with_check: GS Connect (KDE Connect)
+--> GS Connect
+```yaml
+https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
+```
+--> Настраиваем Firewall:
+```yaml
+sudo ufw allow 1714:1764/tcp
+```
+```yaml
+sudo ufw allow 1714:1764/udp
+```
+--> OpenSSL:
+```yaml
+sudo apt install openssl
+```
+--> Устанавливаем KDE Connect
+```yaml
+https://f-droid.org/packages/org.kde.kdeconnect_tp/
+```
 ----------------------------------
-# Настройка сетевых папок - SAMBA
-	sudo apt install samba
-
-	https://dzen.ru/a/YwiCaenDbjRkMQuW
+:ballot_box_with_check: Настройка сетевых папок - SAMBA
+```yaml
+sudo apt install samba
+```
+```yaml
+https://dzen.ru/a/YwiCaenDbjRkMQuW
+```
 ----------------------------------
-# Чтобы Linux не засыпал
-
-	sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
-	sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+:ballot_box_with_check: Чтобы Linux не засыпал
+```yaml
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+```yaml
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
 ----------------------------------
-# TorrServer
-
-	curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrServerLinux.sh | sudo bash
-
+:ballot_box_with_check: TorrServer (https://github.com/YouROK/TorrServer)
+```yaml
+curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrServerLinux.sh | sudo bash
+```
 ----------------------------------
-# Проверка батареи ноутбука в Linux
-	upower -i `upower -e | grep 'BAT'`
-
+:ballot_box_with_check: Проверка батареи ноутбука в Linux
+```yaml
+upower -i `upower -e | grep 'BAT'`
+```
