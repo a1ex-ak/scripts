@@ -16,7 +16,7 @@ sudo systemctl restart systemd-resolved
 ```
 :ballot_box_with_check: Установка docker - 
 ```yaml
-curl -fsSL get.docker.com | sh
+sudo curl -fsSL get.docker.com | sh
 ```
 
 :ballot_box_with_check: Установка OS-Agent    
