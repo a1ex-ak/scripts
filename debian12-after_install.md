@@ -209,7 +209,7 @@ LABEL="gdm_hybrid_nvidia_laptop_check_end"
 ```
 --> Обновляем GRUB
 ```yaml
-sudo sudo gnome-text-editor /etc/default/grub
+sudo gnome-text-editor /etc/default/grub
 ```
 --> добавить в файл
 ```yaml
