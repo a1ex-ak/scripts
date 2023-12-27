@@ -176,11 +176,9 @@ sudo apt install nvidia-driver-libs:i386
 
 --------------------------------------------
 :ballot_box_with_check: Debian 12/Sid включение Wayland с Nvidia
---------------------------------------------
 ```yaml
 sudo sudo gnome-text-editor /lib/udev/rules.d/61-gdm.rules
 ```
-
 ----------------------------------------
 --> Нужно закомментировать данные строки:
 ```yaml
