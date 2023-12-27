@@ -235,8 +235,9 @@ sudo apt install intel-media-va-driver
 ```
 -----------------------------------
 --> Затем в Firefox --> about:config - переключить параметр в true
+```yaml
 media.ffmpeg.vaapi.enabled = true
-
+```
 -----------------------------------
 :ballot_box_with_check: GS Connect (KDE Connect)
 --> GS Connect
