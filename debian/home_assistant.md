@@ -14,3 +14,7 @@ sudo nano /etc/systemd/resolved.conf
 ```yaml
 sudo systemctl restart systemd-resolved
 ```
+:ballot_box_with_check: Установка docker -
+```yaml
+sudo curl -fsSL get.docker.com | sh
+```
