@@ -4,28 +4,43 @@
 :ballot_box_with_check: Редактирование источников обновления
 ```yaml
 sudo nano /etc/apt/sources.list
-
-# дописываем в конце каждой строчки
-	contrib non-free
-
+```
+:ballot_box_with_check: дописываем в конце каждой строчки
+```yaml
+contrib non-free
+```
 ---------------------------
-# Удаление лишних программ
-	sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-contacts gnome-music gnome-weather libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 transmission-common gnome-documents firefox-esr zutty
+:ballot_box_with_check: Удаление лишних программ
+```yaml
+sudo apt-get remove --purge gnome-mahjongg gnome-tetravex gnome-klotski gnome-nibbles four-in-a-row quadrapassel gnome-chess gnome-robots gnome-sudoku iagno lightsoff tali gnome-mines swell-foop five-or-more aisleriot gnome-taquin gnome-2048 hitori hoichess gnome-sound-recorder gnome-maps gnome-contacts gnome-music gnome-weather libreoffice-common totem-common evolution-common liblibreofficekitgtk libreoffice-style-colibre libreofficekit-data liblibreoffice-java shotwell-common rhythmbox-data librhythmbox-core10 transmission-common gnome-documents firefox-esr zutty
+```
+-------------------------------
+:ballot_box_with_check: Обновление системы
+```yaml
+sudo apt update && sudo apt upgrade -y
+```
+или этой командой
+```yaml
+sudo apt update && sudo apt full-upgrade -y
+```
 
 -------------------------------
-# Обновление системы
-	sudo apt update && sudo apt upgrade -y
-	sudo apt full-upgrade
+:ballot_box_with_check: Установка поддержки Flatpak
+```yaml
+sudo apt install flatpak
+```
+```yaml
+sudo apt install gnome-software-plugin-flatpak
+```
+```yaml
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
 
 -------------------------------
-# Установка поддержки Flatpak
-	sudo apt install flatpak
-	sudo apt install gnome-software-plugin-flatpak
-	flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
--------------------------------
-# Установка Extension Manager
-	flatpak install flathub com.mattjakeman.ExtensionManager
+:ballot_box_with_check: Установка Extension Manager
+```yaml
+flatpak install flathub com.mattjakeman.ExtensionManager
+```
 
 -------------------------------
 # Установка Flatseal
