@@ -10,10 +10,6 @@ sudo nano /etc/systemd/resolved.conf
 ```yaml
 sudo systemctl restart systemd-resolved
 ```
-`Ctrl X` - для выхода    
-`Y` для сохранения    
-
-:ballot_box_with_check: Перезапуск DNS    
-```yaml
-sudo systemctl restart systemd-resolved
-```
+`Ctrl-O` - для перезаписи
+`Y` - для сохранения
+`Ctrl-X` для выхода
