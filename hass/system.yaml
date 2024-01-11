@@ -1,0 +1,78 @@
+type: vertical-stack
+cards:
+  - type: entities
+    entities:
+      - entity: sensor.local_ip
+        name: 'IP адрес '
+      - entity: sensor.system_monitor_last_boot
+        name: 'Загрузка (системы) '
+  - type: horizontal-stack
+    cards:
+      - graph: line
+        type: sensor
+        detail: 1
+        entity: sensor.speedtest_download
+        name: 'Down '
+        unit: Mbps
+        hours_to_show: 1
+      - graph: line
+        type: sensor
+        entity: sensor.speedtest_upload
+        detail: 1
+        name: 'Up '
+        unit: Mbps
+        hours_to_show: 1
+  - type: horizontal-stack
+    cards:
+      - type: tile
+        entity: sensor.system_monitor_processor_use
+        vertical: true
+        name: 'CPU '
+        color: lime
+      - type: tile
+        entity: sensor.system_monitor_processor_temperature
+        vertical: true
+        name: 'tCPU '
+        color: teal
+      - type: tile
+        entity: sensor.system_monitor_memory_use
+        name: 'RAM '
+        vertical: true
+        color: green
+      - type: tile
+        entity: sensor.system_monitor_disk_use_percent
+        name: 'Disk '
+        vertical: true
+        color: light-green
+  - type: entities
+    entities:
+      - entity: sensor.system_monitor_swap_use
+        name: 'Подкачка '
+      - entity: sensor.system_monitor_disk_free
+        name: 'Свободно на диске '
+      - type: divider
+      - entity: sensor.mariadb
+        name: 'База данных (размер) '
+        icon: mdi:database-eye
+      - type: call-service
+        icon: mdi:database-minus
+        name: 'База данных '
+        action_name: Сжать
+        service: recorder.purge
+        service_data:
+          keep_days: 2
+          repack: true
+    show_header_toggle: false
+  - type: entities
+    entities:
+      - entity: sensor.current_version
+        name: 'Установлен Home Assistant '
+        icon: mdi:home-assistant
+      - entity: update.home_assistant_core_update
+        icon: mdi:package-up
+        name: 'Обновление Home Assistant '
+      - type: divider
+      - entity: update.hacs_update
+        icon: hacs:hacs
+        name: 'Обновление HACS '
+    show_header_toggle: false
