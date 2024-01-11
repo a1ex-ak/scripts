@@ -15,6 +15,22 @@ views:
                 name: 'Загрузка (системы) '
           - type: horizontal-stack
             cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.speedtest_download
+                name: 'Down '
+                unit: Mbps
+                hours_to_show: 1
+              - graph: line
+                type: sensor
+                entity: sensor.speedtest_upload
+                detail: 1
+                name: 'Up '
+                unit: Mbps
+                hours_to_show: 1
+          - type: horizontal-stack
+            cards:
               - type: tile
                 entity: sensor.system_monitor_processor_use
                 vertical: true
@@ -69,6 +85,13 @@ views:
             show_header_toggle: false
       - type: vertical-stack
         cards:
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home_assistant
+            forecast_type: hourly
+            name: 'Прогноз погоды '
+            secondary_info_attribute: humidity
           - square: false
             type: grid
             cards:
@@ -113,7 +136,7 @@ views:
                   vertical: true
                   color: light-blue
                   hide_state: false
-                  name: 'Сигнал WiFi '
+                  name: 'WiFi (Растение 1) '
               - type: conditional
                 conditions:
                   - condition: state
@@ -124,7 +147,7 @@ views:
                   entity: sensor.rasteniia_signal_level
                   color: light-blue
                   vertical: true
-                  name: 'Сигнал WiFi '
+                  name: 'WiFi (Растение 2) '
           - type: horizontal-stack
             cards:
               - type: tile
@@ -151,7 +174,7 @@ views:
                   vertical: false
                   color: light-blue
                   hide_state: false
-                  name: 'Сигнал WiFi '
+                  name: 'WiFi (Демид ПК) '
           - features:
               - type: light-brightness
             type: tile
@@ -168,27 +191,11 @@ views:
             vertical: false
             icon: mdi:floor-lamp-torchiere
             name: 'Торшер '
-  - title: Прогноз погоды
-    path: unknown
-    icon: mdi:sun-thermometer
-    badges: []
-    cards:
-      - show_current: true
-        show_forecast: true
-        type: weather-forecast
-        entity: weather.forecast_home_assistant
-        forecast_type: hourly
-        name: 'Прогноз погоды '
-  - title: Camera
-    path: camera
-    icon: mdi:video
-    badges: []
-    cards:
       - type: vertical-stack
         cards:
           - show_state: false
             show_name: false
-            camera_view: live
+            camera_view: auto
             type: picture-entity
             entity: camera.hikvision_ds_i400_c_mainstream
             image: https://demo.home-assistant.io/stub_config/bedroom.png
@@ -204,7 +211,12 @@ views:
                   red: 85
                 needle: false
                 unit: '%'
-              - type: glance
+              - show_name: true
+                show_icon: true
+                show_state: true
+                type: glance
                 entities:
                   - entity: button.hikvision_ds_i400_c_reboot
+                    name: 'Reboot '
                   - entity: binary_sensor.hikvision_ds_i400_c_storage_failure
+                    name: 'Storage '
