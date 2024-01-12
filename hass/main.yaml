@@ -15,22 +15,6 @@ views:
                 name: 'Загрузка (системы) '
           - type: horizontal-stack
             cards:
-              - graph: line
-                type: sensor
-                detail: 1
-                entity: sensor.speedtest_download
-                name: 'Down '
-                unit: Mbps
-                hours_to_show: 1
-              - graph: line
-                type: sensor
-                entity: sensor.speedtest_upload
-                detail: 1
-                name: 'Up '
-                unit: Mbps
-                hours_to_show: 1
-          - type: horizontal-stack
-            cards:
               - type: tile
                 entity: sensor.system_monitor_processor_use
                 vertical: true
@@ -83,6 +67,22 @@ views:
                 icon: hacs:hacs
                 name: 'Обновление HACS '
             show_header_toggle: false
+          - type: horizontal-stack
+            cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.speedtest_download
+                name: 'Down '
+                unit: Mbps
+                hours_to_show: 1
+              - graph: line
+                type: sensor
+                entity: sensor.speedtest_upload
+                detail: 1
+                name: 'Up '
+                unit: Mbps
+                hours_to_show: 1
       - type: vertical-stack
         cards:
           - show_current: true
@@ -151,7 +151,7 @@ views:
           - type: horizontal-stack
             cards:
               - type: tile
-                entity: switch.t100_p100_demid
+                entity: switch.t100_demidpc
                 show_entity_picture: true
                 icon: mdi:desktop-classic
                 state_content:
@@ -166,11 +166,11 @@ views:
               - type: conditional
                 conditions:
                   - condition: state
-                    entity: switch.t100_p100_demid
+                    entity: switch.t100_demidpc
                     state: 'on'
                 card:
                   type: tile
-                  entity: sensor.t100_p100_demid_signal_level
+                  entity: sensor.t100_demidpc_signal_level
                   vertical: false
                   color: light-blue
                   hide_state: false
@@ -178,7 +178,7 @@ views:
           - features:
               - type: light-brightness
             type: tile
-            entity: light.tpl_l510_torcher
+            entity: light.badroom_torchere
             show_entity_picture: true
             state_content:
               - state
