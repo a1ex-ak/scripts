@@ -5,3 +5,13 @@
 ```yaml
 curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrServerLinux.sh | sudo bash
 ```
+:ballot_box_with_check: Разгон малинки (редактируем файл)
+```yaml
+sudo gedit /boot/config.txt
+```
+:ballot_box_with_check: находим строку #arm_freq=800 и вместо неё вставляем
+```yaml
+over_voltage=6
+arm_freq=2147
+gpu_freq=750
+```
