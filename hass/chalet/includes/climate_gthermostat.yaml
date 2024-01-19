@@ -1,0 +1,165 @@
+#Кухня термостат
+  - platform: generic_thermostat
+    name: kitchen_chalet
+    #heater: – это устройство, которое включает/выключает отопительный прибор.
+    heater: switch.sonoff_1001676f3c
+    #target_sensor: – это датчик температуры, по которому будем управлять отоплением.
+    target_sensor: sensor.sonoff_a480072e16_temperature
+    #min_temp: / max_temp: - это минимальная и максимальная температуры на нашем терморегуляторе.
+    min_temp: 9
+    max_temp: 26
+    #ac_mode:  false – при таком параметре наш термостат работает как обогреватель, то есть при понижении температуры включается, а если температура превысит установленную - выключится.
+    #Если поставить true – тогда наш термостат работает в режиме кондиционера и логика работает наоборот. Температура выше заданной – включаемся, ниже – выключаемся. 
+    ac_mode: false
+    #target_temp: – это температура, которая будет устанавливаться по умолчанию после перезагрузки Home-Assistant.
+    target_temp: 23
+    #cold_tolerance: /  hot_tolerance: это значение гистерезиса для термостата. 
+    #То есть, при значении cold_tolerance: 0.3 и hot_tolerance: 0.5 и заданной температуре 22 градуса, 
+    #термостат нагревая отключится при превышении температуры 22.5 градуса, и будет выключен, пока температура не опустится ниже 21.7 градуса (22-0.3). 
+    cold_tolerance: 0.1
+    hot_tolerance: 0.8
+    #min_cycle_duration: - этим параметром мы устанавливаем минимальное время, в котором обогреватель должен находиться в положении вкл или выкл.
+    min_cycle_duration:
+      seconds: 5
+    #keep_alive: - этот параметр указывает на время цикла повторной отправки команды на включение/отключение исполнительного устройства. 
+    #То есть, если выключить выключатель/розетку клавишей или вдруг по какой-то причине выключатель не включился с первого раза, 
+    #компонент будет включать устройство каждые 3 мин. Таким образом нивелируются временные потери связи или случайные отключения устройств.
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: - этот параметр отвечает за состояние термостата после перезагрузки системы. Допустимые параметры off, heat или cool.
+    initial_hvac_mode: "off"
+    #away_temp: - если добавить этот параметр, то у термостата появится режим away (не дома), где будет выставлена заданная температура.
+    away_temp: 9
+    #precision: - этот параметр определяет шаг в градусах изменения задаваемой температуры. Допустимые значения 0.1,0.5 и 1.0.
+    precision: 0.1
+ 
+#Спальня термостат    
+  - platform: generic_thermostat
+    name: bedroom_chalet_l
+    heater: switch.sonoff_10013e685f
+    target_sensor: sensor.sonoff_a4800764ed_temperature
+    min_temp: 9
+    max_temp: 26
+    ac_mode: false
+    target_temp: 23
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+  - platform: generic_thermostat
+    name: bedroom_chalet_r
+    heater: switch.sonoff_10013e3acc
+    target_sensor: sensor.sonoff_a4800764ed_temperature
+    min_temp: 9
+    max_temp: 26
+    ac_mode: false
+    target_temp: 23
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+
+#Родители термостат
+  - platform: generic_thermostat
+    name: parents_chalet
+    heater: switch.sonoff_1001675cf6
+    target_sensor: sensor.sonoff_a480079106_temperature
+    min_temp: 9
+    max_temp: 26
+    ac_mode: false
+    target_temp: 23.1
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    
+#Ванная/Туалет термостат
+  - platform: generic_thermostat
+    name: wc_chalet
+    heater: switch.sonoff_1001dd9fbe
+    target_sensor: sensor.sonoff_a4800790c3_temperature
+    min_temp: 9
+    max_temp: 26
+    ac_mode: false
+    target_temp: 23
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#Прихожая термостат
+  - platform: generic_thermostat
+    name: hall_chalet
+    heater: switch.sonoff_1001418312
+    target_sensor: sensor.sonoff_a48003a53f_temperature
+    min_temp: 9
+    max_temp: 17
+    ac_mode: false
+    target_temp: 14.4
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#2 Этаж термостат
+  - platform: generic_thermostat
+    name: 2floor_chalet
+    heater: switch.sonoff_100167729c
+    target_sensor: sensor.sonoff_a48005ae0b_temperature
+    min_temp: 9
+    max_temp: 26
+    ac_mode: false
+    target_temp: 22.1
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#2 Этаж (Potato) термостат
+  - platform: generic_thermostat
+    name: potato_chalet
+    heater: switch.sonoff_10011ddaf0
+    target_sensor: sensor.sonoff_a480049e3c_temperature
+    min_temp: 3
+    max_temp: 5
+    ac_mode: false
+    target_temp: 4
+    cold_tolerance: 0.1
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
