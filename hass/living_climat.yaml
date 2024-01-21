@@ -1,4 +1,4 @@
-living_none:
+living_home:
   seguence:
     - service: climat.set_preset_mode
       data:
