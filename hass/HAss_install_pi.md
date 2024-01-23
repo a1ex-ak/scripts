@@ -77,12 +77,7 @@ sudo sh install-docker.sh --version 24.0.7-1
 
 Запретить обновление одних и тех же пакетов в краткосрочной перспективе.:
 ```yaml
-sudo apt-mark hold \
-docker-compose-plugin \
-docker-ce-cli \
-docker-buildx-plugin \
-docker-ce \
-docker-ce-rootless-extras \
+sudo apt-mark hold docker-compose-plugin docker-ce-cli docker-buildx-plugin docker-ce docker-ce-rootless-extras
 ```
 
 ```yaml
