@@ -79,6 +79,7 @@ sudo sh install-docker.sh --version 24.0.7-1
 ```yaml
 sudo apt-mark hold docker-compose-plugin docker-ce-cli docker-buildx-plugin docker-ce docker-ce-rootless-extras
 ```
+docker 25.0.0 (если поправят)
 
 ```yaml
 sudo curl -fsSL get.docker.com | sh
