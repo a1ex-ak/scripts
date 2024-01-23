@@ -73,6 +73,7 @@ curl -fsSL https://get.docker.com -o install-docker.sh
 sudo sh install-docker.sh --version 24.0.7-1
 ```
 :ballot_box_with_check: docker 25.0.0 (есть проблемы с Home Assistent, пока не ставим)
+[Информация на GitHub](https://github.com/home-assistant/supervisor/issues/4827)
 ```yaml
 sudo curl -fsSL get.docker.com | sh
 ```
