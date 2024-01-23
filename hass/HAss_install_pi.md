@@ -56,8 +56,9 @@ systemd.unified_cgroup_hierarchy=false lsm=apparmor
 :ballot_box_with_check: Перезагрузка - `reboot` 
 
 
-:ballot_box_with_check: Установка docker - 
-:ballot_box_with_check: Docker 24.0.7 (RaspberryOS & Debian) Home Assistent
+
+:ballot_box_with_check: Установка Docker - 
+:ballot_box_with_check: docker 24.0.7 (RaspberryOS & Debian) Home Assistent
 ```yaml
 sudo apt install \
 docker-compose-plugin=2.21.0-1~debian.12~bookworm \
@@ -71,7 +72,7 @@ docker-ce-rootless-extras=5:24.0.7-1~debian.12~bookworm
 curl -fsSL https://get.docker.com -o install-docker.sh
 sudo sh install-docker.sh --version 24.0.7-1
 ```
-:ballot_box_with_check: Docker 25.0.0 (есть проблемы с Home Assistent, пока не ставим)
+:ballot_box_with_check: docker 25.0.0 (есть проблемы с Home Assistent, пока не ставим)
 ```yaml
 sudo curl -fsSL get.docker.com | sh
 ```
