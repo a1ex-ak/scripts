@@ -120,3 +120,14 @@ panel_custom:
     config:
       ingress: core_configurator 
 ```
+:ballot_box_with_check: HACS    
+режим root:    
+```yaml
+sudo -s
+```
+:white_check_mark: [Команда с сайта HACS](https://hacs.xyz/docs/setup/download)    
+Загрузка и установка HACS - `wget -O - https://get.hacs.xyz | bash -`    
+Выход:    
+```yaml
+exit
+```
