@@ -2,8 +2,8 @@ homeassistant:
   packages: !include_dir_merge_named includes/packages
 
 # Загрузка прогноза погоды
-weather:
-  - platform: gismeteo
+#weather:
+#  - platform: gismeteo
 
 # Loads default set of integrations. Do not remove.
 default_config:
