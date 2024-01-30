@@ -7,7 +7,7 @@ curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrSe
 ```
 :ballot_box_with_check: Разгон малинки (редактируем файл)
 ```yaml
-sudo gedit /boot/config.txt
+sudo nano /boot/firmware/config.txt
 ```
 :ballot_box_with_check: находим строку #arm_freq=800 и вместо неё вставляем
 ```yaml
