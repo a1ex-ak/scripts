@@ -10,10 +10,9 @@ views:
           - show_current: true
             show_forecast: true
             type: weather-forecast
-            entity: weather.forecast_chalet_gismeteo
-            forecast_type: legacy
+            entity: weather.forecast_chalet
             name: 'Прогноз погоды '
-            secondary_info_attribute: humidity
+            forecast_type: daily
           - type: custom:digital-clock
             dateFormat:
               weekday: long
@@ -50,29 +49,29 @@ views:
                   font-weight: bold
                 state_header: 'IP адрес '
                 entities:
-                  - entity: sensor.last_boot
+                  - entity: sensor.system_monitor_last_boot
                     attribute: last-changed
                     format: datetime
-                    name: 'Загрузка '
+                    name: 'загрузка '
           - type: horizontal-stack
             cards:
               - type: tile
-                entity: sensor.processor_use
+                entity: sensor.system_monitor_processor_use
                 vertical: true
                 name: 'CPU '
                 color: lime
               - type: tile
-                entity: sensor.processor_temperature
+                entity: sensor.system_monitor_processor_temperature
                 vertical: true
                 name: 'tCPU '
                 color: teal
               - type: tile
-                entity: sensor.memory_use_percent
+                entity: sensor.system_monitor_memory_use
                 name: 'RAM '
                 vertical: true
                 color: green
               - type: tile
-                entity: sensor.disk_use_percent
+                entity: sensor.system_monitor_disk_use_percent
                 name: 'Disk '
                 vertical: true
                 color: light-green
@@ -80,29 +79,29 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.disk_free
+              - entity: sensor.system_monitor_disk_free
                 type: custom:multiple-entity-row
                 icon: mdi:harddisk
                 format: precision1
                 name: 'Диск '
                 styles:
                   font-weight: bold
-                state_header: 'Свободно '
+                state_header: 'свободно '
                 entities:
                   - entity: sensor.system_monitor_swap_use
                     format: precision0
-                    name: 'Подкачка '
+                    name: 'подкачка '
               - type: divider
               - entity: sensor.mariadb
                 type: custom:multiple-entity-row
                 format: precision1
-                state_header: 'Размер '
+                state_header: 'размер '
                 styles:
                   font-weight: bold
                 name: 'База данных '
                 icon: mdi:database
                 entities:
-                  - icon: mdi:database-refresh
+                  - icon: mdi:database-minus-outline
                     state_color: true
                     styles:
                       width: 60px
@@ -138,129 +137,206 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480072e16_battery
+              - entity: sensor.sonoff_a480072e16_temperature
                 type: custom:multiple-entity-row
-                format: precision0
-                icon: mdi:faucet
+                format: precision1
+                icon: mdi:countertop
                 name: 'Кухня '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a480072e16_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a480072e16_battery
+                    format: precision0
+                    name: 'заряд '
                   - entity: sensor.sonoff_a480072e16_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.kitchen_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                secondary_info: hvac-mode
+                fan_mode:
+                  hide: true
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
+                indicators:
+                  humidity:
+                    icon: mdi:water
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480072e16_humidity
+                  power_consumption:
+                    icon: mdi:flash
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480072e16_battery
               - type: divider
               - entity: switch.sonoff_1001676f3c
                 icon: mdi:radiator
                 secondary_info: last-changed
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_1001676f3c
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a480072e16_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: 'Кухня '
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800764ed_battery
+              - entity: sensor.sonoff_a4800764ed_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:bed
-                format: precision0
+                format: precision1
                 name: 'Спальня '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a4800764ed_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a4800764ed_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a4800764ed_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.bedroom_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                fan_mode:
+                  hide: true
+                secondary_info: hvac-mode
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.group_s26r2_chbroomlr
                 secondary_info: last-changed
                 icon: mdi:radiator
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_10013e685f
-                state: 'on'
-              - condition: state
-                entity: switch.sonoff_10013e3acc
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a4800764ed_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: 'Спальня '
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480079106_battery
+              - entity: sensor.sonoff_a480079106_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:human-male-child
-                format: precision0
+                format: precision1
                 name: 'Родители/Дети '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'темпетатура '
                 entities:
-                  - entity: sensor.sonoff_a480079106_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a480079106_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a480079106_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.parents_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                fan_mode:
+                  hide: true
+                secondary_info: hvac-mode
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.sonoff_1001675cf6
                 icon: mdi:radiator
                 secondary_info: last-changed
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_1001675cf6
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a480079106_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: 'Родители/Дети '
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800790c3_battery
+              - entity: sensor.sonoff_a4800790c3_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:bathtub
-                format: precision0
-                name: 'Ванная/Туалет '
-                state_header: 'Заряд '
+                format: precision1
+                name: 'Ванная/WC '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a4800790c3_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a4800790c3_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a4800790c3_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.wc_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                fan_mode:
+                  hide: true
+                secondary_info: hvac-mode
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.sonoff_100167771f
                 secondary_info: last-changed
@@ -268,74 +344,77 @@ views:
               - entity: switch.sonoff_1001dd9fbe
                 icon: mdi:radiator
                 secondary_info: last-changed
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_1001dd9fbe
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a4800790c3_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: 'Ванная/Туалет '
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48003a53f_battery
+              - entity: sensor.sonoff_a48003a53f_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:coat-rack
-                format: precision0
+                format: precision1
                 name: 'Прихожая '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48003a53f_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a48003a53f_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a48003a53f_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.hall_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                fan_mode:
+                  hide: true
+                secondary_info: hvac-mode
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.sonoff_1001418312
                 icon: mdi:radiator
                 secondary_info: last-changed
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_1001418312
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a48003a53f_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: Прихожая
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48004bd43_battery
+              - entity: sensor.sonoff_a48004bd43_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:server-network
-                format: precision0
-                name: 'TorrSRV '
-                state_header: 'Заряд '
+                format: precision1
+                name: 'UpiterPI '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48004bd43_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a48004bd43_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a48004bd43_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
               - type: divider
               - entity: switch.sonoff_1001674a14
                 secondary_info: last-changed
@@ -350,21 +429,47 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48005ae0b_battery
+              - entity: sensor.sonoff_a48005ae0b_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:home-floor-2
+                format: precision1
                 name: '2 Этаж '
-                format: precision0
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48005ae0b_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a48005ae0b_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a48005ae0b_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.2floor_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                fan_mode:
+                  hide: true
+                secondary_info: hvac-mode
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.sonoff_1001fdf40d
                 icon: mdi:radiator
@@ -372,78 +477,81 @@ views:
               - entity: switch.sonoff_100167729c
                 icon: mdi:radiator
                 secondary_info: last-changed
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_100167729c
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a48005ae0b_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: 2 Этаж
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480049e3c_battery
+              - entity: sensor.sonoff_a480049e3c_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:french-fries
-                format: precision0
+                format: precision1
                 name: 'Potato '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a480049e3c_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a480049e3c_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a480049e3c_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
+              - type: divider
+              - entity: climate.potato_chalet
+                type: custom:mini-climate
+                name: 'Режим '
+                icon: mdi:thermostat-box
+                swap_temperatures: true
+                group: true
+                secondary_info: hvac-mode
+                fan_mode:
+                  hide: true
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? 'orange
+                    !important' : 'grey' })
+                  source:
+                    heat:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выкл. '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
               - type: divider
               - entity: switch.sonoff_10011ddaf0
                 icon: mdi:radiator
                 secondary_info: last-changed
             title: ' '
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: switch.sonoff_10011ddaf0
-                state: 'on'
-            card:
-              graph: line
-              type: sensor
-              entity: sensor.sonoff_a480049e3c_temperature
-              detail: 1
-              icon: mdi:temperature-celsius
-              name: Potato
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48007c084_battery
+              - entity: sensor.sonoff_a48007c084_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:water-well
-                format: precision0
+                format: precision1
                 name: 'Колодец '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48007c084_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a48007c084_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a48007c084_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
               - type: divider
               - entity: switch.sonoff_100141361d
-                icon: mdi:radiator
+                icon: mdi:heating-coil
                 secondary_info: last-changed
               - type: divider
             footer:
@@ -453,21 +561,22 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800343d6_battery
+              - entity: sensor.sonoff_a4800343d6_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:balcony
-                format: precision0
+                format: precision1
                 name: 'Веранда (м) '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a4800343d6_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a4800343d6_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a4800343d6_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
               - type: divider
               - entity: switch.sonoff_100124de93
                 icon: mdi:outdoor-lamp
@@ -480,104 +589,29 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48002ff82_battery
+              - entity: sensor.sonoff_a48002ff82_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:greenhouse
-                format: precision0
+                format: precision1
                 name: 'Теплица (б) '
-                state_header: 'Заряд '
+                styles:
+                  font-weight: bold
+                state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48002ff82_temperature
-                    format: precision1
-                    name: 'Температура '
-                    styles:
-                      font-weight: bold
+                  - entity: sensor.sonoff_a48002ff82_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles: null
                   - entity: sensor.sonoff_a48002ff82_humidity
                     format: precision0
-                    name: 'Влажность '
+                    name: 'влажность '
               - type: divider
             footer:
               type: graph
               entity: sensor.sonoff_a48002ff82_temperature
-  - title: termostat
-    path: unknown
-    icon: mdi:thermostat-box
-    badges: []
-    cards:
-      - type: vertical-stack
-        cards:
-          - type: thermostat
-            entity: climate.kitchen_chalet
-            features:
-              - style: icons
-                hvac_modes:
-                  - 'off'
-                  - heat
-                type: climate-hvac-modes
-            name: Кухня
-            show_current_as_primary: true
-          - type: thermostat
-            entity: climate.bedroom_chalet
-            name: Спальня
-            show_current_as_primary: true
-            features:
-              - type: climate-hvac-modes
-                hvac_modes:
-                  - heat
-                  - 'off'
-      - type: vertical-stack
-        cards:
-          - type: thermostat
-            entity: climate.parents_chalet
-            features:
-              - type: climate-hvac-modes
-                hvac_modes:
-                  - heat
-                  - 'off'
-            name: Родители
-            show_current_as_primary: true
-          - type: thermostat
-            entity: climate.wc_chalet
-            name: Ванная/Туалет
-            show_current_as_primary: true
-            features:
-              - type: climate-hvac-modes
-                hvac_modes:
-                  - heat
-                  - 'off'
-      - type: vertical-stack
-        cards:
-          - type: thermostat
-            entity: climate.hall_chalet
-            show_current_as_primary: true
-            features:
-              - type: climate-hvac-modes
-                hvac_modes:
-                  - heat
-                  - 'off'
-            name: Прихожая
-          - type: horizontal-stack
-            cards:
-              - type: thermostat
-                entity: climate.2floor_chalet
-                name: 2 Этаж
-                show_current_as_primary: true
-                features:
-                  - type: climate-hvac-modes
-                    hvac_modes:
-                      - heat
-                      - 'off'
-              - type: thermostat
-                entity: climate.potato_chalet
-                name: Potato
-                features:
-                  - type: climate-hvac-modes
-                    hvac_modes:
-                      - heat
-                      - 'off'
-                show_current_as_primary: true
-  - title: Режимы
+  - title: Thermostat
     icon: mdi:thermostat-box-auto
+    path: thermostat_scripts
     badges: []
     cards:
       - type: vertical-stack
@@ -587,7 +621,7 @@ views:
             entity: sensor.sonoff_a480072e16_temperature
             detail: 1
             name: 'Температура в доме '
-            icon: mdi:temperature-celsius
+            icon: mdi:home-thermometer
           - type: horizontal-stack
             cards:
               - type: entities
@@ -658,20 +692,11 @@ views:
           - type: conditional
             conditions:
               - condition: state
-                entity: switch.sonoff_1001676f3c
-                state: 'on'
+                entity: automation.vkl_boiler_00_05
+                state: 'off'
               - condition: state
-                entity: switch.group_s26r2_chbroomlr
-                state: 'on'
-              - condition: state
-                entity: switch.sonoff_1001675cf6
-                state: 'on'
-              - condition: state
-                entity: switch.sonoff_1001dd9fbe
-                state: 'on'
-              - condition: state
-                entity: switch.sonoff_1001418312
-                state: 'on'
+                entity: automation.vykl_boiler_00_45
+                state: 'off'
             card:
               type: entities
               entities:
@@ -690,6 +715,9 @@ views:
                 - entity: switch.sonoff_1001418312
                   icon: mdi:radiator
                   secondary_info: last-changed
+                - entity: switch.sonoff_100167771f
+                  secondary_info: last-changed
+                  icon: mdi:water-boiler
               show_header_toggle: false
               state_color: true
               title: На Дачу
@@ -751,80 +779,56 @@ views:
               show_header_toggle: false
               state_color: true
               title: Зима
-  - title: IP Camera
-    path: ip-camera
+  - title: Camera
+    path: ip_camera
     icon: mdi:cctv
     badges: []
     cards:
-      - type: vertical-stack
+      - type: horizontal-stack
         cards:
-          - show_state: false
-            show_name: false
-            camera_view: auto
-            type: picture-entity
-            image: https://demo.home-assistant.io/stub_config/bedroom.png
-            entity: camera.hikvision_ds_2cd2043g0_i_mainstream
-            camera_image: camera.hikvision_ds_2cd2043g0_i_mainstream
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_last_reboot
-                vertical: true
-                name: 'Reboot '
-                icon: mdi:update
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_processor_usage
-                vertical: true
-                name: 'CPU '
-              - type: tile
-                entity: binary_sensor.hikvision_ds_2cd2043g0_i_storage_failure
-                name: 'Storage '
-                vertical: true
-      - type: vertical-stack
+              - show_state: false
+                show_name: false
+                camera_view: live
+                type: picture-entity
+                image: https://demo.home-assistant.io/stub_config/bedroom.png
+                entity: camera.ds_2cd2043g0_i20200305aawre19290964_102
+                camera_image: camera.ds_2cd2043g0_i20200305aawre19290964_102
+              - type: custom:mushroom-entity-card
+                entity: >-
+                  binary_sensor.ds_2cd2043g0_i20200305aawre19290964_1_motiondetection
+                name: Движение
+                icon_color: red
+      - type: horizontal-stack
         cards:
-          - show_state: false
-            show_name: false
-            camera_view: auto
-            type: picture-entity
-            entity: camera.hikvision_ds_2cd2043g0_i_mainstream_2
-            image: https://demo.home-assistant.io/stub_config/bedroom.png
-            camera_image: camera.hikvision_ds_2cd2043g0_i_mainstream_2
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_last_reboot_2
-                vertical: true
-                name: 'Reboot '
-                icon: mdi:update
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_processor_usage_2
-                vertical: true
-                name: 'CPU '
-              - type: tile
-                entity: binary_sensor.hikvision_ds_2cd2043g0_i_storage_failure_2
-                name: 'Storage '
-                vertical: true
-      - type: vertical-stack
+              - show_state: false
+                show_name: false
+                camera_view: live
+                type: picture-entity
+                entity: camera.ds_2cd2043g0_i20200426aawre32009463_102
+                image: https://demo.home-assistant.io/stub_config/bedroom.png
+                camera_image: camera.ds_2cd2043g0_i20200426aawre32009463_102
+              - type: custom:mushroom-entity-card
+                entity: >-
+                  binary_sensor.ds_2cd2043g0_i20200426aawre32009463_1_motiondetection
+                name: Движение
+                icon_color: red
+      - type: horizontal-stack
         cards:
-          - show_state: false
-            show_name: false
-            camera_view: auto
-            type: picture-entity
-            entity: camera.hikvision_ds_2cd2043g0_i_mainstream_3
-            image: https://demo.home-assistant.io/stub_config/bedroom.png
-            camera_image: camera.hikvision_ds_2cd2043g0_i_mainstream_3
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_last_reboot_3
-                vertical: true
-                name: 'Reboot '
-                icon: mdi:update
-              - type: tile
-                entity: sensor.hikvision_ds_2cd2043g0_i_processor_usage_3
-                vertical: true
-                name: 'CPU '
-              - type: tile
-                entity: binary_sensor.hikvision_ds_2cd2043g0_i_storage_failure_3
-                name: 'Storage '
-                vertical: true
+              - show_state: false
+                show_name: false
+                camera_view: live
+                type: picture-entity
+                entity: camera.ds_2cd2043g0_i20200305aawre19290990_102
+                image: https://demo.home-assistant.io/stub_config/bedroom.png
+                camera_image: camera.ds_2cd2043g0_i20200305aawre19290990_102
+              - type: custom:mushroom-entity-card
+                entity: >-
+                  binary_sensor.ds_2cd2043g0_i20200305aawre19290990_1_motiondetection
+                name: Движение
+                icon_color: red
