@@ -33,20 +33,18 @@ systemctl enable NetworkManager
 :ballot_box_with_check: Приложение для настройки - 
 ```yaml
 sudo raspi-config
-5 Localisation Options / I1 Change Locale - ищем и выбираем пробелом ru_UA.UTF-8 UTF-8
-5 Localisation Options / I2 Change Timezone - выбираем часовой пояс
 ```
+`5 Localisation Options / I1 Change Locale - ищем и выбираем пробелом ru_UA.UTF-8 UTF-8`
+`5 Localisation Options / I2 Change Timezone - выбираем часовой пояс`
 
 :ballot_box_with_check: Дополнительные настройки для устранения ошибок в НА    
 ```yaml
 nano /boot/cmdline.txt
 ```
-В конец первой строки файла вставляем ->   
-
+В конец первой строки файла вставляем -->
 ```yaml
 systemd.unified_cgroup_hierarchy=false lsm=apparmor
 ```
-
 `Ctrl X` - для выхода    
 `Y` для сохранения    
 
@@ -54,8 +52,7 @@ systemd.unified_cgroup_hierarchy=false lsm=apparmor
 Установка скрипта - `curl https://download.argon40.com/argon1.sh | bash`    
 Настройка включения - `argonone-config`      
 
-:ballot_box_with_check: Перезагрузка - `reboot` 
-
+:ballot_box_with_check: Перезагрузка - `sudo reboot` 
 
 
 :ballot_box_with_check: Установка Docker - 
