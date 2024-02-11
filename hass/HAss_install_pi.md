@@ -151,7 +151,7 @@ SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576,
 ```
 Unit of Measure:    
 ```yaml
-MB
+MiB
 ```
 
 :ballot_box_with_check: Рекордер в `includes/system_sensors.yaml`     
