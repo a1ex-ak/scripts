@@ -1,8 +1,8 @@
 title: Home Assistant
 views:
-  - title: Chalet
-    path: default_view
-    icon: mdi:home
+  - title: Телеметрия
+    path: 01_telemetry
+    icon: mdi:keyboard
     badges: []
     cards:
       - type: vertical-stack
@@ -13,6 +13,7 @@ views:
             entity: weather.forecast_chalet
             name: 'Прогноз погоды '
             forecast_type: daily
+            secondary_info_attribute: humidity
           - type: custom:digital-clock
             dateFormat:
               weekday: long
@@ -109,291 +110,392 @@ views:
                       action: call-service
                       service: recorder.purge
                       service_data:
-                        keep_days: 2
+                        keep_days: 7
                         repack: true
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: update.hacs_update
+              - entity: sensor.current_version
                 type: custom:multiple-entity-row
                 icon: mdi:package-down
-                attribute: last-updated
-                format: datetime
+                styles:
+                  font-weight: bold
                 name: 'Обновления '
-                state_header: 'HACS '
+                state_header: 'версия '
                 entities:
-                  - entity: sensor.current_version
-                    name: 'версия '
-                    styles:
-                      font-weight: bold
+                  - entity: update.hacs_update
+                    attribute: latest_version
+                    name: 'hacs '
                   - entity: update.home_assistant_core_update
-                    attribute: last-updated
-                    format: datetime
-                    name: 'HAss '
+                    attribute: latest_version
+                    name: 'core '
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480072e16_temperature
-                type: custom:multiple-entity-row
-                format: precision1
-                icon: mdi:countertop
-                name: 'Кухня '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a480072e16_battery
-                    format: precision0
-                    name: 'заряд '
-                  - entity: sensor.sonoff_a480072e16_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.kitchen_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Кухня '
+                icon: mdi:countertop
                 swap_temperatures: true
                 group: true
-                secondary_info: hvac-mode
-                fan_mode:
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
+                toggle:
                   hide: true
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
                 indicators:
                   humidity:
-                    icon: mdi:water
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
                     unit: '%'
                     round: 1
                     source:
                       entity: sensor.sonoff_a480072e16_humidity
                   power_consumption:
-                    icon: mdi:flash
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
                     unit: '%'
                     round: 1
                     source:
                       entity: sensor.sonoff_a480072e16_battery
               - type: divider
               - entity: switch.sonoff_1001676f3c
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800764ed_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:bed
-                format: precision1
-                name: 'Спальня '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a4800764ed_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a4800764ed_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.bedroom_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Спальня '
+                icon: mdi:bed
                 swap_temperatures: true
                 group: true
-                fan_mode:
+                toggle:
                   hide: true
-                secondary_info: hvac-mode
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a4800764ed_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a4800764ed_battery
               - type: divider
               - entity: switch.group_s26r2_chbroomlr
                 secondary_info: last-changed
-                icon: mdi:radiator
+                icon: mdi:power-plug
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480079106_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:human-male-child
-                format: precision1
-                name: 'Родители/Дети '
-                styles:
-                  font-weight: bold
-                state_header: 'темпетатура '
-                entities:
-                  - entity: sensor.sonoff_a480079106_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a480079106_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.parents_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Родители/Дети '
+                icon: mdi:human-male-child
                 swap_temperatures: true
                 group: true
-                fan_mode:
+                toggle:
                   hide: true
-                secondary_info: hvac-mode
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480079106_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480079106_battery
               - type: divider
               - entity: switch.sonoff_1001675cf6
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800790c3_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:bathtub
-                format: precision1
-                name: 'Ванная/WC '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a4800790c3_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a4800790c3_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.wc_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Ванная/WC '
+                icon: mdi:bathtub
                 swap_temperatures: true
                 group: true
-                fan_mode:
+                toggle:
                   hide: true
-                secondary_info: hvac-mode
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a4800790c3_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a4800790c3_battery
               - type: divider
+              - entity: switch.sonoff_1001dd9fbe
+                icon: mdi:power-plug
+                secondary_info: last-changed
+              - type: divider
+              - entity: switch.sonoff_10010954d7_led
+                name: 'ZBBridge-Chalet '
+                secondary_info: last-updated
+                icon: mdi:zigbee
               - entity: switch.sonoff_100167771f
                 secondary_info: last-changed
                 icon: mdi:water-boiler
-              - entity: switch.sonoff_1001dd9fbe
-                icon: mdi:radiator
-                secondary_info: last-changed
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48003a53f_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:coat-rack
-                format: precision1
-                name: 'Прихожая '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a48003a53f_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a48003a53f_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.hall_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Прихожая '
+                icon: mdi:coat-rack
                 swap_temperatures: true
                 group: true
-                fan_mode:
+                toggle:
                   hide: true
-                secondary_info: hvac-mode
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a48003a53f_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a48003a53f_battery
               - type: divider
               - entity: switch.sonoff_1001418312
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
@@ -419,7 +521,7 @@ views:
               - entity: switch.sonoff_1001674a14
                 secondary_info: last-changed
                 name: 'S26R2-ChTorrSRV '
-                icon: mdi:power
+                icon: mdi:power-plug
               - type: divider
             footer:
               type: graph
@@ -429,102 +531,146 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48005ae0b_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:home-floor-2
-                format: precision1
-                name: '2 Этаж '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a48005ae0b_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a48005ae0b_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.2floor_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: '2 Этаж '
+                icon: mdi:home-floor-2
                 swap_temperatures: true
                 group: true
-                fan_mode:
+                toggle:
                   hide: true
-                secondary_info: hvac-mode
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a48005ae0b_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a48005ae0b_battery
               - type: divider
               - entity: switch.sonoff_1001fdf40d
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
               - entity: switch.sonoff_100167729c
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480049e3c_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:french-fries
-                format: precision1
-                name: 'Potato '
-                styles:
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a480049e3c_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles: null
-                  - entity: sensor.sonoff_a480049e3c_humidity
-                    format: precision0
-                    name: 'влажность '
-              - type: divider
               - entity: climate.potato_chalet
                 type: custom:mini-climate
-                name: 'Режим '
-                icon: mdi:thermostat-box
+                name: 'Potato '
+                icon: mdi:french-fries
                 swap_temperatures: true
                 group: true
-                secondary_info: hvac-mode
-                fan_mode:
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:radiator
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:radiator-off
+                      name: 'Бездействие '
+                toggle:
                   hide: true
                 hvac_mode:
                   style: >-
-                    (value, entity) => ({ color: value !== 'off' ? 'orange
-                    !important' : 'grey' })
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
                   source:
                     heat:
                       icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
-                      name: 'Выкл. '
+                      name: 'Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
                     selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480049e3c_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
+                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        => (value < 74 ? 'mdi:battery-60' :
+                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
+                        : 'mdi:battery')
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} :
+                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
+                        color: '#70a03c'}),(value) => (value < 74 ? { color:
+                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
+                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480049e3c_battery
               - type: divider
               - entity: switch.sonoff_10011ddaf0
-                icon: mdi:radiator
+                icon: mdi:power-plug
                 secondary_info: last-changed
             title: ' '
       - type: vertical-stack
@@ -551,7 +697,7 @@ views:
                     name: 'влажность '
               - type: divider
               - entity: switch.sonoff_100141361d
-                icon: mdi:heating-coil
+                icon: mdi:heat-wave
                 secondary_info: last-changed
               - type: divider
             footer:
@@ -609,9 +755,9 @@ views:
             footer:
               type: graph
               entity: sensor.sonoff_a48002ff82_temperature
-  - title: Thermostat
+  - title: Климат
     icon: mdi:thermostat-box-auto
-    path: thermostat_scripts
+    path: 02_climate
     badges: []
     cards:
       - type: vertical-stack
@@ -779,56 +925,138 @@ views:
               show_header_toggle: false
               state_color: true
               title: Зима
-  - title: Camera
-    path: ip_camera
+  - title: Камеры
+    path: 03_camera
     icon: mdi:cctv
     badges: []
     cards:
-      - type: horizontal-stack
+      - type: vertical-stack
         cards:
-          - type: vertical-stack
+          - show_state: false
+            show_name: false
+            camera_view: auto
+            type: picture-entity
+            entity: camera.hikvision_accb513d6ba4_mainstream
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            camera_image: camera.hikvision_accb513d6ba4_mainstream
+          - type: horizontal-stack
             cards:
-              - show_state: false
-                show_name: false
-                camera_view: live
-                type: picture-entity
-                image: https://demo.home-assistant.io/stub_config/bedroom.png
-                entity: camera.ds_2cd2043g0_i20200305aawre19290964_102
-                camera_image: camera.ds_2cd2043g0_i20200305aawre19290964_102
-              - type: custom:mushroom-entity-card
-                entity: >-
-                  binary_sensor.ds_2cd2043g0_i20200305aawre19290964_1_motiondetection
-                name: Движение
-                icon_color: red
-      - type: horizontal-stack
+              - type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        name: Движение
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
+                      - type: custom:mushroom-entity-card
+                        name: IR
+                        entity: switch.hikvision_ds_2cd2043g0_i_200_ir_lamp
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        icon_color: cyan
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
+                        name: Storage
+                      - type: custom:mushroom-entity-card
+                        name: Reboot
+                        entity: sensor.hikvision_ds_2cd2043g0_i_200_last_reboot
+      - type: vertical-stack
         cards:
-          - type: vertical-stack
+          - show_state: false
+            show_name: false
+            camera_view: auto
+            type: picture-entity
+            entity: camera.hikvision_5850ed13be1d_mainstream
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            camera_image: camera.hikvision_5850ed13be1d_mainstream
+          - type: horizontal-stack
             cards:
-              - show_state: false
-                show_name: false
-                camera_view: live
-                type: picture-entity
-                entity: camera.ds_2cd2043g0_i20200426aawre32009463_102
-                image: https://demo.home-assistant.io/stub_config/bedroom.png
-                camera_image: camera.ds_2cd2043g0_i20200426aawre32009463_102
-              - type: custom:mushroom-entity-card
-                entity: >-
-                  binary_sensor.ds_2cd2043g0_i20200426aawre32009463_1_motiondetection
-                name: Движение
-                icon_color: red
-      - type: horizontal-stack
+              - type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        name: Движение
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
+                      - type: custom:mushroom-entity-card
+                        name: IR
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        entity: switch.hikvision_ds_2cd2043g0_i_201_ir_lamp
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        name: Storage
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
+                      - type: custom:mushroom-entity-card
+                        name: Reboot
+                        entity: sensor.hikvision_ds_2cd2043g0_i_201_last_reboot
+      - type: vertical-stack
         cards:
-          - type: vertical-stack
+          - show_state: false
+            show_name: false
+            camera_view: auto
+            type: picture-entity
+            entity: camera.hikvision_accb513d6bbe_mainstream
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            camera_image: camera.hikvision_accb513d6bbe_mainstream
+          - type: horizontal-stack
             cards:
-              - show_state: false
-                show_name: false
-                camera_view: live
-                type: picture-entity
-                entity: camera.ds_2cd2043g0_i20200305aawre19290990_102
-                image: https://demo.home-assistant.io/stub_config/bedroom.png
-                camera_image: camera.ds_2cd2043g0_i20200305aawre19290990_102
-              - type: custom:mushroom-entity-card
-                entity: >-
-                  binary_sensor.ds_2cd2043g0_i20200305aawre19290990_1_motiondetection
-                name: Движение
-                icon_color: red
+              - type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        name: Движение
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
+                      - type: custom:mushroom-entity-card
+                        name: IR
+                        tap_action:
+                          action: none
+                        hold_action:
+                          action: none
+                        double_tap_action:
+                          action: none
+                        entity: switch.hikvision_ds_2cd2043g0_i_202_ir_lamp
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-entity-card
+                        name: Storage
+                        entity: >-
+                          binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
+                      - type: custom:mushroom-entity-card
+                        name: Reboot
+                        entity: sensor.hikvision_ds_2cd2043g0_i_202_last_reboot
