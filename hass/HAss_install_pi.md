@@ -102,9 +102,11 @@ newgrp docker
 
 :arrow_right: Информация о системе - `http://IP adress:8123/hassio/system`    
 
-hassio/system
-
 :ballot_box_with_check: Кнопка вызова настроек с панели, в `configuration.yaml`     
+```yaml
+homeassistant:
+  packages: !include_dir_merge_named includes
+```
 ```yaml
 panel_custom:
   - name: server_state
@@ -117,6 +119,52 @@ panel_custom:
     config:
       ingress: core_configurator 
 ```
+
+:ballot_box_with_check: Конфигурация Maria DB    
+Logins:    
+```yaml
+- username: hass
+  password: hass
+```
+Rights:    
+```yaml
+- username: hass
+  database: homeassistant
+```
+:ballot_box_with_check: Путь к базе в файле `secrets.yaml`    
+```yaml
+db_link: mysql://hass:hass@core-mariadb/homeassistant?charset=utf8
+```
+
+:ballot_box_with_check: Интеграция SQL    
+Name:    
+```yaml
+MariaDB
+```
+Column:    
+```yaml
+value
+```
+Select Query:    
+```yaml
+SELECT table_schema "database", Round(Sum(data_length + index_length) / 1048576, 2) "value" FROM information_schema.tables WHERE table_schema="homeassistant" GROUP BY table_schema;
+```
+Unit of Measure:    
+```yaml
+MB
+```
+
+:ballot_box_with_check: Рекордер в `includes/system_sensors.yaml`     
+```yaml
+system_sensors:
+
+    recorder:
+      db_url: !secret db_link
+      purge_keep_days: 30
+      auto_purge: true
+      commit_interval: 60
+```
+
 :ballot_box_with_check: HACS    
 режим root:    
 ```yaml
