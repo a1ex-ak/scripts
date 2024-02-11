@@ -2,6 +2,7 @@
 #Кухня термостат
   - platform: generic_thermostat
     name: kitchen_chalet
+    unique_id: kitchen_generic_thermostat
     # heater: – это устройство, которое включает/выключает отопительный прибор.
     heater: switch.sonoff_1001676f3c
     # target_sensor: – это датчик температуры, по которому будем управлять отоплением.
@@ -38,6 +39,7 @@
 #Спальня термостат    
   - platform: generic_thermostat
     name: bedroom_chalet
+    unique_id: bedroom_generic_thermostat
     heater: switch.group_s26r2_chbroomlr
     target_sensor: sensor.sonoff_a4800764ed_temperature
     min_temp: 9
@@ -57,6 +59,7 @@
 #Родители термостат
   - platform: generic_thermostat
     name: parents_chalet
+    unique_id: parents_generic_thermostat
     heater: switch.sonoff_1001675cf6
     target_sensor: sensor.sonoff_a480079106_temperature
     min_temp: 9
@@ -76,6 +79,7 @@
 #Ванная/Туалет термостат
   - platform: generic_thermostat
     name: wc_chalet
+    unique_id: wc_generic_thermostat
     heater: switch.sonoff_1001dd9fbe
     target_sensor: sensor.sonoff_a4800790c3_temperature
     min_temp: 9
@@ -95,6 +99,7 @@
 #Прихожая термостат
   - platform: generic_thermostat
     name: hall_chalet
+    unique_id: hall_generic_thermostat
     heater: switch.sonoff_1001418312
     target_sensor: sensor.sonoff_a48003a53f_temperature
     min_temp: 4
@@ -114,6 +119,7 @@
 #2 Этаж термостат
   - platform: generic_thermostat
     name: 2floor_chalet
+    unique_id: 2floor_generic_thermostat
     heater: switch.sonoff_100167729c
     target_sensor: sensor.sonoff_a48005ae0b_temperature
     min_temp: 9
@@ -133,6 +139,7 @@
 #2 Этаж (Potato) термостат
   - platform: generic_thermostat
     name: potato_chalet
+    unique_id: potato_generic_thermostat
     heater: switch.sonoff_10011ddaf0
     target_sensor: sensor.sonoff_a480049e3c_temperature
     min_temp: 2
