@@ -1,0 +1,7 @@
+system_sensors:
+
+    recorder:
+      db_url: !secret db_link
+      purge_keep_days: 30
+      auto_purge: true
+      commit_interval: 60
