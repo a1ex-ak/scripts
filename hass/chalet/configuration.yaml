@@ -1,10 +1,35 @@
 homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Chalet
+  # Координаты нашего дома, используются для отрисовки на карте компонента map
+  latitude: !secret latitude_crdnts
+  longitude: !secret longitude_crdnts
+  # Высота над уровнем моря, где используется, можно оставить такой
+  elevation: 0
+  # Задаем метрическую или имперскую систему исчисления (metric for Metric, imperial for Imperial)
+  unit_system: metric
+  # Часовой пояс для корректного отображения времени, берем тут: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret timezone
+  country: !secret my_country
+  auth_providers:
+    - type: homeassistant
+    - type: trusted_networks
+      trusted_networks:
+        - !secret local_networks
+        - !secret zerotier_networks
+      #trusted_users:
+        #192.168.1.80: !secret ha_user_id #Nest Hub Display
+      #allow_bypass_login: true
   packages: !include_dir_merge_named includes
 
 #eWeLink (Sonoff)
 sonoff:
   username: !secret ewelink_login
-  password: !secret ewelink_pass
+  password: !secret ewelink_pswd
+  
+#hikvison:
+#  username: !secret hikvision_login
+#  password: !secret hikvision_pswd
 
 # Loads default set of integrations. Do not remove.
 default_config:
@@ -18,6 +43,8 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 # Загрузка платформы climate (generic_thermostat) 
 climate: !include includes/climate.yaml
+#
+camera: !include includes/camera.yaml
 
 panel_custom:
   - name: server_state
