@@ -1,4 +1,4 @@
-title: Home Assistant
+title: Chalet
 views:
   - title: Телеметрия
     path: 01_telemetry
@@ -121,6 +121,7 @@ views:
                 icon: mdi:package-down
                 styles:
                   font-weight: bold
+                  text-align: center
                 name: 'Обновления '
                 state_header: 'версия '
                 entities:
@@ -130,6 +131,8 @@ views:
                   - entity: update.home_assistant_core_update
                     attribute: latest_version
                     name: 'core '
+                    styles:
+                      text-align: center
       - type: vertical-stack
         cards:
           - type: entities
@@ -146,13 +149,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 toggle:
                   hide: true
@@ -162,11 +165,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -201,7 +204,7 @@ views:
                       entity: sensor.sonoff_a480072e16_battery
               - type: divider
               - entity: switch.sonoff_1001676f3c
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
@@ -219,13 +222,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 hvac_mode:
                   style: >-
@@ -233,11 +236,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mmdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -273,7 +276,7 @@ views:
               - type: divider
               - entity: switch.group_s26r2_chbroomlr
                 secondary_info: last-changed
-                icon: mdi:power-plug
+                icon: mdi:radiator
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -290,13 +293,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 hvac_mode:
                   style: >-
@@ -304,11 +307,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -343,7 +346,7 @@ views:
                       entity: sensor.sonoff_a480079106_battery
               - type: divider
               - entity: switch.sonoff_1001675cf6
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
@@ -361,13 +364,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 hvac_mode:
                   style: >-
@@ -375,11 +378,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -414,7 +417,7 @@ views:
                       entity: sensor.sonoff_a4800790c3_battery
               - type: divider
               - entity: switch.sonoff_1001dd9fbe
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
               - type: divider
               - entity: switch.sonoff_10010954d7_led
@@ -442,13 +445,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 hvac_mode:
                   style: >-
@@ -456,11 +459,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -495,7 +498,7 @@ views:
                       entity: sensor.sonoff_a48003a53f_battery
               - type: divider
               - entity: switch.sonoff_1001418312
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
@@ -521,7 +524,7 @@ views:
               - entity: switch.sonoff_1001674a14
                 secondary_info: last-changed
                 name: 'S26R2-ChTorrSRV '
-                icon: mdi:power-plug
+                icon: mdi:power-socket-eu
               - type: divider
             footer:
               type: graph
@@ -543,13 +546,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 hvac_mode:
                   style: >-
@@ -557,11 +560,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -596,10 +599,10 @@ views:
                       entity: sensor.sonoff_a48005ae0b_battery
               - type: divider
               - entity: switch.sonoff_1001fdf40d
-                icon: mdi:power-plug
+                icon: mdi:power-socket-eu
                 secondary_info: last-changed
               - entity: switch.sonoff_100167729c
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
           - type: entities
             show_header_toggle: false
@@ -615,13 +618,13 @@ views:
                   type: hvac-action
                   source:
                     heating:
-                      icon: mdi:radiator
+                      icon: mdi:fire
                       name: 'Обогрев '
                     'off':
                       icon: mdi:power
                       name: 'Выключено '
                     idle:
-                      icon: mdi:radiator-off
+                      icon: mdi:fire-off
                       name: 'Бездействие '
                 toggle:
                   hide: true
@@ -631,11 +634,11 @@ views:
                     !important' : '#808080' })
                   source:
                     heat:
-                      icon: mdi:fire
-                      name: 'Обогрев '
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
                     'off':
-                      icon: mdi:power
-                      name: 'Выключено '
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
                   change_action: >
                     (selected, entity) => this.call_service('climate',
                     'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
@@ -670,7 +673,7 @@ views:
                       entity: sensor.sonoff_a480049e3c_battery
               - type: divider
               - entity: switch.sonoff_10011ddaf0
-                icon: mdi:power-plug
+                icon: mdi:radiator
                 secondary_info: last-changed
             title: ' '
       - type: vertical-stack
@@ -948,7 +951,7 @@ views:
                       - type: custom:mushroom-entity-card
                         name: Движение
                         tap_action:
-                          action: none
+                          action: more-info
                         hold_action:
                           action: none
                         double_tap_action:
@@ -992,7 +995,7 @@ views:
                       - type: custom:mushroom-entity-card
                         name: Движение
                         tap_action:
-                          action: none
+                          action: more-info
                         hold_action:
                           action: none
                         double_tap_action:
@@ -1035,7 +1038,7 @@ views:
                       - type: custom:mushroom-entity-card
                         name: Движение
                         tap_action:
-                          action: none
+                          action: more-info
                         hold_action:
                           action: none
                         double_tap_action:
