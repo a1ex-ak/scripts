@@ -14,14 +14,6 @@ views:
             name: 'Прогноз погоды '
             forecast_type: daily
             secondary_info_attribute: humidity
-          - type: custom:digital-clock
-            dateFormat:
-              weekday: long
-              day: 2-digit
-              month: short
-            timeFormat:
-              hour: 2-digit
-              minute: 2-digit
           - type: horizontal-stack
             cards:
               - graph: line
@@ -420,13 +412,13 @@ views:
                 icon: mdi:radiator
                 secondary_info: last-changed
               - type: divider
-              - entity: switch.sonoff_10010954d7_led
-                name: 'ZBBridge-Chalet '
-                secondary_info: last-updated
-                icon: mdi:zigbee
               - entity: switch.sonoff_100167771f
                 secondary_info: last-changed
                 icon: mdi:water-boiler
+              - entity: sensor.sonoff_10010954d7_rssi
+                name: 'ZBBridge-Chalet '
+                secondary_info: last-updated
+                icon: mdi:zigbee
       - type: vertical-stack
         cards:
           - type: entities
@@ -477,12 +469,12 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a48003a53f_humidity
+                      entity: sensor.sonoff_a48008796d_humidity
                   power_consumption:
                     icon:
                       template: >
                         (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
+                        (value < 60 ? 'mdi:battery-40' : 'mdi:battery'),(value)
                         => (value < 74 ? 'mdi:battery-60' :
                         'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
                         : 'mdi:battery')
@@ -495,7 +487,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a48003a53f_battery
+                      entity: sensor.sonoff_a48008796d_battery
               - type: divider
               - entity: switch.sonoff_1001418312
                 icon: mdi:radiator
@@ -656,11 +648,11 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value < 60 ? 'mdi:battery-50' :
+                        'mdi:battery'),(value) => (value < 74 ? 'mdi:battery-60'
+                        : 'mdi:battery'),(value) => (value < 88 ?
+                        'mdi:battery-70' : 'mdi:battery'),(value) => (value > 90
+                        ? 'mdi:battery' : {})
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} :
                         {}),(value) => (value < 60 ? { color: '#b83829'} : {
@@ -710,7 +702,7 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a4800343d6_temperature
+              - entity: sensor.sonoff_a48005f44f_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:balcony
                 format: precision1
@@ -719,11 +711,11 @@ views:
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a4800343d6_battery
+                  - entity: sensor.sonoff_a48005f44f_battery
                     format: precision0
                     name: 'заряд '
                     styles: null
-                  - entity: sensor.sonoff_a4800343d6_humidity
+                  - entity: sensor.sonoff_a48005f44f_humidity
                     format: precision0
                     name: 'влажность '
               - type: divider
@@ -733,12 +725,12 @@ views:
               - type: divider
             footer:
               type: graph
-              entity: sensor.sonoff_a4800343d6_temperature
+              entity: sensor.sonoff_a48005f44f_temperature
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48002ff82_temperature
+              - entity: sensor.sonoff_a480087973_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:greenhouse
                 format: precision1
@@ -747,17 +739,17 @@ views:
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48002ff82_battery
+                  - entity: sensor.sonoff_a480087973_battery
                     format: precision0
                     name: 'заряд '
                     styles: null
-                  - entity: sensor.sonoff_a48002ff82_humidity
+                  - entity: sensor.sonoff_a480087973_humidity
                     format: precision0
                     name: 'влажность '
               - type: divider
             footer:
               type: graph
-              entity: sensor.sonoff_a48002ff82_temperature
+              entity: sensor.sonoff_a480087973_temperature
   - title: Климат
     icon: mdi:thermostat-box-auto
     path: 02_climate
@@ -942,41 +934,26 @@ views:
             entity: camera.hikvision_accb513d6ba4_mainstream
             image: https://demo.home-assistant.io/stub_config/bedroom.png
             camera_image: camera.hikvision_accb513d6ba4_mainstream
-          - type: horizontal-stack
-            cards:
-              - type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        name: Движение
-                        tap_action:
-                          action: more-info
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
-                      - type: custom:mushroom-entity-card
-                        name: IR
-                        entity: switch.hikvision_ds_2cd2043g0_i_200_ir_lamp
-                        tap_action:
-                          action: none
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        icon_color: cyan
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
-                        name: Storage
-                      - type: custom:mushroom-entity-card
-                        name: Reboot
-                        entity: sensor.hikvision_ds_2cd2043g0_i_200_last_reboot
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: >-
+                  binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
+                type: custom:multiple-entity-row
+                icon: mdi:cctv
+                name: 'Chalet-Cam1 '
+                styles:
+                  font-weight: bold
+                state_header: 'движение '
+                entities:
+                  - entity: binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
+                    name: 'storage '
+                    styles: null
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_200_last_reboot
+                    attribute: last-updated
+                    format: datetime
+                    name: 'reboot '
       - type: vertical-stack
         cards:
           - show_state: false
@@ -986,40 +963,26 @@ views:
             entity: camera.hikvision_5850ed13be1d_mainstream
             image: https://demo.home-assistant.io/stub_config/bedroom.png
             camera_image: camera.hikvision_5850ed13be1d_mainstream
-          - type: horizontal-stack
-            cards:
-              - type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        name: Движение
-                        tap_action:
-                          action: more-info
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
-                      - type: custom:mushroom-entity-card
-                        name: IR
-                        tap_action:
-                          action: none
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        entity: switch.hikvision_ds_2cd2043g0_i_201_ir_lamp
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        name: Storage
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
-                      - type: custom:mushroom-entity-card
-                        name: Reboot
-                        entity: sensor.hikvision_ds_2cd2043g0_i_201_last_reboot
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: >-
+                  binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
+                type: custom:multiple-entity-row
+                icon: mdi:cctv
+                name: 'Chalet-Cam2 '
+                styles:
+                  font-weight: bold
+                state_header: 'движение '
+                entities:
+                  - entity: binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
+                    name: 'storage '
+                    styles: null
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_201_last_reboot
+                    attribute: last-updated
+                    format: datetime
+                    name: 'reboot '
       - type: vertical-stack
         cards:
           - show_state: false
@@ -1029,37 +992,23 @@ views:
             entity: camera.hikvision_accb513d6bbe_mainstream
             image: https://demo.home-assistant.io/stub_config/bedroom.png
             camera_image: camera.hikvision_accb513d6bbe_mainstream
-          - type: horizontal-stack
-            cards:
-              - type: vertical-stack
-                cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        name: Движение
-                        tap_action:
-                          action: more-info
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
-                      - type: custom:mushroom-entity-card
-                        name: IR
-                        tap_action:
-                          action: none
-                        hold_action:
-                          action: none
-                        double_tap_action:
-                          action: none
-                        entity: switch.hikvision_ds_2cd2043g0_i_202_ir_lamp
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        name: Storage
-                        entity: >-
-                          binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
-                      - type: custom:mushroom-entity-card
-                        name: Reboot
-                        entity: sensor.hikvision_ds_2cd2043g0_i_202_last_reboot
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: >-
+                  binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
+                type: custom:multiple-entity-row
+                icon: mdi:cctv
+                name: 'Chalet-Cam3 '
+                styles:
+                  font-weight: bold
+                state_header: 'движение '
+                entities:
+                  - entity: binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
+                    name: 'storage '
+                    styles: null
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_202_last_reboot
+                    attribute: last-updated
+                    format: datetime
+                    name: 'reboot '
