@@ -115,7 +115,7 @@ views:
                   font-weight: bold
                   text-align: center
                 name: 'Обновления '
-                state_header: 'версия '
+                state_header: 'установлено '
                 entities:
                   - entity: update.hacs_update
                     attribute: latest_version
@@ -196,8 +196,12 @@ views:
                       entity: sensor.sonoff_a480072e16_battery
               - type: divider
               - entity: switch.sonoff_1001676f3c
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChKitchen '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:radiator
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -267,6 +271,10 @@ views:
                       entity: sensor.sonoff_a4800764ed_battery
               - type: divider
               - entity: switch.group_s26r2_chbroomlr
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChBRoomLR '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
           - type: entities
@@ -338,8 +346,12 @@ views:
                       entity: sensor.sonoff_a480079106_battery
               - type: divider
               - entity: switch.sonoff_1001675cf6
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChChildParents '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:radiator
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -409,15 +421,27 @@ views:
                       entity: sensor.sonoff_a4800790c3_battery
               - type: divider
               - entity: switch.sonoff_1001dd9fbe
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChWC '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:radiator
               - type: divider
               - entity: switch.sonoff_100167771f
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChBoiler '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
                 icon: mdi:water-boiler
+              - type: divider
               - entity: sensor.sonoff_10010954d7_rssi
+                type: custom:multiple-entity-row
                 name: 'ZBBridge-Chalet '
-                secondary_info: last-updated
+                state_header: wi-fi
+                state_color: true
+                secondary_info: last-changed
                 icon: mdi:zigbee
       - type: vertical-stack
         cards:
@@ -490,8 +514,12 @@ views:
                       entity: sensor.sonoff_a48008796d_battery
               - type: divider
               - entity: switch.sonoff_1001418312
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChHall '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:radiator
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -514,8 +542,11 @@ views:
                     name: 'влажность '
               - type: divider
               - entity: switch.sonoff_1001674a14
-                secondary_info: last-changed
+                type: custom:multiple-entity-row
                 name: 'S26R2-ChTorrSRV '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
                 icon: mdi:power-socket-eu
               - type: divider
             footer:
@@ -591,11 +622,19 @@ views:
                       entity: sensor.sonoff_a48005ae0b_battery
               - type: divider
               - entity: switch.sonoff_1001fdf40d
+                type: custom:multiple-entity-row
+                name: 'S26R2-Ch2FloorM '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
                 icon: mdi:power-socket-eu
-                secondary_info: last-changed
               - entity: switch.sonoff_100167729c
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-Ch2FloorW '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:radiator
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -665,9 +704,12 @@ views:
                       entity: sensor.sonoff_a480049e3c_battery
               - type: divider
               - entity: switch.sonoff_10011ddaf0
-                icon: mdi:radiator
+                type: custom:multiple-entity-row
+                name: 'S26R2-Ch2Potato '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
-            title: ' '
+                icon: mdi:radiator
       - type: vertical-stack
         cards:
           - type: entities
@@ -692,8 +734,12 @@ views:
                     name: 'влажность '
               - type: divider
               - entity: switch.sonoff_100141361d
-                icon: mdi:heat-wave
+                type: custom:multiple-entity-row
+                name: 'S26R2-ChWell '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:heat-wave
               - type: divider
             footer:
               type: graph
@@ -720,8 +766,12 @@ views:
                     name: 'влажность '
               - type: divider
               - entity: switch.sonoff_100124de93
-                icon: mdi:outdoor-lamp
+                type: custom:multiple-entity-row
+                name: 'MINI-ChEnter '
+                toggle: true
+                state_color: true
                 secondary_info: last-changed
+                icon: mdi:outdoor-lamp
               - type: divider
             footer:
               type: graph
