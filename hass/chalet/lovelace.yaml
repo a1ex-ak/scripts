@@ -179,17 +179,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -254,17 +256,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -329,17 +333,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -347,7 +353,7 @@ views:
               - type: divider
               - entity: switch.sonoff_1001675cf6
                 type: custom:multiple-entity-row
-                name: 'S26R2-ChChildParents '
+                name: 'S26R2-ChParentsChild '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -404,17 +410,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -497,17 +505,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-40' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -605,17 +615,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value > 90 ? 'mdi:battery' : {}),(value) =>
-                        (value < 60 ? 'mdi:battery-50' : 'mdi:battery'),(value)
-                        => (value < 74 ? 'mdi:battery-60' :
-                        'mdi:battery'),(value) => (value < 88 ? 'mdi:battery-70'
-                        : 'mdi:battery')
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -687,17 +699,19 @@ views:
                   power_consumption:
                     icon:
                       template: >
-                        (value) => (value < 60 ? 'mdi:battery-50' :
-                        'mdi:battery'),(value) => (value < 74 ? 'mdi:battery-60'
-                        : 'mdi:battery'),(value) => (value < 88 ?
-                        'mdi:battery-70' : 'mdi:battery'),(value) => (value > 90
-                        ? 'mdi:battery' : {})
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
                       style: >
-                        (value) => (value > 90 ? { color: '#70a03c'} :
-                        {}),(value) => (value < 60 ? { color: '#b83829'} : {
-                        color: '#70a03c'}),(value) => (value < 74 ? { color:
-                        '#b58e31'} : { color: '#70a03c'}),(value) => (value < 88
-                        ? { color: '#b58e31'} : { color: '#70a03c'})
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
+                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -836,8 +850,6 @@ views:
                     tap_action:
                       action: toggle
                     state_color: true
-                show_header_toggle: false
-                state_color: true
               - type: vertical-stack
                 cards:
                   - type: entities
@@ -861,23 +873,19 @@ views:
                         tap_action:
                           action: toggle
                         state_color: true
-                    show_header_toggle: false
-                    state_color: true
           - type: vertical-stack
             cards:
               - type: entities
                 entities:
                   - entity: script.chalet_stop_off
                     type: custom:multiple-entity-row
-                    icon: mdi:cancel
-                    secondary_info: last-changed
                     name: 'СТОП '
                     toggle: true
                     tap_action:
                       action: toggle
                     state_color: true
-                show_header_toggle: false
-                state_color: true
+                    secondary_info: last-changed
+                    icon: mdi:cancel
       - type: vertical-stack
         cards:
           - type: conditional
@@ -948,7 +956,7 @@ views:
                   name: Спальня
                   secondary_info: last-changed
                 - entity: climate.parents_chalet
-                  name: Дети
+                  name: Родители/Дети
                   secondary_info: last-changed
                 - entity: climate.wc_chalet
                   name: Туалет
@@ -992,6 +1000,7 @@ views:
                   binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
                 type: custom:multiple-entity-row
                 icon: mdi:cctv
+                secondary_info: last-changed
                 name: 'Chalet-Cam1 '
                 styles:
                   font-weight: bold
@@ -1021,6 +1030,7 @@ views:
                   binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
                 type: custom:multiple-entity-row
                 icon: mdi:cctv
+                secondary_info: last-changed
                 name: 'Chalet-Cam2 '
                 styles:
                   font-weight: bold
@@ -1050,6 +1060,7 @@ views:
                   binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
                 type: custom:multiple-entity-row
                 icon: mdi:cctv
+                secondary_info: last-changed
                 name: 'Chalet-Cam3 '
                 styles:
                   font-weight: bold
