@@ -31,13 +31,13 @@ systemctl enable NetworkManager
 ```
 :ballot_box_with_check: Прописываем DNS    
 ```yaml
-nano /etc/systemd/resolved.conf
+sudo nano /etc/systemd/resolved.conf
 ```
 `Ctrl X` - для выхода    
 `Y` для сохранения    
 :ballot_box_with_check: Перезапуск DNS    
 ```yaml
-systemctl restart systemd-resolved
+sudo systemctl restart systemd-resolved
 ```
    
 :ballot_box_with_check: Приложение для настройки - 
