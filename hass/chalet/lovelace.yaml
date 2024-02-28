@@ -39,6 +39,7 @@ views:
                 icon: mdi:raspberry-pi
                 name: 'Система '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'IP адрес '
                 entities:
@@ -46,6 +47,8 @@ views:
                     attribute: last-changed
                     format: datetime
                     name: 'загрузка '
+                    styles:
+                      text-align: center
           - type: horizontal-stack
             cards:
               - type: tile
@@ -78,18 +81,22 @@ views:
                 format: precision1
                 name: 'Диск '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'свободно '
                 entities:
                   - entity: sensor.system_monitor_swap_use
                     format: precision0
                     name: 'подкачка '
+                    styles:
+                      text-align: center
               - type: divider
               - entity: sensor.mariadb
                 type: custom:multiple-entity-row
                 format: precision1
                 state_header: 'размер '
                 styles:
+                  text-align: center
                   font-weight: bold
                 name: 'База данных '
                 icon: mdi:database
@@ -120,6 +127,8 @@ views:
                   - entity: update.hacs_update
                     attribute: latest_version
                     name: 'hacs '
+                    styles:
+                      text-align: center
                   - entity: update.home_assistant_core_update
                     attribute: latest_version
                     name: 'core '
@@ -190,8 +199,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -200,6 +209,7 @@ views:
               - entity: switch.sonoff_1001676f3c
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChKitchen '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -267,8 +277,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -277,6 +287,7 @@ views:
               - entity: switch.group_s26r2_chbroomlr
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChBRoomLR '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -344,8 +355,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -354,6 +365,7 @@ views:
               - entity: switch.sonoff_1001675cf6
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChParentsChild '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -421,8 +433,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -431,6 +443,7 @@ views:
               - entity: switch.sonoff_1001dd9fbe
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChWC '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -439,6 +452,7 @@ views:
               - entity: switch.sonoff_100167771f
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChBoiler '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -516,8 +530,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -526,6 +540,7 @@ views:
               - entity: switch.sonoff_1001418312
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChHall '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -540,20 +555,25 @@ views:
                 format: precision1
                 name: 'UpiterPI '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
                   - entity: sensor.sonoff_a48004bd43_battery
                     format: precision0
                     name: 'заряд '
-                    styles: null
+                    styles:
+                      text-align: center
                   - entity: sensor.sonoff_a48004bd43_humidity
                     format: precision0
                     name: 'влажность '
+                    styles:
+                      text-align: center
               - type: divider
               - entity: switch.sonoff_1001674a14
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChTorrSRV '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -626,8 +646,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -636,6 +656,7 @@ views:
               - entity: switch.sonoff_1001fdf40d
                 type: custom:multiple-entity-row
                 name: 'S26R2-Ch2FloorM '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -643,6 +664,7 @@ views:
               - entity: switch.sonoff_100167729c
                 type: custom:multiple-entity-row
                 name: 'S26R2-Ch2FloorW '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -710,8 +732,8 @@ views:
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
                         '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
                         50 ? { color: '#b58e31'} : (value > 40 ? { color:
-                        '#70a03c'} : (value > 30 ? { color: '#70a03c'} :(value >
-                        20 ? { color: '#70a03c'} : { color: '#70a03c'}))))))))
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 1
                     source:
@@ -720,6 +742,7 @@ views:
               - entity: switch.sonoff_10011ddaf0
                 type: custom:multiple-entity-row
                 name: 'S26R2-Ch2Potato '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -736,20 +759,25 @@ views:
                 format: precision1
                 name: 'Колодец '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
                   - entity: sensor.sonoff_a48007c084_battery
                     format: precision0
                     name: 'заряд '
-                    styles: null
+                    styles:
+                      text-align: center
                   - entity: sensor.sonoff_a48007c084_humidity
                     format: precision0
                     name: 'влажность '
+                    styles:
+                      text-align: center
               - type: divider
               - entity: switch.sonoff_100141361d
                 type: custom:multiple-entity-row
                 name: 'S26R2-ChWell '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -768,20 +796,25 @@ views:
                 format: precision1
                 name: 'Веранда (м) '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
                   - entity: sensor.sonoff_a48005f44f_battery
                     format: precision0
                     name: 'заряд '
-                    styles: null
+                    styles:
+                      text-align: center
                   - entity: sensor.sonoff_a48005f44f_humidity
                     format: precision0
                     name: 'влажность '
+                    styles:
+                      text-align: center
               - type: divider
               - entity: switch.sonoff_100124de93
                 type: custom:multiple-entity-row
                 name: 'MINI-ChEnter '
+                state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
@@ -800,22 +833,26 @@ views:
                 format: precision1
                 name: 'Теплица (б) '
                 styles:
+                  text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
                   - entity: sensor.sonoff_a480087973_battery
                     format: precision0
                     name: 'заряд '
-                    styles: null
+                    styles:
+                      text-align: center
                   - entity: sensor.sonoff_a480087973_humidity
                     format: precision0
                     name: 'влажность '
+                    styles:
+                      text-align: center
               - type: divider
             footer:
               type: graph
               entity: sensor.sonoff_a480087973_temperature
   - title: Климат
-    icon: mdi:thermostat-box-auto
+    icon: mdi:thermostat-box
     path: 02_climate
     badges: []
     cards:
@@ -827,65 +864,44 @@ views:
             detail: 1
             name: 'Температура в доме '
             icon: mdi:home-thermometer
-          - type: horizontal-stack
-            cards:
-              - type: entities
-                entities:
-                  - entity: script.living_on_chalet
-                    type: custom:multiple-entity-row
-                    icon: mdi:home-import-outline
-                    secondary_info: last-changed
-                    name: 'На Дачу '
-                    toggle: true
-                    tap_action:
-                      action: toggle
-                    state_color: true
-                  - type: divider
-                  - entity: script.living_away_chalet
-                    type: custom:multiple-entity-row
-                    icon: mdi:snowflake-thermometer
-                    secondary_info: last-changed
-                    name: 'Не Дома '
-                    toggle: true
-                    tap_action:
-                      action: toggle
-                    state_color: true
-              - type: vertical-stack
-                cards:
-                  - type: entities
-                    entities:
-                      - entity: script.input_2floor_on
-                        type: custom:multiple-entity-row
-                        icon: mdi:home-floor-2
-                        secondary_info: last-changed
-                        name: 'ВКЛ 2Этаж '
-                        toggle: true
-                        tap_action:
-                          action: toggle
-                        state_color: true
-                      - type: divider
-                      - entity: script.input_2floor_off
-                        type: custom:multiple-entity-row
-                        icon: mdi:home-switch-outline
-                        secondary_info: last-changed
-                        name: 'ВЫКЛ 2Этаж '
-                        toggle: true
-                        tap_action:
-                          action: toggle
-                        state_color: true
+          - type: entities
+            entities:
+              - entity: input_boolean.turn_living_chalet
+                type: custom:multiple-entity-row
+                icon: mdi:thermostat-box-auto
+                name: 'отопл. Дачи '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                tap_action:
+                  action: toggle
+          - type: entities
+            entities:
+              - entity: input_boolean.turn_2floor_chalet
+                type: custom:multiple-entity-row
+                icon: mdi:home-floor-2
+                name: 'отопл. 2 Этаж '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                tap_action:
+                  action: toggle
           - type: vertical-stack
             cards:
               - type: entities
                 entities:
                   - entity: script.chalet_stop_off
                     type: custom:multiple-entity-row
-                    name: 'СТОП '
+                    icon: mdi:cancel
+                    name: 'отопл. СТОП '
+                    state_header: 'off/on '
                     toggle: true
-                    tap_action:
-                      action: toggle
                     state_color: true
                     secondary_info: last-changed
-                    icon: mdi:cancel
+                    tap_action:
+                      action: toggle
       - type: vertical-stack
         cards:
           - type: conditional
@@ -920,6 +936,20 @@ views:
               show_header_toggle: false
               state_color: true
               title: На Дачу
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: switch.sonoff_100167729c
+                state: 'on'
+            card:
+              type: entities
+              entities:
+                - entity: switch.sonoff_100167729c
+                  icon: mdi:radiator
+                  secondary_info: last-changed
+              show_header_toggle: false
+              state_color: true
+              title: 2 Этаж
           - type: conditional
             conditions:
               - condition: state
