@@ -20,7 +20,7 @@
 
 :if ([:len $lteIs]!=0) do={
    :log info ""
-    :log warning ("Роутер "."$[/system identity get name] "."lte-модем: "."$[:len $lteIs]")
+    :log warning ("Router "."$[/system identity get name] "."lte-modem: "."$[:len $lteIs]")
     :local ltecmd
     :local Ltestatus
     :local typepar "registration-status";
