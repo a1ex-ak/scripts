@@ -84,6 +84,7 @@ views:
                   text-align: center
                   font-weight: bold
                 state_header: 'свободно '
+                unit: 'GB '
                 entities:
                   - entity: sensor.system_monitor_swap_use
                     format: precision0
@@ -98,6 +99,7 @@ views:
                 styles:
                   text-align: center
                   font-weight: bold
+                unit: 'MB '
                 name: 'База данных '
                 icon: mdi:database
                 entities:
@@ -115,22 +117,22 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.current_version
+              - entity: update.home_assistant_core_update
                 type: custom:multiple-entity-row
                 icon: mdi:package-down
+                attribute: latest_version
                 styles:
                   font-weight: bold
                   text-align: center
                 name: 'Обновления '
-                state_header: 'установлено '
+                state_header: 'последнее '
                 entities:
                   - entity: update.hacs_update
                     attribute: latest_version
                     name: 'hacs '
                     styles:
                       text-align: center
-                  - entity: update.home_assistant_core_update
-                    attribute: latest_version
+                  - entity: sensor.current_version
                     name: 'core '
                     styles:
                       text-align: center
@@ -142,7 +144,7 @@ views:
             entities:
               - entity: climate.kitchen_chalet
                 type: custom:mini-climate
-                name: 'Кухня '
+                name: 'Кухня/Гостинная '
                 icon: mdi:countertop
                 swap_temperatures: true
                 group: true
@@ -206,14 +208,27 @@ views:
                     source:
                       entity: sensor.sonoff_a480072e16_battery
               - type: divider
-              - entity: switch.sonoff_1001676f3c
+              - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                 type: custom:multiple-entity-row
-                name: 'S26R2-ChKitchen '
+                name: 'WSP-ChKitchen '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_umeter
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
+                    format: precision0
+                    unit: 'W '
+                    name: 'мощность '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -915,7 +930,7 @@ views:
             card:
               type: entities
               entities:
-                - entity: switch.sonoff_1001676f3c
+                - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                   icon: mdi:radiator
                   secondary_info: last-changed
                 - entity: switch.group_s26r2_chbroomlr
@@ -1008,6 +1023,40 @@ views:
               show_header_toggle: false
               state_color: true
               title: Зима
+  - title: Tariff
+    path: tariff
+    icon: mdi:meter-electric
+    badges: []
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision0
+                name: 'WSP-ChKitchen '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                  font-weight: bold
+                entities:
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_umeter_month_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_umeter_month_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
   - title: Камеры
     path: 03_camera
     icon: mdi:cctv
