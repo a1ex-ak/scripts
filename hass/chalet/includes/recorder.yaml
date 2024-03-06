@@ -1,0 +1,72 @@
+  db_url: !secret db_link
+  purge_keep_days: 14
+  auto_purge: true
+  commit_interval: 30
+  include:
+    entities:
+    # Сенсор объема
+       - sensor.home_assistant_v2_db
+       - sensor.mariadb
+    # Интернет
+       - sensor.speedtest_download
+       - sensor.speedtest_upload
+       - sensor.speedtest_ping
+    # Системные сенсоры
+       - sensor.system_monitor_processor_use
+       - sensor.system_monitor_processor_temperature
+       - sensor.system_monitor_memory_use
+       - sensor.system_monitor_disk_use_percent
+       - sensor.system_monitor_disk_free
+    # RPi Power Status
+       - binary_sensor.rpi_power_status
+    # Суммарное потребление
+        #WSP-ChKitchen
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
+       - sensor.sensor_tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_day
+       - sensor.sensor_tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_night
+    # Термостаты
+       # Кухня/Гостинная
+       - climate.kitchen_chalet
+       - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+       # Спальня
+       - climate.bedroom_chalet
+       - switch.group_s26r2_chbroomlr
+       # Детская/Родители
+       - climate.parents_chalet
+       - switch.sonoff_1001675cf6
+       # Ванная/WC
+       - climate.wc_chalet
+       - switch.sonoff_1001dd9fbe
+       # Прихожая
+       - climate.hall_chalet
+       - switch.sonoff_1001418312
+       # 2 этаж
+       - climate.2floor_chalet
+       - switch.sonoff_1001fdf40d
+       - switch.sonoff_100167729c
+       # Potato
+       - climate.potato_chalet
+       - switch.sonoff_10011ddaf0
+    # Бойлер
+       - switch.sonoff_100167771f
+    # ZigBee brodge (sonoff)
+       - sensor.sonoff_10010954d7_rssi
+    # Коммутационный шкаф (upiterpi)
+       - sensor.sonoff_a48004bd43_temperature
+       - sensor.sonoff_a48004bd43_humidity
+       - sensor.sonoff_a48004bd43_battery
+    # Колодец
+       - sensor.sonoff_a48007c084_temperature
+       - sensor.sonoff_a48007c084_humidity
+       - sensor.sonoff_a48007c084_battery
+       - switch.sonoff_100141361d
+    # Веранда
+       - sensor.sonoff_a48005f44f_temperature
+       - sensor.sonoff_a48005f44f_humidity
+       - sensor.sonoff_a48005f44f_battery
+       - switch.sonoff_100124de93
+    # Теплица
+       - sensor.sonoff_a480087973_temperature
+       - sensor.sonoff_a480087973_humidity
+       - sensor.sonoff_a480087973_battery
+       
