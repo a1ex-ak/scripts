@@ -4,7 +4,8 @@
     name: kitchen_chalet
     unique_id: kitchen_generic_thermostat
     # heater: – это устройство, которое включает/выключает отопительный прибор.
-    heater: switch.sonoff_1001676f3c
+    #heater: switch.sonoff_1001676f3c
+    heater: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
     # target_sensor: – это датчик температуры, по которому будем управлять отоплением.
     target_sensor: sensor.sonoff_a480072e16_temperature
     # min_temp: / max_temp: - это минимальная и максимальная температуры на нашем терморегуляторе.
@@ -41,6 +42,7 @@
     name: bedroom_chalet
     unique_id: bedroom_generic_thermostat
     heater: switch.group_s26r2_chbroomlr
+    #heater: switch.group_tuya_chbroomlr
     target_sensor: sensor.sonoff_a4800764ed_temperature
     min_temp: 9
     max_temp: 26
@@ -101,7 +103,7 @@
     name: hall_chalet
     unique_id: hall_generic_thermostat
     heater: switch.sonoff_1001418312
-    target_sensor: sensor.sonoff_a48003a53f_temperature
+    target_sensor: sensor.sonoff_a48008796d_temperature
     min_temp: 4
     max_temp: 20
     ac_mode: false
