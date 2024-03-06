@@ -11,6 +11,7 @@ homeassistant:
   # Часовой пояс для корректного отображения времени, берем тут: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: !secret my_timezone
   country: !secret my_country
+  currency: !secret my_currency
   auth_providers:
     - type: homeassistant
     - type: trusted_networks
@@ -20,9 +21,9 @@ homeassistant:
       #trusted_users:
         #192.168.1.80: !secret ha_user_id #Nest Hub Display
       #allow_bypass_login: true
-  packages: !include_dir_merge_named includes
+  #packages: !include_dir_merge_named includes
 
-#eWeLink (Sonoff)
+# eWeLink (Sonoff)
 sonoff:
   username: !secret ewelink_login
   password: !secret ewelink_pswd
@@ -45,7 +46,10 @@ scene: !include scenes.yaml
 climate: !include includes/climate.yaml
 #
 camera: !include includes/camera.yaml
+# Постоянное сохранение данных
+recorder: !include includes/recorder.yaml
 
+# Кнопка 'Система' в левом меню
 panel_custom:
   - name: server_state
     sidebar_title: 'Система'
