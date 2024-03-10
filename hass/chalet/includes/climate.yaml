@@ -41,8 +41,8 @@
   - platform: generic_thermostat
     name: bedroom_chalet
     unique_id: bedroom_generic_thermostat
-    heater: switch.group_s26r2_chbroomlr
-    #heater: switch.group_tuya_chbroomlr
+    #heater: switch.group_s26r2_chbroomlr
+    heater: switch.group_tuya_chbroomlr
     target_sensor: sensor.sonoff_a4800764ed_temperature
     min_temp: 9
     max_temp: 26
@@ -115,7 +115,7 @@
     keep_alive:
       minutes: 3
     #initial_hvac_mode: "off"
-    away_temp: 6
+    away_temp: 7
     precision: 0.1
     
 #2 Этаж термостат
