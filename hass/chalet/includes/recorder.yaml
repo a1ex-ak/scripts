@@ -17,36 +17,100 @@
        - sensor.system_monitor_memory_use
        - sensor.system_monitor_disk_use_percent
        - sensor.system_monitor_disk_free
+       - sensor.system_monitor_last_boot
+       - sensor.system_monitor_swap_use
     # RPi Power Status
        - binary_sensor.rpi_power_status
+    # Скрипты и автоматизация
+       - input_boolean.turn_living_chalet
+       - input_boolean.turn_2floor_chalet
+       - script.chalet_stop_off
+       - automation.well_1_6c_on
+       - automation.well_7c_off
+       - automation.boiler_00_05_on
+       - automation.boiler_00_45_off
+       - automation.heat_chalet_on
+       - automation.heat_2floor_on
+       - automation.verandam_on
+       - automation.verandam_off
+       - automation.tariff_day
+       - automation.tariff_night
     # Суммарное потребление
+        #ASS-ChHAssSrv
+       - sensor.tuya_bfa53c295146f4cc5c6106_kwh_month
+       - sensor.tuya_bfa53c295146f4cc5c6106_riemann
+       - select.tuya_bfa53c295146f4cc5c6106_tariff
+       - sensor.tuya_bfa53c295146f4cc5c6106_tariff_day
+       - sensor.tuya_bfa53c295146f4cc5c6106_tariff_night
+       - sensor.tuya_bfa53c295146f4cc5c6106_current
+       - sensor.tuya_bfa53c295146f4cc5c6106_voltage
+       - sensor.tuya_bfa53c295146f4cc5c6106_power
         #WSP-ChKitchen
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
-       - sensor.sensor_tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_day
-       - sensor.sensor_tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_night
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_riemann
+       - select.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_day
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_night
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_current
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_voltage
+       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
+       #WSP-ChBRoomL
+       - sensor.tuya_bf0cce6ceeabebea140svk_kwh_month
+       - sensor.tuya_bf0cce6ceeabebea140svk_riemann
+       - select.tuya_bf0cce6ceeabebea140svk_tariff
+       - sensor.tuya_bf0cce6ceeabebea140svk_tariff_day
+       - sensor.tuya_bf0cce6ceeabebea140svk_tariff_night
+       - sensor.tuya_bf0cce6ceeabebea140svk_current
+       - sensor.tuya_bf0cce6ceeabebea140svk_voltage
+       - sensor.tuya_bf0cce6ceeabebea140svk_power
+       #WSP-ChBRoomR
+       - sensor.tuya_bfd5954077e67c6a46f8z8_kwh_month
+       - sensor.tuya_bfd5954077e67c6a46f8z8_riemann
+       - select.tuya_bfd5954077e67c6a46f8z8_tariff
+       - sensor.tuya_bfd5954077e67c6a46f8z8_tariff_day
+       - sensor.tuya_bfd5954077e67c6a46f8z8_tariff_night
+       - sensor.tuya_bfd5954077e67c6a46f8z8_current
+       - sensor.tuya_bfd5954077e67c6a46f8z8_voltage
+       - sensor.tuya_bfd5954077e67c6a46f8z8_power
     # Термостаты
        # Кухня/Гостинная
        - climate.kitchen_chalet
        - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+       - sensor.sonoff_a480072e16_humidity
+       - sensor.sonoff_a480072e16_battery
        # Спальня
        - climate.bedroom_chalet
-       - switch.group_s26r2_chbroomlr
+       - switch.group_tuya_chbroomlr
+       - switch.tuya_bf0cce6ceeabebea140svk
+       - switch.tuya_bfd5954077e67c6a46f8z8
+       - sensor.sonoff_a4800764ed_humidity
+       - sensor.sonoff_a4800764ed_battery
        # Детская/Родители
        - climate.parents_chalet
        - switch.sonoff_1001675cf6
+       - sensor.sonoff_a480079106_humidity
+       - sensor.sonoff_a480079106_battery
        # Ванная/WC
        - climate.wc_chalet
        - switch.sonoff_1001dd9fbe
+       - sensor.sonoff_a4800790c3_humidity
+       - sensor.sonoff_a4800790c3_humidity
        # Прихожая
        - climate.hall_chalet
        - switch.sonoff_1001418312
+       - sensor.sonoff_a48008796d_humidity
+       - sensor.sonoff_a48008796d_battery
        # 2 этаж
        - climate.2floor_chalet
        - switch.sonoff_1001fdf40d
        - switch.sonoff_100167729c
+       - sensor.sonoff_a48005ae0b_humidity
+       - sensor.sonoff_a48005ae0b_battery
        # Potato
        - climate.potato_chalet
        - switch.sonoff_10011ddaf0
+       - sensor.sonoff_a480049e3c_humidity
+       - sensor.sonoff_a480049e3c_battery
     # Бойлер
        - switch.sonoff_100167771f
     # ZigBee brodge (sonoff)
