@@ -5,7 +5,7 @@ sudo apt-get install zerotier-one
 ```
 :ballot_box_with_check: Запуск zerotier-one
 ```shell
-serv zerotier-one on
+sudo serv zerotier-one on
 ```
 
 :ballot_box_with_check: Установка AnyDesk
@@ -13,8 +13,8 @@ serv zerotier-one on
 sudo apt-get install libgtkglext
 ```
 ```shell
-epm play anydesk
+sudo epm play anydesk
 ```
 ```shell
-serv anydesk on
+sudo serv anydesk on
 ```
