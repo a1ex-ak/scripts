@@ -15,6 +15,11 @@ sudo apt-get install gnome-remote-desktop
 ```shell
 sudo apt-get install zerotier-one
 ```
+через epm
+```shell
+epm -i zerotier-one
+```
+
 :ballot_box_with_check: Запуск zerotier-one
 ```shell
 sudo serv zerotier-one on
