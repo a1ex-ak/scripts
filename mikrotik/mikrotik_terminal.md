@@ -2,22 +2,22 @@
 https://настройка-микротик.рф
 
 :ballot_box_with_check: сохраниение настроек в текстовый файл
-```yaml
+```shell
 export file=config_backup.rsc
 ```
 
 :ballot_box_with_check: проверка прошивки LTE-модема
-```yaml
+```shell
 /interface lte firmware-upgrade lte1
 ```
 
 :ballot_box_with_check: обновление прошивки LTE-модема
-```yaml
+```shell
 /interface lte firmware-upgrade lte1 upgrade=yes
 ```
 
 :ballot_box_with_check: дефолтные настройки firewall
-```yaml
+```shell
 /ip firewall filter
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid
@@ -32,7 +32,7 @@ add action=drop chain=forward comment="defconf: drop all from WAN not DSTNATed" 
 /ip firewall nat
 add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=out,none out-interface-list=WAN
 ```
-```yaml
+```shell
 /ip firewall filter
 add action=accept chain=input comment="defconf: accept established,related,untracked" connection-state=established,related,untracked
 add action=drop chain=input comment="defconf: drop invalid" connection-state=invalid
@@ -51,29 +51,29 @@ add action=masquerade chain=srcnat comment="defconf: masquerade" ipsec-policy=ou
 
 :ballot_box_with_check: прячим сеть от ОпСоСа    
 `1 Вариант: на выход дать ttl=64:`
-```yaml
+```shell
 /ip firewall mangle
 add action=change-ttl chain=postrouting new-ttl=set:65 out-interface=lte1 passthrough=yes
 ```
  
 `2 Вариант: повысить приходящий ttl, мтс дает 1 на вход:`
-```yaml
+```shell
 /ip firewall mangle
 add action=change-ttl chain=prerouting in-interface=lte1 new-ttl=set:5 passthrough=no
 ```
 
 :ballot_box_with_check: закрываем 53 порт для доступа из вне.
-```yaml
+```shell
 /ip firewall filter
 add chain=input action=drop protocol=udp in-interface=«провайдера» dst-port=53
 ```
 
 :ballot_box_with_check: настройка NTP-клиента, сервер из России
-```yaml
+```shell
 /system ntp client
 set enabled=yes
 ```
-```yaml
+```shell
 /system ntp client servers
 add address=ntp1.vniiftri.ru
 add address=ntp2.vniiftri.ru
@@ -82,28 +82,28 @@ add address=ntp4.vniiftri.ru
 ```
 
 :ballot_box_with_check: включаем NTP-сервер на MikroTik
-```yaml
+```shell
 /system ntp server
 set enabled=yes manycast=yes multicast=yes
 ```
 
 :ballot_box_with_check: добавить статические записи для домена: safe.dot.dns.yandex.net
-```yaml
+```shell
 /tool fetch url=https://curl.se/ca/cacert.pem
 /certificate import file-name=cacert.pem
 ```
-```yaml
+```shell
 /ip dns static
 add address=77.88.8.88 comment="Yandex DNS (https://safe.dot.dns.yandex.net/dns-query)" name=safe.dot.dns.yandex.net
 add address=77.88.8.2 name=safe.dot.dns.yandex.net
 ```
-```yaml
+```shell
 /ip dns static
 add address=45.90.28.0 comment="NextDNS (https://dns.nextdns.io/xxxxxx)" name=dns.nextdns.io
 add address=45.90.30.0 name=dns.nextdns.io
 ```
 :ballot_box_with_check: Redirect DNS queries to router:
-```yaml
+```shell
 /ip firewall nat add chain=dstnat action=redirect protocol=tcp dst-port=53 
 /ip firewall nat add chain=dstnat action=redirect protocol=udp dst-port=53 
 ```
