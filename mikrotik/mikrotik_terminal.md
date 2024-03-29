@@ -2,7 +2,7 @@
 https://настройка-микротик.рф
 
 :ballot_box_with_check: сохраниение настроек в текстовый файл
-```shell
+```bash
 export file=config_backup.rsc
 ```
 
