@@ -57,6 +57,11 @@ sudo ufw status verbose
 sudo ufw app list
 ```
 ----------------------------------------------
+:ballot_box_with_check: Установка WAF
+```yaml
+sudo apt-get install modsecurity
+```
+----------------------------------------------
 :ballot_box_with_check: Установка ZeroTier-One
 ```yaml
 sudo apt-get install zerotier-one
