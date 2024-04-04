@@ -61,7 +61,7 @@ sudo apt-get install zerotier-one
 epm -i zerotier-one
 ```
 
-:ballot_box_with_check: Запуск zerotier-one
+:ballot_box_with_check: Запуск сервиса ZeroTier-One
 ```yaml
 sudo serv zerotier-one on
 ```
