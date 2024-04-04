@@ -13,7 +13,7 @@ sudo apt-get install gnome-remote-desktop
 ----------------------------------
 :ballot_box_with_check: Установка брандмауэр (firewall) UFW
 ```yaml
-sudo apt install apt-https lsb-release ca-certificates curl dirmngr gnupg -y
+sudo apt install apt-https lsb-release ca-certificates curl dirmngr gnupg python3-module-setuptools -y
 ```
 
 ```yaml
