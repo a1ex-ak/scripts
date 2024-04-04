@@ -11,6 +11,11 @@ sudo apt-get install rygel
 sudo apt-get install gnome-remote-desktop
 ```
 ----------------------------------
+:ballot_box_with_check: Установка архиваторов
+```yaml
+sudo apt-get install 7-zip lzip bzip3 -y
+```
+----------------------------------
 :ballot_box_with_check: Установка брандмауэр (firewall) UFW
 ```yaml
 sudo apt-get install apt-https lsb-release ca-certificates curl dirmngr gnupg python3-module-setuptools python3-module-systemd -y
