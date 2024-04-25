@@ -21,6 +21,19 @@ sudo apt-get install gnome-remote-desktop
 sudo apt-get install 7-zip lzip bzip3 -y
 ```
 ----------------------------------
+:ballot_box_with_check: Установка шрифтов Microsoft ClearType (Calibri, Cambria, Candara, Consolas, Constantia, Corbel)
+```yaml
+wget -q -O - https://gist.githubusercontent.com/Blastoise/72e10b8af5ca359772ee64b6dba33c91/raw/2d7ab3caa27faa61beca9fbf7d3aca6ce9a25916/clearType.sh | bash
+```
+:ballot_box_with_check: Установка шрифтов Tahoma и  Segoe-UI
+```yaml
+wget -q -O - https://gist.githubusercontent.com/Blastoise/b74e06f739610c4a867cf94b27637a56/raw/96926e732a38d3da860624114990121d71c08ea1/tahoma.sh | bash
+```
+```yaml
+wget -q -O - https://gist.githubusercontent.com/Blastoise/64ba4acc55047a53b680c1b3072dd985/raw/6bdf69384da4783cc6dafcb51d281cb3ddcb7ca0/segoeUI.sh | bash
+```
+
+----------------------------------
 :ballot_box_with_check: Установка брандмауэр (firewall) UFW
 ```yaml
 sudo apt-get install apt-https lsb-release ca-certificates curl dirmngr gnupg python3-module-setuptools python3-module-systemd -y
