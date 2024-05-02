@@ -1,51 +1,51 @@
 {
     "config": {
         "abort": {
-            "already_configured": "This account has already been configured.",
-            "device_updated": "Device configuration has been updated."
+            "already_configured": "Эта учетная запись уже настроена.",
+            "device_updated": "Конфигурация устройства обновлена."
         },
         "error": {
-            "authentication_failed": "Failed to authenticate.\n{msg}",
-            "cannot_connect": "Cannot connect to device. Confirm the IP Address is correct then try again.",
-            "device_list_failed": "Failed to retrieve device list.\n{msg}",
-            "invalid_auth": "Failed to authenticate with device. Confirm the Device Id and Local Key are correct.",
-            "unknown": "An unknown error occurred.\n{ex}.",
-            "entity_already_configured": "This entity has already been configured.",
-            "address_in_use": "TCP port 6668 (used for discovery) is already in use. Check no other integration is using it.",
-            "discovery_failed": "Something failed when discovering devices. See log for details. If problem persists, create a new issue (including debug logs).",
-            "empty_dps": "Connection to device succeeded but no datapoints could be found. Please try set-up again. If problem persists, create a new issue (including debug logs)."
+            "authentication_failed": "Ошибка аутентификации.\n{msg}",
+            "cannot_connect": "Невозможно подключиться к устройству. Подтвердите правильность IP-адреса и повторите попытку.",
+            "device_list_failed": "Не удалось получить список устройств.\n{msg}",
+            "invalid_auth": "Не удалось выполнить аутентификацию на устройстве. Убедитесь, что идентификатор устройства и локальный ключ верны.",
+            "unknown": "Произошла неизвестная ошибка.\n{ex}.",
+            "entity_already_configured": "Этот объект уже настроен.",
+            "address_in_use": "TCP-порт 6668 (используемый для обнаружения) уже используется. Убедитесь, что никакая другая интеграция не использует его.",
+            "discovery_failed": "Что-то не удалось при обнаружении устройств. Подробности смотрите в журнале. Если проблема не устранена, создайте новую проблему (включая журналы отладки).",
+            "empty_dps": "Подключение к устройству выполнено, но точки данных не найдены. Пожалуйста, попробуйте настроить еще раз. Если проблема не устранена, создайте новую проблему (включая журналы отладки)."
         },
         "step": {
             "user": {
-                "title": "Cloud API account configuration",
-                "description": "Configure the credentials used to connect to the Tuya Cloud API.",
+                "title": "Конфигурация учетной записи Cloud API",
+                "description": "Настройте учетные данные, используемые для подключения к Tuya Cloud API.",
                 "data": {
-                    "region": "Data Center Region",
+                    "region": "Регион дата-центра",
                     "client_id": "Client ID",
                     "client_secret": "Client Secret",
                     "user_id": "User ID",
                     "username": "Username",
-                    "no_cloud": "Disable Cloud API?"
+                    "no_cloud": "Отключить облачный API?"
                 }
             }
         }
     },
     "options": {
         "abort": {
-            "already_configured": "This account has already been configured.",
-            "device_success": "Device {dev_name} successfully {action}.",
-            "no_entities": "Cannot remove all entities from a device.\nIf you want to delete a device: Browse to `Devices & services` menu, search for your device in `Devices` tab, click the 3 dots in the `Device info` frame, and press the `Delete` button."
+            "already_configured": "Эта учетная запись уже настроена.",
+            "device_success": "Устройство {dev_name} успешно выполнено {action}.",
+            "no_entities": "Невозможно удалить все объекты с устройства.\nЕсли вы хотите удалить устройство: перейдите в меню «Устройства и службы», найдите свое устройство на вкладке «Устройства», щелкните 3 точки в рамке «Информация об устройстве» и нажмите кнопка «Удалить»."
         },
         "error": {
-            "authentication_failed": "Failed to authenticate.\n{msg}",
-            "cannot_connect": "Cannot connect to device. Confirm the IP Address is correct then try again.",
-            "device_list_failed": "Failed to retrieve device list.\n{msg}",
-            "invalid_auth": "Failed to authenticate with device. Confirm the Device Id and Local Key are correct.",
-            "unknown": "An unknown error occurred. \n{ex}.",
-            "entity_already_configured": "This entity has already been configured.",
-            "address_in_use": "TCP port 6668 (used for discovery) is already in use. Check no other integration is using it.",
-            "discovery_failed": "Something failed when discovering devices. See log for details. If problem persists, create a new issue (including debug logs).",
-            "empty_dps": "Connection to device succeeded but no datapoints could be found. Please try set-up again. If problem persists, create a new issue (including debug logs)."
+            "authentication_failed": "Ошибка аутентификации.\n{msg}",
+            "cannot_connect": "Невозможно подключиться к устройству. Подтвердите правильность IP-адреса и повторите попытку.",
+            "device_list_failed": "Не удалось получить список устройств.\n{msg}",
+            "invalid_auth": "Не удалось выполнить аутентификацию на устройстве. Убедитесь, что идентификатор устройства и локальный ключ верны.",
+            "unknown": "Произошла неизвестная ошибка. \n{ex}.",
+            "entity_already_configured": "Этот объект уже настроен.",
+            "address_in_use": "TCP-порт 6668 (используемый для обнаружения) уже используется. Убедитесь, что никакая другая интеграция не использует его.",
+            "discovery_failed": "Что-то не удалось при обнаружении устройств. Подробности смотрите в журнале. Если проблема не устранена, создайте новую проблему (включая журналы отладки).",
+            "empty_dps": "Подключение к устройству выполнено, но точки данных не найдены. Пожалуйста, попробуйте настроить еще раз. Если проблема не устранена, создайте новую проблему (включая журналы отладки)."
         },
         "step": {
             "yaml_import": {
