@@ -1,8 +1,4 @@
-:ballot_box_with_check: Установка шрифтов
-```yaml
-sudo apt-get install fonts-ttf-ms fonts-cascadia-code fonts-ttf-google-crosextra-carlito fonts-ttf-google-noto-emoji fonts-ttf-google-noto-emoji-color
-```
-----------------------------------
+
 :ballot_box_with_check: Настройка -> Общий доступ к файлам
 ```yaml
 sudo apt-get install gnome-user-share
@@ -18,6 +14,11 @@ sudo apt-get install gnome-remote-desktop
 :ballot_box_with_check: Расширенная настройка сети
 ```yaml
 sudo apt-get install NetworkManager-applet-gtk
+```
+----------------------------------
+:ballot_box_with_check: Установка шрифтов
+```yaml
+sudo apt-get install fonts-ttf-ms fonts-cascadia-code fonts-ttf-google-crosextra-carlito fonts-ttf-google-noto-emoji fonts-ttf-google-noto-emoji-color
 ```
 ----------------------------------
 :ballot_box_with_check: Установка архиваторов
