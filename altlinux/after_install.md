@@ -15,6 +15,10 @@ sudo apt-get install rygel
 ```yaml
 sudo apt-get install gnome-remote-desktop
 ```
+:ballot_box_with_check: Расширенная настройка сети
+```yaml
+sudo apt-get install NetworkManager-applet-gtk
+```
 ----------------------------------
 :ballot_box_with_check: Установка архиваторов
 ```yaml
