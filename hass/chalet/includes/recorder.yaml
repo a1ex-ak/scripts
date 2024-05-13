@@ -1,5 +1,5 @@
   db_url: !secret db_link
-  purge_keep_days: 14
+  purge_keep_days: 40
   auto_purge: true
   commit_interval: 30
   include:
@@ -11,6 +11,8 @@
        - sensor.speedtest_download
        - sensor.speedtest_upload
        - sensor.speedtest_ping
+    # Погодный сенсор
+       - weather.forecast_chalet
     # Системные сенсоры
        - sensor.system_monitor_processor_use
        - sensor.system_monitor_processor_temperature
@@ -19,32 +21,57 @@
        - sensor.system_monitor_disk_free
        - sensor.system_monitor_last_boot
        - sensor.system_monitor_swap_use
+       - sensor.local_ip
+    # Сенсоры обновления приложений
+       - update.home_assistant_core_update
+       - update.home_assistant_supervisor_update
+       - sensor.current_version
+       - sensor.current_version_local
+       - update.hacs_update
+       - update.mariadb_update
+       - update.terminal_ssh_update
+       - update.zerotier_one_update
+       - update.dataplicity_update
+       - update.slate_theme_update
+       - update.nextcloud_backup_update
+       - update.mushroom_update
+       - update.multiple_entity_row_update
+       - update.mini_climate_card_update
+       - update.auto_entities_update
     # RPi Power Status
        - binary_sensor.rpi_power_status
     # Скрипты и автоматизация
-       - input_boolean.turn_living_chalet
-       - input_boolean.turn_2floor_chalet
-       - script.chalet_stop_off
+       - input_boolean.heat_chalet_on_off
+       - input_boolean.heat_2floor_on_off
+       - script.heat_chalet_none
+       - script.heat_chalet_away
+       - script.heat_chalet_spraut_on
+       - script.heat_2floor_on
+       - script.heat_2floor_off
+       - script.heat_chalet_off
+       - input_boolean.heat_chalet_on_off
        - automation.well_1_6c_on
        - automation.well_7c_off
        - automation.boiler_00_05_on
        - automation.boiler_00_45_off
-       - automation.heat_chalet_on
+       - automation.heat_chalet_none_away
+       - automation.heat_chalet_spraut_none_away
        - automation.heat_2floor_on
        - automation.verandam_on
        - automation.verandam_off
        - automation.tariff_day
        - automation.tariff_night
+       - automation.localtuya_restart
     # Суммарное потребление
-        #ASS-ChHAssSrv
-       - sensor.tuya_bfa53c295146f4cc5c6106_kwh_month
-       - sensor.tuya_bfa53c295146f4cc5c6106_riemann
-       - select.tuya_bfa53c295146f4cc5c6106_tariff
-       - sensor.tuya_bfa53c295146f4cc5c6106_tariff_day
-       - sensor.tuya_bfa53c295146f4cc5c6106_tariff_night
-       - sensor.tuya_bfa53c295146f4cc5c6106_current
-       - sensor.tuya_bfa53c295146f4cc5c6106_voltage
-       - sensor.tuya_bfa53c295146f4cc5c6106_power
+        #WSP-ChHAssSrv
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_riemann
+       - select.tuya_bf2c9dc0d4c197f2b7tz04_tariff
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_day
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_night
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
+       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
         #WSP-ChKitchen
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_riemann
@@ -54,6 +81,17 @@
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_current
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_voltage
        - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
+       #WSP-ChRefrigerator
+       - sensor.tuya_bfb2179e6459d05364sjf5_kwh_month
+       - sensor.tuya_bfb2179e6459d05364sjf5_riemann
+       - select.tuya_bfb2179e6459d05364sjf5_tariff
+       - sensor.tuya_bfb2179e6459d05364sjf5_tariff_day
+       - sensor.tuya_bfb2179e6459d05364sjf5_tariff_night
+       - sensor.tuya_bfb2179e6459d05364sjf5_current
+       - sensor.tuya_bfb2179e6459d05364sjf5_voltage
+       - sensor.tuya_bfb2179e6459d05364sjf5_power
+       #WSP_ChBRoomLR
+       - sensor.wsp_chbroomlr_kwh_month
        #WSP-ChBRoomL
        - sensor.tuya_bf0cce6ceeabebea140svk_kwh_month
        - sensor.tuya_bf0cce6ceeabebea140svk_riemann
@@ -72,65 +110,187 @@
        - sensor.tuya_bfd5954077e67c6a46f8z8_current
        - sensor.tuya_bfd5954077e67c6a46f8z8_voltage
        - sensor.tuya_bfd5954077e67c6a46f8z8_power
+       #WSP-ChChildParents
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_kwh_month
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_riemann
+       - select.tuya_bf84e09d7ec8ec727a0ert_tariff
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_day
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_night
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_current
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_voltage
+       - sensor.tuya_bf84e09d7ec8ec727a0ert_power
+       #WSP-ChBathroom
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_kwh_month
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_riemann
+       - select.tuya_bfa7aa5ee649c62cf1l5tz_tariff
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_day
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_night
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_current
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_voltage
+       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_power
+       #WSP-ChBoiler
+       - sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
+       - sensor.tuya_bf4c784722392a6dc5gqiu_riemann
+       - select.tuya_bf4c784722392a6dc5gqiu_tariff
+       - sensor.tuya_bf4c784722392a6dc5gqiu_tariff_day
+       - sensor.tuya_bf4c784722392a6dc5gqiu_tariff_night
+       - sensor.tuya_bf4c784722392a6dc5gqiu_current
+       - sensor.tuya_bf4c784722392a6dc5gqiu_voltage
+       - sensor.tuya_bf4c784722392a6dc5gqiu_power
+       #WSP-ChHall
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_riemann
+       - select.tuya_bf45a1f22d15a1c0d6vzmt_tariff
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_day
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_night
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_current
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_voltage
+       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_power
+       #WSP-Ch2FloorM
+       - sensor.tuya_bfae744f18536348f3ok1x_kwh_month
+       - sensor.tuya_bfae744f18536348f3ok1x_riemann
+       - select.tuya_bfae744f18536348f3ok1x_tariff
+       - sensor.tuya_bfae744f18536348f3ok1x_tariff_day
+       - sensor.tuya_bfae744f18536348f3ok1x_tariff_night
+       - sensor.tuya_bfae744f18536348f3ok1x_current
+       - sensor.tuya_bfae744f18536348f3ok1x_voltage
+       - sensor.tuya_bfae744f18536348f3ok1x_power
+       #WSP-Ch2FloorW
+       - sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
+       - sensor.tuya_bf608e1bc6a7af57cas39n_riemann
+       - select.tuya_bf608e1bc6a7af57cas39n_tariff
+       - sensor.tuya_bf608e1bc6a7af57cas39n_tariff_day
+       - sensor.tuya_bf608e1bc6a7af57cas39n_tariff_night
+       - sensor.tuya_bf608e1bc6a7af57cas39n_current
+       - sensor.tuya_bf608e1bc6a7af57cas39n_voltage
+       - sensor.tuya_bf608e1bc6a7af57cas39n_power
+       #WSP-Ch2FloorE
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_riemann
+       - select.tuya_bfb3f4c51d9786bf13ayma_tariff
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_day
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_night
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_current
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_voltage
+       - sensor.tuya_bfb3f4c51d9786bf13ayma_power
+       #WSP-ChGlassHouse
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_kwh_month
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_riemann
+       - select.tuya_bfe8a953b2dda2f5f7kdmj_tariff
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_day
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_night
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_current
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_voltage
+       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_power
     # Термостаты
        # Кухня/Гостинная
-       - climate.kitchen_chalet
+       - climate.chalet_kitchen
        - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+       - sensor.sonoff_a480072e16_temperature
        - sensor.sonoff_a480072e16_humidity
        - sensor.sonoff_a480072e16_battery
        # Спальня
-       - climate.bedroom_chalet
-       - switch.group_tuya_chbroomlr
+       - climate.chalet_bedroom
+       - switch.group_wsp_chbroomlr
        - switch.tuya_bf0cce6ceeabebea140svk
        - switch.tuya_bfd5954077e67c6a46f8z8
+       - sensor.sonoff_a4800764ed_temperature
        - sensor.sonoff_a4800764ed_humidity
        - sensor.sonoff_a4800764ed_battery
        # Детская/Родители
-       - climate.parents_chalet
-       - switch.sonoff_1001675cf6
-       - sensor.sonoff_a480079106_humidity
-       - sensor.sonoff_a480079106_battery
+       - climate.chalet_child_parents
+       - switch.tuya_bf84e09d7ec8ec727a0ert
+       - sensor.sonoff_a480093f96_temperature
+       - sensor.sonoff_a480093f96_humidity
+       - sensor.sonoff_a480093f96_battery
        # Ванная/WC
-       - climate.wc_chalet
-       - switch.sonoff_1001dd9fbe
+       - climate.chalet_wc
+       - switch.tuya_bfa7aa5ee649c62cf1l5tz
+       - sensor.sonoff_a4800790c3_temperature
        - sensor.sonoff_a4800790c3_humidity
        - sensor.sonoff_a4800790c3_humidity
        # Прихожая
-       - climate.hall_chalet
-       - switch.sonoff_1001418312
+       - climate.chalet_hall
+       - switch.tuya_bf45a1f22d15a1c0d6vzmt
+       - sensor.sonoff_a48008796d_temperature
        - sensor.sonoff_a48008796d_humidity
        - sensor.sonoff_a48008796d_battery
        # 2 этаж
-       - climate.2floor_chalet
+       - climate.chalet_2floore
        - switch.sonoff_1001fdf40d
-       - switch.sonoff_100167729c
-       - sensor.sonoff_a48005ae0b_humidity
-       - sensor.sonoff_a48005ae0b_battery
-       # Potato
-       - climate.potato_chalet
-       - switch.sonoff_10011ddaf0
+       - switch.tuya_bfb3f4c51d9786bf13ayma
+       - sensor.sonoff_a480079106_temperature
+       - sensor.sonoff_a480079106_humidity
+       - sensor.sonoff_a480079106_battery
+       # 2 этаж (Potato)
+       - climate.chalet_2floorw
+       - switch.tuya_bf608e1bc6a7af57cas39n
+       - sensor.sonoff_a480049e3c_temperature
        - sensor.sonoff_a480049e3c_humidity
        - sensor.sonoff_a480049e3c_battery
+       # Теплица
+       - climate.chalet_glasshouse
+       - switch.tuya_bfe8a953b2dda2f5f7kdmj
+       - sensor.sonoff_a480087973_temperature
+       - sensor.sonoff_a480087973_humidity
+       - sensor.sonoff_a480087973_battery
+    # Первый этаж
+       - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_childlock
+       - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_overchange
+       - switch.tuya_bf0cce6ceeabebea140svk_childlock
+       - switch.tuya_bf0cce6ceeabebea140svk_overchange
+       - switch.tuya_bfd5954077e67c6a46f8z8_childlock
+       - switch.tuya_bfd5954077e67c6a46f8z8_overchange
+       - switch.tuya_bf84e09d7ec8ec727a0ert_childlock
+       - switch.tuya_bf84e09d7ec8ec727a0ert_overchange
+       - switch.tuya_bf45a1f22d15a1c0d6vzmt_childlock
+       - switch.tuya_bf45a1f22d15a1c0d6vzmt_overchange
+    # Второй этаж
+       - switch.tuya_bf608e1bc6a7af57cas39n_childlock
+       - switch.tuya_bf608e1bc6a7af57cas39n_overchange
+       - switch.tuya_bfb3f4c51d9786bf13ayma_childlock
+       - switch.tuya_bfb3f4c51d9786bf13ayma_overchange
+       - switch.tuya_bfae744f18536348f3ok1x
+       - switch.tuya_bfae744f18536348f3ok1x_childlock
+       - switch.tuya_bfae744f18536348f3ok1x_overchange
+    # Холодильник
+       - switch.tuya_bfb2179e6459d05364sjf5
+       - switch.tuya_bfb2179e6459d05364sjf5_childlock
+       - switch.tuya_bfb2179e6459d05364sjf5_overchange
     # Бойлер
-       - switch.sonoff_100167771f
+       - switch.tuya_bf4c784722392a6dc5gqiu
+       - switch.tuya_bf4c784722392a6dc5gqiu_childlock
+       - switch.tuya_bf4c784722392a6dc5gqiu_overchange
     # ZigBee brodge (sonoff)
        - sensor.sonoff_10010954d7_rssi
     # Коммутационный шкаф (upiterpi)
+       - switch.tuya_bf2c9dc0d4c197f2b7tz04
+       - switch.tuya_bf2c9dc0d4c197f2b7tz04_childlock
+       - switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
        - sensor.sonoff_a48004bd43_temperature
        - sensor.sonoff_a48004bd43_humidity
        - sensor.sonoff_a48004bd43_battery
     # Колодец
+       - switch.sonoff_100141361d
        - sensor.sonoff_a48007c084_temperature
        - sensor.sonoff_a48007c084_humidity
        - sensor.sonoff_a48007c084_battery
-       - switch.sonoff_100141361d
     # Веранда
+       - switch.sonoff_100124de93
        - sensor.sonoff_a48005f44f_temperature
        - sensor.sonoff_a48005f44f_humidity
        - sensor.sonoff_a48005f44f_battery
-       - switch.sonoff_100124de93
     # Теплица
-       - sensor.sonoff_a480087973_temperature
-       - sensor.sonoff_a480087973_humidity
-       - sensor.sonoff_a480087973_battery
+       - switch.tuya_bfe8a953b2dda2f5f7kdmj_childlock
+       - switch.tuya_bfe8a953b2dda2f5f7kdmj_overchange
+    # Видео-камеры
+       - sensor.hikvision_ds_2cd2043g0_i_200_last_reset
+       - binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
+       - binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
+       - sensor.hikvision_ds_2cd2043g0_i_201_last_reset
+       - binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
+       - binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
+       - sensor.hikvision_ds_2cd2043g0_i_202_last_reset
+       - binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
+       - binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
        
