@@ -1,0 +1,81 @@
+alias: ВКЛ-наДачуВеснаОсень
+sequence:
+  - service: automation.turn_off
+    metadata: {}
+    data:
+      stop_actions: true
+    target:
+      entity_id:
+        - automation.boiler_00_05_on
+        - automation.boiler_00_45_off
+  - service: climate.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - climate.chalet_kitchen
+        - climate.chalet_bedroom
+        - climate.chalet_child_parents
+        - climate.chalet_wc
+        - climate.chalet_hall
+  - service: climate.set_preset_mode
+    metadata: {}
+    data:
+      preset_mode: none
+    target:
+      entity_id:
+        - climate.chalet_kitchen
+        - climate.chalet_bedroom
+        - climate.chalet_child_parents
+        - climate.chalet_wc
+        - climate.chalet_hall
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      hvac_mode: heat
+      temperature: 21
+    target:
+      entity_id: climate.chalet_kitchen
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      hvac_mode: heat
+      temperature: 20.5
+    target:
+      entity_id:
+        - climate.chalet_bedroom
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      hvac_mode: heat
+      temperature: 21
+    target:
+      entity_id:
+        - climate.chalet_child_parents
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      hvac_mode: heat
+      temperature: 21
+    target:
+      entity_id:
+        - climate.chalet_wc
+  - service: climate.set_temperature
+    metadata: {}
+    data:
+      hvac_mode: heat
+      temperature: 18
+    target:
+      entity_id: climate.chalet_hall
+  - service: climate.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - climate.chalet_2floorw
+  - type: turn_on
+    device_id: 060fc3900a083cdcdca531d571f5e2cf
+    entity_id: 583e13f990afc27f9957b2b67d5d608a
+    domain: switch
+icon: mdi:home-import-outline
+mode: single
