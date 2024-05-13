@@ -1,0 +1,26 @@
+alias: localtuya_restart
+description: ""
+trigger:
+  - platform: homeassistant
+    event: start
+action:
+  - delay: "00:01:00"
+  - service: homeassistant.reload_config_entry
+    data:
+      entry_id: 9cc3027e1a88ad150ec16403dd013380
+    target:
+      device_id:
+        - af27019f50675e6959aae9bd9f8b7e02
+        - 2e893c35132c1c9af312d948cc4909b7
+        - 9b36c4b163cea4607843b0e12f8aa39e
+        - 857a988973b2bb3be9677c7900c39879
+        - de4344333b01969a056a65d2f3c02129
+        - edec239e8d604af4abd481dd45e8ca9b
+        - 7050a1bb0ca579864213493920c4e035
+        - 060fc3900a083cdcdca531d571f5e2cf
+        - a4d1324f9d4679c5dffd1c322b023e0e
+        - 379068dcad97daba00fdd6f9a6aa5d15
+        - fea28e4c6f91da3ae33aea550ac09880
+        - 3253a3e586dfe227e1e3def1eff08900
+        - 9db26b0c1cc7041ffed7324a4e9ef5b2
+mode: single
