@@ -1,0 +1,18 @@
+alias: ВКЛ-ВЫКЛ_РежимОтопл
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.heat_chalet_on_off
+action:
+  - if:
+      - condition: state
+        entity_id: input_boolean.heat_chalet_on_off
+        state: "on"
+    then:
+      - service: script.heat_chalet_none
+        data: {}
+    else:
+      - service: script.heat_chalet_away
+        data: {}
+mode: single
