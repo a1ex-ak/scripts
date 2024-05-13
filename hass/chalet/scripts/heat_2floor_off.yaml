@@ -1,0 +1,10 @@
+alias: ВЫКЛ_2Этаж
+sequence:
+  - service: climate.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+        - climate.chalet_2floore
+mode: single
+icon: mdi:home-switch-outline
