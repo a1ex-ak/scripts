@@ -22,14 +22,14 @@ views:
                 entity: sensor.speedtest_download
                 name: 'Down '
                 unit: Mbps
-                hours_to_show: 1
+                hours_to_show: 24
               - graph: line
                 type: sensor
                 entity: sensor.speedtest_upload
                 detail: 2
                 name: 'Up '
                 unit: Mbps
-                hours_to_show: 1
+                hours_to_show: 24
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -104,31 +104,31 @@ views:
                   - icon: mdi:database-minus-outline
                     state_color: true
                     styles:
-                      width: 60px
+                      width: 40px
                     tap_action:
                       action: call-service
                       service: recorder.purge
                       service_data:
-                        keep_days: 7
+                        keep_days: 20
                         repack: true
               - type: divider
-              - entity: sensor.tuya_bfa53c295146f4cc5c6106_power
+              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
                 type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision0
-                name: 'Энергия '
-                state_header: 'мощность '
-                unit: 'W '
+                icon: mdi:book-cog
+                format: precision1
+                name: 'Данные '
+                state_header: 'в месяц '
+                unit: 'kWh '
                 styles:
                   text-align: center
+                  font-weight: bold
                 entities:
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_kwh_month
-                    format: precision2
-                    unit: 'kWh '
-                    name: 'в месяц '
+                  - entity: sensor.sonoff_10010954d7_rssi
+                    format: precision0
+                    unit: 'dBm '
+                    name: 'ZBBridge '
                     styles:
                       text-align: center
-                      font-weight: bold
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -141,15 +141,16 @@ views:
                   text-align: center
                   font-weight: bold
                 name: 'Обновления '
-                state_header: 'последнее '
+                state_header: 'core '
                 entities:
                   - entity: update.hacs_update
                     attribute: latest_version
                     name: 'hacs '
                     styles:
                       text-align: center
-                  - entity: sensor.current_version
-                    name: 'core '
+                  - entity: update.home_assistant_supervisor_update
+                    name: 'supervisor '
+                    attribute: latest_version
                     styles:
                       text-align: center
       - type: vertical-stack
@@ -158,9 +159,9 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.kitchen_chalet
+              - entity: climate.chalet_kitchen
                 type: custom:mini-climate
-                name: 'Кухня/Гостинная '
+                name: 'Гостинная/Кухня '
                 icon: mdi:countertop
                 swap_temperatures: true
                 group: true
@@ -226,7 +227,7 @@ views:
               - type: divider
               - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                 type: custom:multiple-entity-row
-                name: 'WSP-ChKitchen '
+                name: 'Конвектор '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -234,7 +235,7 @@ views:
                 icon: mdi:radiator
                 entities:
                   - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'в месяц '
                     styles:
@@ -243,7 +244,7 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.bedroom_chalet
+              - entity: climate.chalet_bedroom
                 type: custom:mini-climate
                 name: 'Спальня '
                 icon: mdi:bed
@@ -309,17 +310,17 @@ views:
                     source:
                       entity: sensor.sonoff_a4800764ed_battery
               - type: divider
-              - entity: switch.group_tuya_chbroomlr
+              - entity: switch.group_wsp_chbroomlr
                 type: custom:multiple-entity-row
-                name: 'WSP-ChBRoomLR '
+                name: 'Конвектор-LR '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
                 entities:
-                  - entity: sensor.tuya_chbroomlr_kwh_month
-                    format: precision2
+                  - entity: sensor.wsp_chbroomlr_kwh_month
+                    format: precision1
                     unit: 'kWh '
                     name: 'в месяц '
                     styles:
@@ -328,9 +329,9 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.parents_chalet
+              - entity: climate.chalet_child_parents
                 type: custom:mini-climate
-                name: 'Родители/Дети '
+                name: 'Дети/Родители '
                 icon: mdi:human-male-child
                 swap_temperatures: true
                 group: true
@@ -372,7 +373,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480079106_humidity
+                      entity: sensor.sonoff_a480093f96_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -392,21 +393,28 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480079106_battery
+                      entity: sensor.sonoff_a480093f96_battery
               - type: divider
-              - entity: switch.sonoff_1001675cf6
+              - entity: switch.tuya_bf84e09d7ec8ec727a0ert
                 type: custom:multiple-entity-row
-                name: 'S26R2-ChParentsChild '
+                name: 'Конвектор '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.wc_chalet
+              - entity: climate.chalet_wc
                 type: custom:mini-climate
                 name: 'Ванная/WC '
                 icon: mdi:bathtub
@@ -472,38 +480,44 @@ views:
                     source:
                       entity: sensor.sonoff_a4800790c3_battery
               - type: divider
-              - entity: switch.sonoff_1001dd9fbe
+              - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz
                 type: custom:multiple-entity-row
-                name: 'S26R2-ChWC '
+                name: 'Конвектор '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_kwh_month
+                    format: precision2
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
               - type: divider
-              - entity: switch.sonoff_100167771f
+              - entity: switch.tuya_bf4c784722392a6dc5gqiu
                 type: custom:multiple-entity-row
-                name: 'S26R2-ChBoiler '
+                name: 'Бойлер '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:water-boiler
-              - type: divider
-              - entity: sensor.sonoff_10010954d7_rssi
-                type: custom:multiple-entity-row
-                name: 'ZBBridge-Chalet '
-                state_header: wi-fi
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:zigbee
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.hall_chalet
+              - entity: climate.chalet_hall
                 type: custom:mini-climate
                 name: 'Прихожая '
                 icon: mdi:coat-rack
@@ -569,58 +583,65 @@ views:
                     source:
                       entity: sensor.sonoff_a48008796d_battery
               - type: divider
-              - entity: switch.sonoff_1001418312
+              - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
                 type: custom:multiple-entity-row
-                name: 'BSCR2-ChHall '
+                name: 'Обогреватель '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
               - entity: sensor.sonoff_a48004bd43_temperature
                 type: custom:multiple-entity-row
-                icon: mdi:server-network
+                icon: mdi:locker-multiple
                 format: precision1
-                name: 'UpiterPI '
+                name: 'Серверная '
                 styles:
                   text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48004bd43_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
                   - entity: sensor.sonoff_a48004bd43_humidity
                     format: precision0
                     name: 'влажность '
                     styles:
                       text-align: center
+                  - entity: sensor.sonoff_a48004bd43_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles:
+                      text-align: center
               - type: divider
-              - entity: switch.tuya_bfa53c295146f4cc5c6106
+              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
                 type: custom:multiple-entity-row
-                name: 'ASS-ChHAssSrv '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
+                icon: mdi:server-network
+                format: precision0
+                name: 'UpiterPI '
+                state_header: 'напряжение '
+                unit: 'V '
                 secondary_info: last-changed
-                icon: mdi:power-socket-eu
                 entities:
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_current
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
                     format: precision2
                     unit: 'A '
                     name: 'ток '
                     styles:
                       text-align: center
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_voltage
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
                     format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
+                    name: 'мощность '
+                    unit: 'W '
                     styles:
                       text-align: center
               - type: divider
@@ -632,7 +653,7 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.2floor_chalet
+              - entity: climate.chalet_2floore
                 type: custom:mini-climate
                 name: '2 Этаж '
                 icon: mdi:home-floor-2
@@ -676,7 +697,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a48005ae0b_humidity
+                      entity: sensor.sonoff_a480079106_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -696,31 +717,45 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a48005ae0b_battery
+                      entity: sensor.sonoff_a480079106_battery
               - type: divider
-              - entity: switch.sonoff_1001fdf40d
+              - entity: switch.tuya_bfb3f4c51d9786bf13ayma
                 type: custom:multiple-entity-row
-                name: 'S26R2-Ch2FloorM '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:power-socket-eu
-              - entity: switch.sonoff_100167729c
-                type: custom:multiple-entity-row
-                name: 'S26R2-Ch2FloorW '
+                name: 'Конвектор-E '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - entity: switch.tuya_bfae744f18536348f3ok1x
+                type: custom:multiple-entity-row
+                name: 'WSP-Ch2FloorM '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:television-box
+                entities:
+                  - entity: sensor.tuya_bfae744f18536348f3ok1x_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: climate.potato_chalet
+              - entity: climate.chalet_2floorw
                 type: custom:mini-climate
-                name: 'Potato '
+                name: '2 Этаж [Potato] '
                 icon: mdi:french-fries
                 swap_temperatures: true
                 group: true
@@ -784,53 +819,51 @@ views:
                     source:
                       entity: sensor.sonoff_a480049e3c_battery
               - type: divider
-              - entity: switch.sonoff_10011ddaf0
+              - entity: switch.tuya_bf608e1bc6a7af57cas39n
                 type: custom:multiple-entity-row
-                name: 'BSCR2-Ch2Potato '
+                name: 'Конвектор-W '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
       - type: vertical-stack
         cards:
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48007c084_temperature
+              - entity: switch.tuya_bfb2179e6459d05364sjf5
                 type: custom:multiple-entity-row
-                icon: mdi:water-well
-                format: precision1
-                name: 'Колодец '
-                styles:
-                  text-align: center
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a48007c084_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
-                  - entity: sensor.sonoff_a48007c084_humidity
-                    format: precision0
-                    name: 'влажность '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.sonoff_100141361d
-                type: custom:multiple-entity-row
-                name: 'BSCR2-ChWell '
+                name: 'Холодильник '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:heat-wave
+                icon: mdi:fridge
+                entities:
+                  - entity: sensor.tuya_bfb2179e6459d05364sjf5_kwh_month
+                    format: precision2
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
               - type: divider
-            footer:
-              type: graph
-              entity: sensor.sonoff_a48007c084_temperature
+              - entity: switch.sonoff_1001676f3c
+                type: custom:multiple-entity-row
+                name: 'Растения (Ванная) '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:ceiling-light-multiple
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -845,20 +878,20 @@ views:
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48005f44f_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
                   - entity: sensor.sonoff_a48005f44f_humidity
                     format: precision0
                     name: 'влажность '
                     styles:
                       text-align: center
+                  - entity: sensor.sonoff_a48005f44f_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles:
+                      text-align: center
               - type: divider
               - entity: switch.sonoff_100124de93
                 type: custom:multiple-entity-row
-                name: 'MINI-ChEnter '
+                name: 'Светильник '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -872,34 +905,127 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480087973_temperature
-                type: custom:multiple-entity-row
+              - entity: climate.chalet_glasshouse
+                type: custom:mini-climate
+                name: 'Теплица '
                 icon: mdi:greenhouse
+                swap_temperatures: true
+                group: true
+                toggle:
+                  hide: true
+                secondary_info:
+                  type: hvac-action
+                  source:
+                    heating:
+                      icon: mdi:fire
+                      name: 'Обогрев '
+                    'off':
+                      icon: mdi:power
+                      name: 'Выключено '
+                    idle:
+                      icon: mdi:fire-off
+                      name: 'Бездействие '
+                hvac_mode:
+                  style: >-
+                    (value, entity) => ({ color: value !== 'off' ? '#FFA500
+                    !important' : '#808080' })
+                  source:
+                    heat:
+                      icon: mdi:thermometer
+                      name: 'режим: Обогрев '
+                    'off':
+                      icon: mdi:thermometer-low
+                      name: 'режим: Выключено '
+                  change_action: >
+                    (selected, entity) => this.call_service('climate',
+                    'set_hvac_mode', { entity_id: entity.entity_id, hvac_mode:
+                    selected })
+                indicators:
+                  humidity:
+                    icon:
+                      template: () => 'mdi:water-percent'
+                      style: |
+                        (value) => (value > 0 ? { color: '#2980b9'} : {})
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480087973_humidity
+                  power_consumption:
+                    icon:
+                      template: >
+                        (value) => (value > 90 ? 'mdi:battery' : (value > 80 ?
+                        'mdi:battery-80' : (value > 70 ? 'mdi:battery-70' :
+                        (value > 60 ? 'mdi:battery-60' : (value > 50 ?
+                        'mdi:battery-50' : (value > 40 ? 'mdi:battery-40' :
+                        (value > 30 ? 'mdi:battery-30' :(value > 20 ?
+                        'mdi:battery-20' : 'mdi:battery-10'))))))))
+                      style: >
+                        (value) => (value > 90 ? { color: '#70a03c'} : (value >
+                        80 ? { color: '#b58e31'} : (value > 70 ? { color:
+                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
+                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
+                        20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
+                    unit: '%'
+                    round: 1
+                    source:
+                      entity: sensor.sonoff_a480087973_battery
+              - type: divider
+              - entity: switch.tuya_bfe8a953b2dda2f5f7kdmj
+                type: custom:multiple-entity-row
+                name: 'Обогреватель '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:radiator
+                entities:
+                  - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.sonoff_a48007c084_temperature
+                type: custom:multiple-entity-row
+                icon: mdi:water-well
                 format: precision1
-                name: 'Теплица (б) '
+                name: 'Колодец '
                 styles:
                   text-align: center
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a480087973_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
-                  - entity: sensor.sonoff_a480087973_humidity
+                  - entity: sensor.sonoff_a48007c084_humidity
                     format: precision0
                     name: 'влажность '
                     styles:
                       text-align: center
+                  - entity: sensor.sonoff_a48007c084_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.sonoff_100141361d
+                type: custom:multiple-entity-row
+                name: 'Гр.Кабель '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:heat-wave
               - type: divider
             footer:
               type: graph
-              entity: sensor.sonoff_a480087973_temperature
-  - title: Климат
-    icon: mdi:thermostat-box
-    path: 02_climate
-    badges: []
+              entity: sensor.sonoff_a48007c084_temperature
+  - title: Температура
+    icon: mdi:thermostat-box-auto
+    path: 02_thermometer
     cards:
       - type: vertical-stack
         cards:
@@ -911,10 +1037,10 @@ views:
             icon: mdi:home-thermometer
           - type: entities
             entities:
-              - entity: input_boolean.turn_living_chalet
+              - entity: input_boolean.heat_chalet_on_off
                 type: custom:multiple-entity-row
                 icon: mdi:home-thermometer
-                name: 'отопл. Зимой '
+                name: 'отопл. Зимой [23C] '
                 state_header: 'Домой/на Дачу '
                 toggle: true
                 state_color: true
@@ -923,30 +1049,40 @@ views:
                   action: toggle
           - type: entities
             entities:
-              - entity: input_boolean.turn_2floor_chalet
+              - entity: input_boolean.heat_chalet_spraut_on_off
                 type: custom:multiple-entity-row
-                icon: mdi:home-floor-2
-                name: 'отопл. 2 Этаж '
-                state_header: 'off/on '
+                icon: mdi:home-thermometer-outline
+                name: 'отопл. Весна-Осень [20C] '
+                state_header: 'ВЫКЛ/ВКЛ '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 tap_action:
                   action: toggle
-          - type: vertical-stack
-            cards:
-              - type: entities
-                entities:
-                  - entity: script.heat_chalet_off
-                    type: custom:multiple-entity-row
-                    icon: mdi:home-thermometer-outline
-                    name: 'отопл. ВЫКЛ '
-                    state_header: 'off/on '
-                    toggle: true
-                    state_color: true
-                    secondary_info: last-changed
-                    tap_action:
-                      action: toggle
+          - type: entities
+            entities:
+              - entity: input_boolean.heat_2floor_on_off
+                type: custom:multiple-entity-row
+                icon: mdi:home-floor-2
+                name: 'отопл. 2 Этаж [20C] '
+                state_header: 'ВЫКЛ/ВКЛ '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                tap_action:
+                  action: toggle
+          - type: entities
+            entities:
+              - entity: script.heat_chalet_off
+                type: custom:multiple-entity-row
+                icon: mdi:home-thermometer-outline
+                name: 'ВЫКЛ-отопл. '
+                state_header: 'ВЫКЛ/ВКЛ '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                tap_action:
+                  action: toggle
       - type: vertical-stack
         cards:
           - type: conditional
@@ -963,58 +1099,64 @@ views:
                 - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                   icon: mdi:radiator
                   secondary_info: last-changed
-                - entity: switch.group_tuya_chbroomlr
+                  name: Кухня/Гостинная
+                - entity: switch.group_wsp_chbroomlr
                   icon: mdi:radiator
                   secondary_info: last-changed
-                  name: WSP-ChBRoomLR
-                - entity: switch.sonoff_1001675cf6
+                  name: Спальня
+                - entity: switch.tuya_bf84e09d7ec8ec727a0ert
                   icon: mdi:radiator
                   secondary_info: last-changed
-                - entity: switch.sonoff_1001dd9fbe
+                  name: Дети/Родители
+                - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz
                   icon: mdi:radiator
                   secondary_info: last-changed
-                - entity: switch.sonoff_1001418312
+                  name: WC/Ванная
+                - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
                   icon: mdi:radiator
                   secondary_info: last-changed
-                - entity: switch.sonoff_100167771f
+                  name: Прихожая
+                - entity: switch.tuya_bf4c784722392a6dc5gqiu
                   secondary_info: last-changed
                   icon: mdi:water-boiler
+                  name: Бойлер
               show_header_toggle: false
               state_color: true
-              title: На Дачу
+              title: Отопление
           - type: conditional
             conditions:
               - condition: state
-                entity: switch.sonoff_100167729c
+                entity: switch.tuya_bfb3f4c51d9786bf13ayma
                 state: 'on'
             card:
               type: entities
               entities:
-                - entity: switch.sonoff_100167729c
+                - entity: switch.tuya_bfb3f4c51d9786bf13ayma
                   icon: mdi:radiator
                   secondary_info: last-changed
+                  name: 2 Этаж [E]
               show_header_toggle: false
               state_color: true
-              title: 2 Этаж
+              title: Отопление 2 Этаж
           - type: conditional
             conditions:
               - condition: state
-                entity: climate.kitchen_chalet
+                entity: climate.chalet_kitchen
                 state: heat
               - condition: state
-                entity: climate.bedroom_chalet
+                entity: climate.chalet_bedroom
                 state: heat
               - condition: state
-                entity: climate.parents_chalet
+                entity: climate.chalet_child_parents
                 state: heat
               - condition: state
-                entity: climate.wc_chalet
+                entity: climate.chalet_wc
                 state: heat
               - condition: state
-                entity: climate.hall_chalet
+                entity: climate.chalet_hall
                 state: heat
               - condition: state
-                entity: climate.potato_chalet
+                entity: climate.chalet_2floorw
                 state: heat
               - condition: state
                 entity: automation.boiler_00_05_on
@@ -1025,23 +1167,23 @@ views:
             card:
               type: entities
               entities:
-                - entity: climate.kitchen_chalet
+                - entity: climate.chalet_kitchen
                   secondary_info: last-changed
                   name: Кухня/Гостинная
-                - entity: climate.bedroom_chalet
+                - entity: climate.chalet_bedroom
                   name: Спальня
                   secondary_info: last-changed
-                - entity: climate.parents_chalet
-                  name: Родители/Дети
+                - entity: climate.chalet_child_parents
+                  name: Дети/Родители
                   secondary_info: last-changed
-                - entity: climate.wc_chalet
-                  name: Туалет
+                - entity: climate.chalet_wc
+                  name: WC/Ванная
                   secondary_info: last-changed
-                - entity: climate.hall_chalet
+                - entity: climate.chalet_hall
                   name: Прихожая
                   secondary_info: last-changed
-                - entity: climate.potato_chalet
-                  name: Potato
+                - entity: climate.chalet_2floorw
+                  name: 2 Этаж [Potato]
                   secondary_info: last-changed
                 - entity: automation.boiler_00_05_on
                   icon: mdi:thermometer-water
@@ -1053,11 +1195,82 @@ views:
                   name: Бойлер (00:45)
               show_header_toggle: false
               state_color: true
-              title: Зима
-  - title: Tariff
+              title: Обогрев
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a480072e16_temperature
+                name: Кухня/Гостинная
+              - graph: line
+                type: sensor
+                entity: sensor.sonoff_a4800764ed_temperature
+                detail: 1
+                name: Спальня
+          - type: horizontal-stack
+            cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a480072e16_humidity
+                name: Кухня/Гостинная
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a4800764ed_humidity
+                name: Спальня
+          - type: horizontal-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.sonoff_a480072e16_battery
+                    name: Кухня/Гостинная
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.sonoff_a4800764ed_battery
+                    name: Спальня
+      - type: vertical-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a480093f96_temperature
+                name: Дети/Родители
+              - graph: line
+                type: sensor
+                entity: sensor.sonoff_a4800790c3_temperature
+                detail: 1
+                name: Ванная/WC
+          - type: horizontal-stack
+            cards:
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a480093f96_humidity
+                name: Дети/Родители
+              - graph: line
+                type: sensor
+                detail: 1
+                entity: sensor.sonoff_a4800790c3_humidity
+                name: Ванная/WC
+          - type: horizontal-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.sonoff_a480093f96_battery
+                    name: Дети/Родители
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.sonoff_a4800790c3_battery
+                    name: Ванная/WC
+  - title: Тарификация
     path: 03_tariff
     icon: mdi:meter-electric
-    badges: []
     cards:
       - type: vertical-stack
         cards:
@@ -1065,59 +1278,9 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.tuya_bfa53c295146f4cc5c6106_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'ASS-ChHAssSrv '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_tariff_day
-                    format: precision2
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_tariff_night
-                    format: precision2
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuya_bfa53c295146f4cc5c6106
-                type: custom:multiple-entity-row
-                name: 'Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:toggle-switch
-                entities:
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_current
-                    format: precision2
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                  - entity: sensor.tuya_bfa53c295146f4cc5c6106_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
               - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
                 type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
+                icon: mdi:countertop
                 format: precision0
                 name: 'WSP-ChKitchen '
                 state_header: 'мощность '
@@ -1125,15 +1288,40 @@ views:
                 styles:
                   text-align: center
                 entities:
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
                   - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_day
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
                   - entity: sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_night
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'ночь '
                     styles:
@@ -1142,12 +1330,12 @@ views:
               - type: divider
               - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                 type: custom:multiple-entity-row
-                name: 'Setting '
+                name: 'Power Setting '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:toggle-switch
+                icon: mdi:power-socket-eu
                 entities:
                   - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_childlock
                     toggle: true
@@ -1163,7 +1351,7 @@ views:
             entities:
               - entity: sensor.tuya_bf0cce6ceeabebea140svk_power
                 type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
+                icon: mdi:bed
                 format: precision0
                 name: 'WSP-ChBRoomL '
                 state_header: 'мощность '
@@ -1171,15 +1359,40 @@ views:
                 styles:
                   text-align: center
                 entities:
+                  - entity: sensor.tuya_bf0cce6ceeabebea140svk_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf0cce6ceeabebea140svk_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf0cce6ceeabebea140svk_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
                   - entity: sensor.tuya_bf0cce6ceeabebea140svk_tariff_day
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
                   - entity: sensor.tuya_bf0cce6ceeabebea140svk_tariff_night
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'ночь '
                     styles:
@@ -1188,12 +1401,12 @@ views:
               - type: divider
               - entity: switch.tuya_bf0cce6ceeabebea140svk
                 type: custom:multiple-entity-row
-                name: 'Setting '
+                name: 'Power Setting '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:toggle-switch
+                icon: mdi:power-socket-eu
                 entities:
                   - entity: switch.tuya_bf0cce6ceeabebea140svk_childlock
                     toggle: true
@@ -1209,7 +1422,7 @@ views:
             entities:
               - entity: sensor.tuya_bfd5954077e67c6a46f8z8_power
                 type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
+                icon: mdi:bed
                 format: precision0
                 name: 'WSP-ChBRoomR '
                 state_header: 'мощность '
@@ -1217,15 +1430,40 @@ views:
                 styles:
                   text-align: center
                 entities:
+                  - entity: sensor.tuya_bfd5954077e67c6a46f8z8_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfd5954077e67c6a46f8z8_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfd5954077e67c6a46f8z8_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
                   - entity: sensor.tuya_bfd5954077e67c6a46f8z8_tariff_day
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
                   - entity: sensor.tuya_bfd5954077e67c6a46f8z8_tariff_night
-                    format: precision2
+                    format: precision1
                     unit: 'kWh '
                     name: 'ночь '
                     styles:
@@ -1234,12 +1472,12 @@ views:
               - type: divider
               - entity: switch.tuya_bfd5954077e67c6a46f8z8
                 type: custom:multiple-entity-row
-                name: 'Setting '
+                name: 'Power Setting '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:toggle-switch
+                icon: mdi:power-socket-eu
                 entities:
                   - entity: switch.tuya_bfd5954077e67c6a46f8z8_childlock
                     toggle: true
@@ -1249,10 +1487,727 @@ views:
                     toggle: true
                     state_color: true
                     name: 'overchange '
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_power
+                type: custom:multiple-entity-row
+                icon: mdi:human-male-child
+                format: precision0
+                name: 'WSP-ChChildParent '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf84e09d7ec8ec727a0ert
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bf84e09d7ec8ec727a0ert_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf84e09d7ec8ec727a0ert_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_power
+                type: custom:multiple-entity-row
+                icon: mdi:bathtub
+                format: precision0
+                name: 'WSP-ChBathroom '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfb2179e6459d05364sjf5_power
+                type: custom:multiple-entity-row
+                icon: mdi:fridge
+                format: precision0
+                name: 'WSP-ChRefrigerator '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfb2179e6459d05364sjf5_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfb2179e6459d05364sjf5_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfb2179e6459d05364sjf5_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfb2179e6459d05364sjf5_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfb2179e6459d05364sjf5_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bfb2179e6459d05364sjf5
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bfb2179e6459d05364sjf5_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bfb2179e6459d05364sjf5_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_power
+                type: custom:multiple-entity-row
+                icon: mdi:water-boiler
+                format: precision0
+                name: 'WSP-ChBoiler '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf4c784722392a6dc5gqiu
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bf4c784722392a6dc5gqiu_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf4c784722392a6dc5gqiu_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_power
+                type: custom:multiple-entity-row
+                icon: mdi:coat-rack
+                format: precision0
+                name: 'WSP-ChHall '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
+                type: custom:multiple-entity-row
+                icon: mdi:server-network
+                format: precision0
+                name: 'WSP-ChHAssSrv '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_power
+                type: custom:multiple-entity-row
+                icon: mdi:home-floor-2
+                format: precision0
+                name: 'WSP-Ch2FloorE '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bfb3f4c51d9786bf13ayma
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bfb3f4c51d9786bf13ayma_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bfb3f4c51d9786bf13ayma_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfae744f18536348f3ok1x_power
+                type: custom:multiple-entity-row
+                icon: mdi:home-floor-2
+                format: precision0
+                name: 'WSP-Ch2FloorM '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfae744f18536348f3ok1x_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfae744f18536348f3ok1x_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfae744f18536348f3ok1x_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfae744f18536348f3ok1x_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfae744f18536348f3ok1x_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bfae744f18536348f3ok1x
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bfae744f18536348f3ok1x_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bfae744f18536348f3ok1x_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf608e1bc6a7af57cas39n_power
+                type: custom:multiple-entity-row
+                icon: mdi:home-floor-2
+                format: precision0
+                name: 'WSP-Ch2FloorW '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf608e1bc6a7af57cas39n
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bf608e1bc6a7af57cas39n_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf608e1bc6a7af57cas39n_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
+      - type: vertical-stack
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_power
+                type: custom:multiple-entity-row
+                icon: mdi:greenhouse
+                format: precision0
+                name: 'WSP-GlassHouse '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Electricity '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bfe8a953b2dda2f5f7kdmj
+                type: custom:multiple-entity-row
+                name: 'Power Setting '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-socket-eu
+                entities:
+                  - entity: switch.tuya_bfe8a953b2dda2f5f7kdmj_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bfe8a953b2dda2f5f7kdmj_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
   - title: Камеры
     path: 04_camera
     icon: mdi:cctv
-    badges: []
     cards:
       - type: vertical-stack
         cards:
@@ -1279,10 +2234,10 @@ views:
                 entities:
                   - entity: binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
                     name: 'storage '
-                  - entity: sensor.hikvision_ds_2cd2043g0_i_200_last_reboot
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_200_last_reset
                     attribute: last-updated
                     format: datetime
-                    name: 'reboot '
+                    name: 'reset '
       - type: vertical-stack
         cards:
           - show_state: false
@@ -1309,10 +2264,10 @@ views:
                   - entity: binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
                     name: 'storage '
                     styles: null
-                  - entity: sensor.hikvision_ds_2cd2043g0_i_201_last_reboot
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_201_last_reset
                     attribute: last-updated
                     format: datetime
-                    name: 'reboot '
+                    name: 'reset '
       - type: vertical-stack
         cards:
           - show_state: false
@@ -1339,7 +2294,16 @@ views:
                   - entity: binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
                     name: 'storage '
                     styles: null
-                  - entity: sensor.hikvision_ds_2cd2043g0_i_202_last_reboot
+                  - entity: sensor.hikvision_ds_2cd2043g0_i_202_last_reset
                     attribute: last-updated
                     format: datetime
-                    name: 'reboot '
+                    name: 'reset '
+      - type: vertical-stack
+        cards:
+          - show_state: false
+            show_name: false
+            camera_view: live
+            type: picture-entity
+            entity: camera.alteron_kib30_203_profile_name_0
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            camera_image: camera.alteron_kib30_203_profile_name_0
