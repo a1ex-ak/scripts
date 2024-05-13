@@ -1,7 +1,7 @@
 #--- Generic_thermostat ---#
-#Кухня термостат
+#Кухня/Гостинная термостат
   - platform: generic_thermostat
-    name: kitchen_chalet
+    name: chalet_kitchen
     unique_id: kitchen_generic_thermostat
     # heater: – это устройство, которое включает/выключает отопительный прибор.
     #heater: switch.sonoff_1001676f3c
@@ -9,8 +9,8 @@
     # target_sensor: – это датчик температуры, по которому будем управлять отоплением.
     target_sensor: sensor.sonoff_a480072e16_temperature
     # min_temp: / max_temp: - это минимальная и максимальная температуры на нашем терморегуляторе.
-    min_temp: 9
-    max_temp: 26
+    min_temp: 3
+    max_temp: 30
     # ac_mode:  false – при таком параметре наш термостат работает как обогреватель, то есть при понижении температуры включается, а если температура превысит установленную - выключится.
     #           Если поставить true – тогда наш термостат работает в режиме кондиционера и логика работает наоборот. Температура выше заданной – включаемся, ниже – выключаемся. 
     ac_mode: false
@@ -20,8 +20,8 @@
     #                                   То есть, при значении cold_tolerance: 0.3 и hot_tolerance: 0.5 и заданной температуре 22 градуса, 
     #                                   термостат нагревая отключится при превышении температуры 22.5 градуса, и будет выключен, пока температура не 
     #                                   опустится ниже 21.7 градуса (22-0.3). 
-    cold_tolerance: 0.1
-    hot_tolerance: 0.8
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
     # min_cycle_duration: - этим параметром мы устанавливаем минимальное время, в котором обогреватель должен находиться в положении вкл или выкл.
     min_cycle_duration:
       seconds: 5
@@ -39,16 +39,16 @@
  
 #Спальня термостат    
   - platform: generic_thermostat
-    name: bedroom_chalet
+    name: chalet_bedroom
     unique_id: bedroom_generic_thermostat
     #heater: switch.group_s26r2_chbroomlr
-    heater: switch.group_tuya_chbroomlr
+    heater: switch.group_wsp_chbroomlr
     target_sensor: sensor.sonoff_a4800764ed_temperature
-    min_temp: 9
-    max_temp: 26
+    min_temp: 6
+    max_temp: 30
     ac_mode: false
     #target_temp: 23
-    cold_tolerance: 0.1
+    cold_tolerance: 0.3
     hot_tolerance: 0.6
     min_cycle_duration:
       seconds: 5
@@ -58,17 +58,18 @@
     away_temp: 9
     precision: 0.1
 
-#Родители термостат
+#дети-Родители термостат
   - platform: generic_thermostat
-    name: parents_chalet
+    name: chalet_child_parents
     unique_id: parents_generic_thermostat
-    heater: switch.sonoff_1001675cf6
-    target_sensor: sensor.sonoff_a480079106_temperature
-    min_temp: 9
-    max_temp: 26
+    #heater: switch.sonoff_1001675cf6
+    heater: switch.tuya_bf84e09d7ec8ec727a0ert
+    target_sensor: sensor.sonoff_a480093f96_temperature
+    min_temp: 3
+    max_temp: 30
     ac_mode: false
     #target_temp: 23.1
-    cold_tolerance: 0.1
+    cold_tolerance: 0.3
     hot_tolerance: 0.6
     min_cycle_duration:
       seconds: 5
@@ -80,15 +81,16 @@
     
 #Ванная/Туалет термостат
   - platform: generic_thermostat
-    name: wc_chalet
+    name: chalet_wc
     unique_id: wc_generic_thermostat
-    heater: switch.sonoff_1001dd9fbe
+    #heater: switch.sonoff_1001dd9fbe
+    heater: switch.tuya_bfa7aa5ee649c62cf1l5tz
     target_sensor: sensor.sonoff_a4800790c3_temperature
-    min_temp: 9
-    max_temp: 26
+    min_temp: 3
+    max_temp: 30
     ac_mode: false
     #target_temp: 23
-    cold_tolerance: 0.1
+    cold_tolerance: 0.3
     hot_tolerance: 0.6
     min_cycle_duration:
       seconds: 5
@@ -100,36 +102,38 @@
     
 #Прихожая термостат
   - platform: generic_thermostat
-    name: hall_chalet
+    name: chalet_hall
     unique_id: hall_generic_thermostat
-    heater: switch.sonoff_1001418312
+    #heater: switch.sonoff_1001418312
+    heater: switch.tuya_bf45a1f22d15a1c0d6vzmt
     target_sensor: sensor.sonoff_a48008796d_temperature
-    min_temp: 4
-    max_temp: 20
+    min_temp: 3
+    max_temp: 30
     ac_mode: false
     #target_temp: 14.4
-    cold_tolerance: 0.1
+    cold_tolerance: 0.3
     hot_tolerance: 0.6
     min_cycle_duration:
       seconds: 5
     keep_alive:
       minutes: 3
     #initial_hvac_mode: "off"
-    away_temp: 7
+    away_temp: 9
     precision: 0.1
     
 #2 Этаж термостат
   - platform: generic_thermostat
-    name: 2floor_chalet
+    name: chalet_2floore
     unique_id: 2floor_generic_thermostat
-    heater: switch.sonoff_100167729c
-    target_sensor: sensor.sonoff_a48005ae0b_temperature
-    min_temp: 9
-    max_temp: 26
+    #heater: switch.sonoff_100167729c
+    heater: switch.tuya_bfb3f4c51d9786bf13ayma
+    target_sensor: sensor.sonoff_a480079106_temperature
+    min_temp: 3
+    max_temp: 30
     ac_mode: false
     #target_temp: 22.1
-    cold_tolerance: 0.1
-    hot_tolerance: 0.6
+    cold_tolerance: 0.4
+    hot_tolerance: 0.5
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -140,16 +144,16 @@
     
 #2 Этаж (Potato) термостат
   - platform: generic_thermostat
-    name: potato_chalet
+    name: chalet_2floorw
     unique_id: potato_generic_thermostat
-    heater: switch.sonoff_10011ddaf0
+    heater: switch.tuya_bf608e1bc6a7af57cas39n
     target_sensor: sensor.sonoff_a480049e3c_temperature
-    min_temp: 2
-    max_temp: 7
+    min_temp: 3
+    max_temp: 15
     ac_mode: false
     #target_temp: 4
-    cold_tolerance: 0.1
-    hot_tolerance: 0.6
+    cold_tolerance: 0.3
+    hot_tolerance: 0.5
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -157,3 +161,24 @@
     #initial_hvac_mode: "off"
     away_temp: 4
     precision: 0.1
+    
+#Теплица термостат
+  - platform: generic_thermostat
+    name: chalet_glasshouse
+    unique_id: glasshouse_generic_thermostat
+    heater: switch.tuya_bfe8a953b2dda2f5f7kdmj
+    target_sensor: sensor.sonoff_a480087973_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 4
+    cold_tolerance: 0.3
+    hot_tolerance: 1.7
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 10
+    precision: 0.1
+    
