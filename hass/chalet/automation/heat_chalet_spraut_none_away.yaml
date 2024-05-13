@@ -1,0 +1,19 @@
+alias: ВКЛ-ВЫКЛ-Режим-ВеснаОсень
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.heat_chalet_spraut_on_off
+condition: []
+action:
+  - if:
+      - condition: state
+        entity_id: input_boolean.heat_chalet_spraut_on_off
+        state: "on"
+    then:
+      - service: script.heat_chalet_spraut_on
+        data: {}
+    else:
+      - service: script.heat_chalet_away
+        data: {}
+mode: single
