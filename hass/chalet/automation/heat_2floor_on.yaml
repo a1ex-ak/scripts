@@ -1,0 +1,18 @@
+alias: ВКЛ-ВЫКЛ_2ЭтажОтопл
+description: ""
+trigger:
+  - platform: state
+    entity_id:
+      - input_boolean.heat_2floor_on_off
+action:
+  - if:
+      - condition: state
+        entity_id: input_boolean.heat_2floor_on_off
+        state: "on"
+    then:
+      - service: script.heat_2floor_on
+        data: {}
+    else:
+      - service: script.heat_2floor_off
+        data: {}
+mode: single
