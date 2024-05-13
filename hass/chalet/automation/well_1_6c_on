@@ -1,0 +1,25 @@
+alias: ВКЛ-Колодец_1.6С
+description: ""
+trigger:
+  - type: temperature
+    platform: device
+    device_id: 91ebebed65ad5ca0ca0254cc62dbeb87
+    entity_id: a02d43720fb39322a85cc9215087a043
+    domain: sensor
+    below: 1.6
+condition:
+  - condition: device
+    type: is_off
+    device_id: 3005e6b26f62ca6de64114d2b25a7582
+    entity_id: 936d7c6b7da0ddd844fab246ed06e6a0
+    domain: switch
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+action:
+  - type: turn_on
+    device_id: 3005e6b26f62ca6de64114d2b25a7582
+    entity_id: 936d7c6b7da0ddd844fab246ed06e6a0
+    domain: switch
+mode: single
