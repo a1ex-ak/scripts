@@ -736,12 +736,12 @@ views:
                       text-align: center
               - entity: switch.tuya_bfae744f18536348f3ok1x
                 type: custom:multiple-entity-row
-                name: 'WSP-Ch2FloorM '
+                name: 'Телевизор (2этаж) '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:television-box
+                icon: mdi:television-classic
                 entities:
                   - entity: sensor.tuya_bfae744f18536348f3ok1x_kwh_month
                     format: precision1
@@ -986,6 +986,27 @@ views:
                     name: 'в месяц '
                     styles:
                       text-align: center
+              - type: divider
+              - entity: sensor.sonoff_a480087973_temperature
+                type: custom:multiple-entity-row
+                icon: mdi:greenhouse
+                format: precision1
+                name: 'Теплица (Old) '
+                styles:
+                  text-align: center
+                  font-weight: bold
+                state_header: 'температура '
+                entities:
+                  - entity: sensor.sonoff_a480087973_humidity
+                    format: precision0
+                    name: 'влажность '
+                    styles:
+                      text-align: center
+                  - entity: sensor.sonoff_a480087973_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -1013,7 +1034,7 @@ views:
               - type: divider
               - entity: switch.sonoff_100141361d
                 type: custom:multiple-entity-row
-                name: 'Гр.Кабель '
+                name: 'Греющий кабель '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -1052,7 +1073,7 @@ views:
               - entity: input_boolean.heat_chalet_spraut_on_off
                 type: custom:multiple-entity-row
                 icon: mdi:home-thermometer-outline
-                name: 'отопл. Весна-Осень [20C] '
+                name: 'отопл. Весна-Осень [21C] '
                 state_header: 'ВЫКЛ/ВКЛ '
                 toggle: true
                 state_color: true
@@ -1064,7 +1085,7 @@ views:
               - entity: input_boolean.heat_2floor_on_off
                 type: custom:multiple-entity-row
                 icon: mdi:home-floor-2
-                name: 'отопл. 2 Этаж [20C] '
+                name: 'отопл. 2 Этаж [20.5C] '
                 state_header: 'ВЫКЛ/ВКЛ '
                 toggle: true
                 state_color: true
@@ -1196,6 +1217,33 @@ views:
               show_header_toggle: false
               state_color: true
               title: Обогрев
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: switch.tuya_bf4c784722392a6dc5gqiu
+                state: 'on'
+              - condition: state
+                entity: switch.tuya_bfb2179e6459d05364sjf5
+                state: 'on'
+              - condition: state
+                entity: switch.tuya_bfae744f18536348f3ok1x
+                state: 'on'
+            card:
+              type: entities
+              entities:
+                - entity: switch.tuya_bf4c784722392a6dc5gqiu
+                  icon: mdi:water-boiler
+                  secondary_info: last-changed
+                  name: Бойлер (ВКЛ)
+                - entity: switch.tuya_bfb2179e6459d05364sjf5
+                  name: Холодильник
+                  icon: mdi:fridge
+                - entity: switch.tuya_bfae744f18536348f3ok1x
+                  name: Телевизор (2этаж)
+                  icon: mdi:television-classic
+              show_header_toggle: false
+              state_color: true
+              title: Оборудование
       - type: vertical-stack
         cards:
           - type: horizontal-stack
