@@ -16,6 +16,7 @@ homeassistant:
     - type: homeassistant
     - type: trusted_networks
       trusted_networks:
+        - !secret localhost
         - !secret local_networks
         - !secret zerotier_networks
       #trusted_users:
@@ -44,9 +45,9 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 # Загрузка платформы climate (generic_thermostat) 
 climate: !include includes/climate.yaml
-#
+# Загрузка платформы camera
 camera: !include includes/camera.yaml
-# Постоянное сохранение данных
+# Загрузка платформы recorder
 recorder: !include includes/recorder.yaml
 
 # Кнопка 'Система' в левом меню
