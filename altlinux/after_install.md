@@ -37,6 +37,11 @@ wget -q -O - https://gist.githubusercontent.com/Blastoise/b74e06f739610c4a867cf9
 ```yaml
 wget -q -O - https://gist.githubusercontent.com/Blastoise/64ba4acc55047a53b680c1b3072dd985/raw/6bdf69384da4783cc6dafcb51d281cb3ddcb7ca0/segoeUI.sh | bash
 ```
+----------------------------------
+:ballot_box_with_check: Зависимости Nextcloud
+```yaml
+sudo apt-get install nautilus-python rpm-macros-qt5-webengine rpm-build-python3 rpm-build-gir rpm-build-kf5 doxygen extra-cmake-modules graphviz kf5-kio-devel libqtkeychain-qt5-devel libsqlite3-devel libssl-devel python3-dev qt5-tools-devel qt5-webkit-devel zlib-devel libgio-devel glib2-devel qt5-svg-devel kf5-kwindowsystem-devel qt5-quickcontrols2-devel qt5-websockets-devel kf5-karchive-devel rpm-build-python3
+```
 
 ----------------------------------
 :ballot_box_with_check: Установка брандмауэр (firewall) UFW
