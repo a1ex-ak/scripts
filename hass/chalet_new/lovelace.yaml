@@ -19,7 +19,7 @@ views:
           - type: horizontal-stack
             cards:
               - type: custom:mini-graph-card
-                name: Down
+                name: 'Down '
                 icon: mdi:speedometer
                 entities:
                   - sensor.speedtest_download
@@ -29,7 +29,7 @@ views:
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
-                name: Up
+                name: 'Up '
                 icon: mdi:speedometer
                 entities:
                   - sensor.speedtest_upload
@@ -1102,15 +1102,16 @@ views:
     sections:
       - type: grid
         cards:
-          - graph: line
-            type: sensor
-            entity: sensor.sonoff_a480072e16_temperature
-            detail: 1
+          - type: custom:mini-graph-card
             name: 'Температура в доме '
             icon: mdi:home-thermometer
-            layout_options:
-              grid_columns: 4
-              grid_rows: 3
+            entities:
+              - sensor.sonoff_a480072e16_temperature
+            line_color: var(--accent-color)
+            hours_to_show: 24
+            points_per_hour: 0.25
+            line_width: 4
+            font_size: 75
           - type: entities
             entities:
               - entity: input_boolean.heat_chalet_on_off
@@ -1312,46 +1313,73 @@ views:
         cards:
           - type: horizontal-stack
             cards:
-              - graph: line
-                type: sensor
-                entity: sensor.sonoff_a4800764ed_humidity
-                detail: 1
-                name: Кухня/Гостинная
-              - graph: line
-                type: sensor
-                detail: 1
-                entity: sensor.sonoff_a480072e16_temperature
-                name: Кухня/Гостинная
-            layout_options:
-              grid_columns: 4
-              grid_rows: 2
-          - type: custom:mushroom-entity-card
-            entity: sensor.sonoff_a480072e16_battery
-            name: Кухня/Гостинная
-            layout_options:
-              grid_columns: 4
-              grid_rows: 1
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480072e16_humidity
+                line_color: '#2980b9'
+                name: 'Кухня/Гостинная '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480072e16_temperature
+                line_color: '#b58e31'
+                name: 'Кухня/Гостинная '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480072e16_battery
+                line_color: '#70a03c'
+                name: 'Кухня/Гостинная '
+                line_width: 8
+                font_size: 75
           - type: horizontal-stack
             cards:
-              - graph: line
-                type: sensor
-                detail: 1
-                entity: sensor.sonoff_a4800764ed_humidity
-                name: Спальня
-              - graph: line
-                type: sensor
-                detail: 1
-                entity: sensor.sonoff_a4800764ed_temperature
-                name: Спальня
-            layout_options:
-              grid_columns: 4
-              grid_rows: 2
-          - type: custom:mushroom-entity-card
-            entity: sensor.sonoff_a4800764ed_battery
-            name: Спальня
-            layout_options:
-              grid_columns: 4
-              grid_rows: 1
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a4800764ed_humidity
+                line_color: '#2980b9'
+                name: 'Спальня '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a4800764ed_temperature
+                line_color: '#b58e31'
+                name: 'Спальня '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a4800764ed_battery
+                line_color: '#70a03c'
+                name: 'Спальня '
+                line_width: 8
+                font_size: 75
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480093f96_humidity
+                line_color: '#2980b9'
+                name: 'Дети/Родители '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480093f96_temperature
+                line_color: '#b58e31'
+                name: 'Дети/Родители '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.sonoff_a480093f96_battery
+                line_color: '#70a03c'
+                name: 'Дети/Родители '
+                line_width: 8
+                font_size: 75
     visible:
       - user: 3f656dbb70c44fcbaeb09315e103b7f9
       - user: a300f7cb59064875a978a85603f2ff3b
