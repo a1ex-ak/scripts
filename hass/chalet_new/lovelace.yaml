@@ -28,6 +28,7 @@ views:
                 points_per_hour: 0.25
                 line_width: 8
                 font_size: 75
+                unit: Mbps
               - type: custom:mini-graph-card
                 name: 'Up '
                 icon: mdi:speedometer
@@ -38,6 +39,263 @@ views:
                 points_per_hour: 0.25
                 line_width: 8
                 font_size: 75
+                unit: Mbps
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: CPU
+                secondary: '{{states (''sensor.system_monitor_processor_use'')}} %'
+                layout: vertical
+                entity: sensor.system_monitor_processor_use
+                icon_color: >-
+                  {% if states("sensor.system_monitor_processor_use")|float <=
+                  10 %}
+
+                  lime
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  20 %}
+
+                  light-green
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  30 %}
+
+                  green
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  40 %}
+
+                  teal
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  50 %}
+
+                  yellow
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  60 %}
+
+                  amber
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  70 %}
+
+                  orange
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  80 %}
+
+                  deep-orange
+
+                  {% elif states("sensor.system_monitor_processor_use")|float <=
+                  90 %}
+
+                  red
+
+                  {% elif states("sensor.system_monitor_processor_use")|float >
+                  90 %}
+
+                  pink
+
+                  {% endif %}
+                icon: mdi:cpu-64-bit
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                primary: tCPU
+                secondary: >-
+                  {{states ('sensor.system_monitor_processor_temperature') |
+                  float | round(0)}} %
+                layout: vertical
+                entity: sensor.system_monitor_processor_temperature
+                icon_color: >-
+                  {% if
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  10 %}
+
+                  yellow
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  20 %}
+
+                  light-green
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  30 %}
+
+                  green
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  40 %}
+
+                  lime
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  50 %}
+
+                  teal
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  60 %}
+
+                  amber
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  70 %}
+
+                  orange
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  80 %}
+
+                  deep-orange
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float <=
+                  90 %}
+
+                  red
+
+                  {% elif
+                  states("sensor.system_monitor_processor_temperature")|float >
+                  90 %}
+
+                  pink
+
+                  {% endif %}
+                icon: mdi:thermometer
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                primary: RAM
+                secondary: >-
+                  {{states ('sensor.system_monitor_memory_use') | float |
+                  round(0)}} GB
+                layout: vertical
+                entity: sensor.system_monitor_memory_use
+                icon_color: >-
+                  {% if states("sensor.system_monitor_memory_use")|float <= 10
+                  %}
+
+                  green
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 20
+                  %}
+
+                  light-green
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 30
+                  %}
+
+                  lime
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 40
+                  %}
+
+                  teal
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 50
+                  %}
+
+                  yellow
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 60
+                  %}
+
+                  amber
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 70
+                  %}
+
+                  orange
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 80
+                  %}
+
+                  deep-orange
+
+                  {% elif states("sensor.system_monitor_memory_use")|float <= 90
+                  %}
+
+                  red
+
+                  {% elif states("sensor.system_monitor_memory_use")|float > 90
+                  %}
+
+                  pink
+
+                  {% endif %}
+                icon: mdi:memory
+                tap_action:
+                  action: more-info
+              - type: custom:mushroom-template-card
+                primary: Disk
+                secondary: '{{states (''sensor.system_monitor_disk_use_percent'')}} %'
+                layout: vertical
+                entity: sensor.system_monitor_disk_use_percent
+                icon_color: >-
+                  {% if states("sensor.system_monitor_disk_use_percent")|float
+                  <= 10 %}
+
+                  light-green
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 20 %}
+
+                  lime
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 30 %}
+
+                  green
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 40 %}
+
+                  teal
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 50 %}
+
+                  yellow
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 60 %}
+
+                  amber
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 70 %}
+
+                  orange
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 80 %}
+
+                  deep-orange
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  <= 90 %}
+
+                  red
+
+                  {% elif states("sensor.system_monitor_disk_use_percent")|float
+                  > 90 %}
+
+                  pink
+
+                  {% endif %}
+                icon: mdi:harddisk
+                tap_action:
+                  action: more-info
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -51,34 +309,12 @@ views:
                   font-weight: bold
                 state_header: 'IP адрес '
                 entities:
-                  - entity: sensor.system_monitor_last_boot
+                  - entity: sensor.uptime
                     attribute: last-changed
                     format: datetime
                     name: 'загрузка '
                     styles:
                       text-align: center
-          - type: horizontal-stack
-            cards:
-              - type: tile
-                entity: sensor.system_monitor_processor_use
-                vertical: true
-                name: 'CPU '
-                color: lime
-              - type: tile
-                entity: sensor.system_monitor_processor_temperature
-                vertical: true
-                name: 'tCPU '
-                color: teal
-              - type: tile
-                entity: sensor.system_monitor_memory_use
-                name: 'RAM '
-                vertical: true
-                color: green
-              - type: tile
-                entity: sensor.system_monitor_disk_use_percent
-                name: 'Disk '
-                vertical: true
-                color: light-green
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -138,8 +374,8 @@ views:
                     name: 'hacs '
                     styles:
                       text-align: center
-                  - entity: update.home_assistant_supervisor_update
-                    name: 'supervisor '
+                  - entity: update.zigbee2mqtt_update
+                    name: 'zigbee2mqtt '
                     attribute: latest_version
                     styles:
                       text-align: center
@@ -193,7 +429,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480072e16_humidity
+                      entity: sensor.snzb_0x90ab96fffe77bfd0_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -206,14 +442,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480072e16_battery
+                      entity: sensor.snzb_0x90ab96fffe77bfd0_battery
               - type: divider
               - entity: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
                 type: custom:multiple-entity-row
@@ -278,7 +514,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a4800764ed_humidity
+                      entity: sensor.snzb_0x90ab96fffe773411_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -291,14 +527,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a4800764ed_battery
+                      entity: sensor.snzb_0x90ab96fffe773411_battery
               - type: divider
               - entity: switch.group_wsp_chbroomlr
                 type: custom:multiple-entity-row
@@ -363,7 +599,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480093f96_humidity
+                      entity: sensor.snzb_0x842712fffe556ccf_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -376,14 +612,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480093f96_battery
+                      entity: sensor.snzb_0x842712fffe556ccf_battery
               - type: divider
               - entity: switch.tuya_bf84e09d7ec8ec727a0ert
                 type: custom:multiple-entity-row
@@ -448,7 +684,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a4800790c3_humidity
+                      entity: sensor.snzb_0x9035eafffe0d8227_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -461,14 +697,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a4800790c3_battery
+                      entity: sensor.snzb_0x9035eafffe0d8227_battery
               - type: divider
               - entity: switch.tuya_bfa7aa5ee649c62cf1l5tz
                 type: custom:multiple-entity-row
@@ -503,6 +739,65 @@ views:
                       text-align: center
       - type: grid
         cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.snzb_0x00124b0024ccfec3_temperature
+                type: custom:multiple-entity-row
+                icon: mdi:locker-multiple
+                format: precision1
+                name: 'Серверная '
+                styles:
+                  text-align: center
+                  font-weight: bold
+                state_header: 'температура '
+                entities:
+                  - entity: sensor.snzb_0x00124b0024ccfec3_humidity
+                    format: precision1
+                    name: 'влажность '
+                    styles:
+                      text-align: center
+                  - entity: sensor.snzb_0x00124b0024ccfec3_battery
+                    format: precision0
+                    name: 'заряд '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
+                type: custom:multiple-entity-row
+                icon: mdi:server-network
+                format: precision0
+                name: 'UpiterPi '
+                state_header: 'напряжение '
+                unit: 'V '
+                secondary_info: last-changed
+                entities:
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
+                    format: precision2
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
+                    format: precision0
+                    name: 'мощность '
+                    unit: 'W '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: sensor.zigstargwru_in_job
+                type: custom:multiple-entity-row
+                icon: mdi:zigbee
+                name: 'ZigStarGW '
+                state_header: 'в работе '
+                secondary_info: last-changed
+                entities:
+                  - entity: binary_sensor.zigstargwru_emergency_mode
+                    format: precision2
+                    name: 'аварии '
+                    styles:
+                      text-align: center
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -551,7 +846,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480094f71_humidity
+                      entity: sensor.snzb_0x38398ffffe042bf8_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -564,14 +859,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480094f71_battery
+                      entity: sensor.snzb_0x38398ffffe042bf8_battery
               - type: divider
               - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
                 type: custom:multiple-entity-row
@@ -588,61 +883,6 @@ views:
                     name: 'в месяц '
                     styles:
                       text-align: center
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.sonoff_a48004bd43_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:locker-multiple
-                format: precision1
-                name: 'Серверная '
-                styles:
-                  text-align: center
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.sonoff_a48004bd43_humidity
-                    format: precision1
-                    name: 'влажность '
-                    styles:
-                      text-align: center
-                  - entity: sensor.sonoff_a48004bd43_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
-                type: custom:multiple-entity-row
-                icon: mdi:server-network
-                format: precision0
-                name: 'UpiterPi '
-                state_header: 'напряжение '
-                unit: 'V '
-                secondary_info: last-changed
-                entities:
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
-                    format: precision2
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
-                    format: precision0
-                    name: 'мощность '
-                    unit: 'W '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: sensor.sonoff_10010954d7_rssi
-                type: custom:multiple-entity-row
-                icon: mdi:zigbee
-                format: precision0
-                name: 'Zigbee '
-                state_header: 'ZBBridge '
-                unit: 'dBm '
-                secondary_info: last-changed
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -691,7 +931,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480079106_humidity
+                      entity: sensor.snzb_0x9035eafffe0d8a73_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -704,14 +944,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480079106_battery
+                      entity: sensor.snzb_0x9035eafffe0d8a73_battery
               - type: divider
               - entity: switch.tuya_bfb3f4c51d9786bf13ayma
                 type: custom:multiple-entity-row
@@ -792,7 +1032,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480049e3c_humidity
+                      entity: sensor.snzb_0x00124b00234e72e6_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -805,14 +1045,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480049e3c_battery
+                      entity: sensor.snzb_0x00124b00234e72e6_battery
               - type: divider
               - entity: switch.tuya_bf608e1bc6a7af57cas39n
                 type: custom:multiple-entity-row
@@ -863,7 +1103,7 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a48005f44f_temperature
+              - entity: sensor.snzb_0x00124b0024cc450c_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:balcony
                 format: precision1
@@ -873,12 +1113,12 @@ views:
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a48005f44f_humidity
+                  - entity: sensor.snzb_0x00124b0024cc450c_humidity
                     format: precision1
                     name: 'влажность '
                     styles:
                       text-align: center
-                  - entity: sensor.sonoff_a48005f44f_battery
+                  - entity: sensor.snzb_0x00124b0024cc450c_battery
                     format: precision0
                     name: 'заряд '
                     styles:
@@ -947,7 +1187,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a48007c084_humidity
+                      entity: sensor.snzb_0x9035eafffe0d88d6_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -960,14 +1200,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a48007c084_battery
+                      entity: sensor.snzb_0x9035eafffe0d88d6_battery
               - type: divider
               - entity: switch.sonoff_100141361d
                 type: custom:multiple-entity-row
@@ -1032,7 +1272,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.sonoff_a480087973_humidity
+                      entity: sensor.snzb_0x9035eafffe09709a_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -1045,14 +1285,14 @@ views:
                       style: >
                         (value) => (value > 90 ? { color: '#70a03c'} : (value >
                         80 ? { color: '#b58e31'} : (value > 70 ? { color:
-                        '#b58e31'} : (value > 60 ? 'mdi:battery-60' : (value >
-                        50 ? { color: '#b58e31'} : (value > 40 ? { color:
+                        '#b58e31'} : (value > 60 ? { color: '#b58e31'} : (value
+                        > 50 ? { color: '#b58e31'} : (value > 40 ? { color:
                         '#b83829'} : (value > 30 ? { color: '#b83829'} :(value >
                         20 ? { color: '#b83829'} : { color: '#b83829'}))))))))
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.sonoff_a480087973_battery
+                      entity: sensor.snzb_0x9035eafffe09709a_battery
               - type: divider
               - entity: switch.tuya_bfe8a953b2dda2f5f7kdmj
                 type: custom:multiple-entity-row
@@ -1073,7 +1313,7 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.sonoff_a480087973_temperature
+              - entity: sensor.snzb_0x00124b002513b353_temperature
                 type: custom:multiple-entity-row
                 icon: mdi:greenhouse
                 format: precision1
@@ -1083,12 +1323,12 @@ views:
                   font-weight: bold
                 state_header: 'температура '
                 entities:
-                  - entity: sensor.sonoff_a480087973_humidity
+                  - entity: sensor.snzb_0x00124b002513b353_humidity
                     format: precision1
                     name: 'влажность '
                     styles:
                       text-align: center
-                  - entity: sensor.sonoff_a480087973_battery
+                  - entity: sensor.snzb_0x00124b002513b353_battery
                     format: precision0
                     name: 'заряд '
                     styles:
@@ -1106,7 +1346,7 @@ views:
             name: 'Температура в доме '
             icon: mdi:home-thermometer
             entities:
-              - sensor.sonoff_a480072e16_temperature
+              - sensor.snzb_0x90ab96fffe77bfd0_temperature
             line_color: var(--accent-color)
             hours_to_show: 24
             points_per_hour: 0.25
@@ -1315,21 +1555,21 @@ views:
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480072e16_humidity
+                  - sensor.snzb_0x90ab96fffe77bfd0_humidity
                 line_color: '#2980b9'
                 name: 'Кухня/Гостинная '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480072e16_temperature
+                  - sensor.snzb_0x90ab96fffe77bfd0_temperature
                 line_color: '#b58e31'
                 name: 'Кухня/Гостинная '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480072e16_battery
+                  - sensor.snzb_0x90ab96fffe77bfd0_battery
                 line_color: '#70a03c'
                 name: 'Кухня/Гостинная '
                 line_width: 8
@@ -1338,21 +1578,21 @@ views:
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a4800764ed_humidity
+                  - sensor.snzb_0x90ab96fffe773411_humidity
                 line_color: '#2980b9'
                 name: 'Спальня '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a4800764ed_temperature
+                  - sensor.snzb_0x90ab96fffe773411_temperature
                 line_color: '#b58e31'
                 name: 'Спальня '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a4800764ed_battery
+                  - sensor.snzb_0x90ab96fffe773411_battery
                 line_color: '#70a03c'
                 name: 'Спальня '
                 line_width: 8
@@ -1361,23 +1601,71 @@ views:
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480093f96_humidity
+                  - sensor.snzb_0x842712fffe556ccf_humidity
                 line_color: '#2980b9'
                 name: 'Дети/Родители '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480093f96_temperature
+                  - sensor.snzb_0x842712fffe556ccf_temperature
                 line_color: '#b58e31'
                 name: 'Дети/Родители '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.sonoff_a480093f96_battery
+                  - sensor.snzb_0x842712fffe556ccf_battery
                 line_color: '#70a03c'
                 name: 'Дети/Родители '
+                line_width: 8
+                font_size: 75
+      - type: grid
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_humidity
+                line_color: '#2980b9'
+                name: 'Теплица '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_temperature
+                line_color: '#b58e31'
+                name: 'Теплица '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_battery
+                line_color: '#70a03c'
+                name: 'Теплица '
+                line_width: 8
+                font_size: 75
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x00124b002513b353_humidity
+                line_color: '#2980b9'
+                name: 'Теплица (Old) '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x00124b002513b353_temperature
+                line_color: '#b58e31'
+                name: 'Теплица (Old) '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x00124b002513b353_battery
+                line_color: '#70a03c'
+                name: 'Теплица (Old) '
                 line_width: 8
                 font_size: 75
     visible:
