@@ -51,6 +51,11 @@ sudo raspi-config
 ```yaml
 nano /boot/cmdline.txt
 ```
+или
+```yaml
+nano /boot/firmware/cmdline.txt
+```
+
 В конец первой строки файла вставляем -->
 ```yaml
 systemd.unified_cgroup_hierarchy=false lsm=apparmor
