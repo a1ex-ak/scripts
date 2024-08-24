@@ -9,7 +9,7 @@ sudo -s
 apt update
 ```
 ```yaml
-apt full-upgrade -y
+apt distr-upgrade -y
 ```
 :ballot_box_with_check: Обновление прошивки - только при необходимости! (новый одноплатник или не обновляли не менее двух лет)    
 ```yaml
