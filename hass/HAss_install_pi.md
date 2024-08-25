@@ -6,22 +6,22 @@ sudo -s
 ```
 :ballot_box_with_check: Обновление списка пакетов и пакетов    
 ```yaml
-apt update
+sudo apt update
 ```
 ```yaml
-apt distr-upgrade -y
+sudo apt full-upgrade -y
 ```
 :ballot_box_with_check: Обновление прошивки - только при необходимости! (новый одноплатник или не обновляли не менее двух лет)    
 ```yaml
-rpi-update
+sudo rpi-update
 ```
 :ballot_box_with_check: Установка обновленных пакетов, в случае отображения диалоговых окон - нажимаем q    
 ```yaml
-apt upgrade --without-new-pkgs -y
+sudo apt upgrade --without-new-pkgs -y
 ```
 :ballot_box_with_check: Установка необходимых пакетов    
 ```yaml
-apt-get install -y jq wget curl udisks2 apparmor-utils libglib2.0-bin network-manager dbus systemd-journal-remote systemd-resolved
+sudo apt-get install -y jq wget curl udisks2 apparmor-utils libglib2.0-bin network-manager dbus systemd-journal-remote systemd-resolved
 ```
 :ballot_box_with_check: Запуск Network Manager    
 ```yaml
