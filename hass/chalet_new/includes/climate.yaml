@@ -1,0 +1,205 @@
+#--- Generic_thermostat ---#
+#Кухня/Гостинная термостат
+  - platform: generic_thermostat
+    name: chalet_kitchen
+    unique_id: kitchen_generic_thermostat
+    # heater: – это устройство, которое включает/выключает отопительный прибор.
+    #heater: switch.sonoff_1001676f3c
+    heater: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+    # target_sensor: – это датчик температуры, по которому будем управлять отоплением.
+    target_sensor: sensor.snzb_0x90ab96fffe77bfd0_temperature
+    # min_temp: / max_temp: - это минимальная и максимальная температуры на нашем терморегуляторе.
+    min_temp: 3
+    max_temp: 30
+    # ac_mode:  false – при таком параметре наш термостат работает как обогреватель, то есть при понижении температуры включается, а если температура превысит установленную - выключится.
+    #           Если поставить true – тогда наш термостат работает в режиме кондиционера и логика работает наоборот. Температура выше заданной – включаемся, ниже – выключаемся. 
+    ac_mode: false
+    # target_temp: – это температура, которая будет устанавливаться по умолчанию после перезагрузки Home-Assistant.
+    #target_temp: 22
+    # cold_tolerance: /  hot_tolerance: это значение гистерезиса для термостата. 
+    #                                   То есть, при значении cold_tolerance: 0.3 и hot_tolerance: 0.5 и заданной температуре 22 градуса, 
+    #                                   термостат нагревая отключится при превышении температуры 22.5 градуса, и будет выключен, пока температура не 
+    #                                   опустится ниже 21.7 градуса (22-0.3). 
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
+    # min_cycle_duration: - этим параметром мы устанавливаем минимальное время, в котором обогреватель должен находиться в положении вкл или выкл.
+    min_cycle_duration:
+      seconds: 5
+    # keep_alive: - этот параметр указывает на время цикла повторной отправки команды на включение/отключение исполнительного устройства. 
+    #               То есть, если выключить выключатель/розетку клавишей или вдруг по какой-то причине выключатель не включился с первого раза, 
+    #               компонент будет включать устройство каждые 3 мин. Таким образом нивелируются временные потери связи или случайные отключения устройств.
+    keep_alive:
+      minutes: 3
+    # initial_hvac_mode: - этот параметр отвечает за состояние термостата после перезагрузки системы. Допустимые параметры off, heat или cool.
+    #initial_hvac_mode: "off"
+    # away_temp: - если добавить этот параметр, то у термостата появится режим away (не дома), где будет выставлена заданная температура.
+    away_temp: 9
+    # precision: - этот параметр определяет шаг в градусах изменения задаваемой температуры. Допустимые значения 0.1,0.5 и 1.0.
+    precision: 0.1
+ 
+#Спальня термостат    
+  - platform: generic_thermostat
+    name: chalet_bedroom
+    unique_id: bedroom_generic_thermostat
+    #heater: switch.group_s26r2_chbroomlr
+    heater: switch.group_wsp_chbroomlr
+    target_sensor: sensor.snzb_0x90ab96fffe773411_temperature
+    min_temp: 6
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 23
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+
+#Дети/Родители термостат
+  - platform: generic_thermostat
+    name: chalet_child_parents
+    unique_id: parents_generic_thermostat
+    #heater: switch.sonoff_1001675cf6
+    heater: switch.tuya_bf84e09d7ec8ec727a0ert
+    target_sensor: sensor.snzb_0x842712fffe556ccf_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 23.1
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#Ванная/Туалет термостат
+  - platform: generic_thermostat
+    name: chalet_wc
+    unique_id: wc_generic_thermostat
+    #heater: switch.sonoff_1001dd9fbe
+    heater: switch.tuya_bfa7aa5ee649c62cf1l5tz
+    target_sensor: sensor.snzb_0x9035eafffe0d8227_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 23
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#Прихожая термостат
+  - platform: generic_thermostat
+    name: chalet_hall
+    unique_id: hall_generic_thermostat
+    #heater: switch.sonoff_1001418312
+    heater: switch.tuya_bf45a1f22d15a1c0d6vzmt
+    target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 14.4
+    cold_tolerance: 0.3
+    hot_tolerance: 0.6
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#2 Этаж термостат
+  - platform: generic_thermostat
+    name: chalet_2floore
+    unique_id: 2floor_generic_thermostat
+    #heater: switch.sonoff_100167729c
+    heater: switch.tuya_bfb3f4c51d9786bf13ayma
+    target_sensor: sensor.snzb_0x9035eafffe0d8a73_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 22.1
+    cold_tolerance: 0.4
+    hot_tolerance: 0.5
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 9
+    precision: 0.1
+    
+#2 Этаж (Potato) термостат
+  - platform: generic_thermostat
+    name: chalet_2floorp
+    unique_id: potato_generic_thermostat
+    heater: switch.tuya_bf608e1bc6a7af57cas39n
+    target_sensor: sensor.snzb_0x842712fffe38349b_temperature
+    min_temp: 3
+    max_temp: 15
+    ac_mode: false
+    #target_temp: 4
+    cold_tolerance: 0.3
+    hot_tolerance: 0.5
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 4
+    precision: 0.1
+    
+#Колодец термостат
+  - platform: generic_thermostat
+    name: chalet_well
+    unique_id: well_generic_thermostat
+    heater: switch.sonoff_100141361d
+    target_sensor: sensor.snzb_0x9035eafffe0d88d6_temperature
+    min_temp: 1
+    max_temp: 8
+    ac_mode: false
+    target_temp: 4
+    cold_tolerance: 2.5
+    hot_tolerance: 3
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 1
+    initial_hvac_mode: "heat"
+    #away_temp: 4
+    precision: 0.1
+    
+#Теплица термостат
+  - platform: generic_thermostat
+    name: chalet_glasshouse
+    unique_id: glasshouse_generic_thermostat
+    #heater: switch.tuya_bfe8a953b2dda2f5f7kdmj
+    heater: switch.tuyazb_0xa4c138c326596775
+    target_sensor: sensor.snzb_0x9035eafffe09709a_temperature
+    min_temp: 3
+    max_temp: 30
+    ac_mode: false
+    #target_temp: 4
+    cold_tolerance: 0.3
+    hot_tolerance: 1.7
+    min_cycle_duration:
+      seconds: 5
+    keep_alive:
+      minutes: 3
+    #initial_hvac_mode: "off"
+    away_temp: 10
+    precision: 0.1
+    
