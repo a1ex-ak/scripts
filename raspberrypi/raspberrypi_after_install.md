@@ -11,7 +11,9 @@ sudo nano /boot/firmware/config.txt
 ```
 :ballot_box_with_check: находим строку #arm_freq=800 и вместо неё вставляем
 ```yaml
+#Enable to overclock the arm. 700 MHz is the default.
 arm_freq=2147
 gpu_freq=750
 over_voltage=6
+#force_turbo=1
 ```
