@@ -9,7 +9,7 @@ curl -s https://raw.githubusercontent.com/YouROK/TorrServer/master/installTorrSe
 ```yaml
 sudo nano /boot/firmware/config.txt
 ```
-:ballot_box_with_check: находим строку #arm_freq=800 и вместо неё вставляем
+:ballot_box_with_check: Разгоняем RaspberryPI 4B находим строку #arm_freq=800 и вместо неё вставляем
 ```yaml
 #Enable to overclock the arm. 700 MHz is the default.
 arm_freq=2147
