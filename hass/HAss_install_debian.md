@@ -31,4 +31,16 @@ sudo curl -fsSL get.docker.com | sh
 
 :arrow_right: Веб интерфейс Home Assistant - `http://IP adress:8123`    
 
-:arrow_right: Информация о системе - `http://IP adress:8123/hassio/system`  
+:arrow_right: Информация о системе - `http://IP adress:8123/hassio/system`
+
+:ballot_box_with_check: HACS    
+режим root:    
+```yaml
+sudo -s
+```
+:white_check_mark: [Команда с сайта HACS](https://hacs.xyz/docs/setup/download)    
+Загрузка и установка HACS - `wget -O - https://get.hacs.xyz | bash -`    
+Выход:    
+```yaml
+exit
+```
