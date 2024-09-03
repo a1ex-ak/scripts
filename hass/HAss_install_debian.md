@@ -19,6 +19,12 @@ sudo systemctl restart systemd-resolved
 sudo curl -fsSL get.docker.com | sh
 ```
 
+:ballot_box_with_check: Добавляем в группу docker пользователя
+```yaml
+sudo gpasswd -a $USER docker
+newgrp docker
+```
+
 :ballot_box_with_check: Установка OS-Agent    
 :white_check_mark: [Последний релиз](https://github.com/home-assistant/os-agent/releases/latest)    
 Загружаем - `wget https://github.com/home-assistant/os-agent/releases/download/1.6.0/os-agent_1.6.0_linux_x86_64.deb` (номер меняем на актуальный)    
