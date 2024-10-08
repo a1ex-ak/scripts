@@ -52,7 +52,7 @@ LimitNOFILE=65536
 LimitNPROC=4096
 
 [Install]
-WantedBy=multi-user.target``yaml
+WantedBy=multi-user.target
 ```
 ```yaml
 sudo systemctl daemon-reload
