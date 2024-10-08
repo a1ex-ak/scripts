@@ -34,7 +34,7 @@ sudo chown -R sonarqube: /opt/sonarqube
 ```
 
 ```yaml
-sudo nano  /etc/systemd/system/sonarqube.service
+sudo nano /etc/systemd/system/sonarqube.service
 ```
 ```yaml
 [Unit]
