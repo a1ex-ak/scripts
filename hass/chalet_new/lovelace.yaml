@@ -304,7 +304,12 @@ views:
                   - entity: sensor.uptime
                     attribute: last-changed
                     format: datetime
-                    name: 'загрузка '
+                    name: 'HA '
+                    styles:
+                      text-align: center
+                  - entity: sensor.last_boot_custom
+                    format: datetime
+                    name: 'хост '
                     styles:
                       text-align: center
           - type: entities
@@ -337,7 +342,7 @@ views:
                 name: 'База данных '
                 icon: mdi:database
                 entities:
-                  - icon: mdi:database-minus-outline
+                  - icon: mdi:database-minus
                     state_color: true
                     styles:
                       width: 40px
@@ -345,7 +350,7 @@ views:
                       action: call-service
                       service: recorder.purge
                       service_data:
-                        keep_days: 1
+                        keep_days: 2
                         repack: true
           - type: entities
             show_header_toggle: false
@@ -386,16 +391,51 @@ views:
                       text-align: center
       - type: grid
         cards:
-          - show_current: true
-            show_forecast: true
-            type: weather-forecast
-            entity: weather.yandex_pogoda
-            name: 'Прогноз погоды '
-            forecast_type: hourly
+          - type: custom:weather-chart-card
+            entity: weather.forecast_chalet
+            show_main: true
+            show_temperature: true
+            show_current_condition: true
+            show_attributes: true
+            show_time: екгу
+            show_time_seconds: false
+            show_day: true
+            show_date: true
+            show_humidity: true
+            show_pressure: true
+            show_wind_direction: true
+            show_wind_speed: true
+            show_sun: true
+            show_feels_like: false
+            show_dew_point: true
+            show_wind_gust_speed: true
+            show_visibility: false
+            show_last_changed: false
+            use_12hour_format: false
+            icons_size: 25
+            animated_icons: true
+            icon_style: style1
+            autoscroll: false
+            forecast:
+              precipitation_type: rainfall
+              show_probability: false
+              labels_font_size: '11'
+              precip_bar_size: '100'
+              style: style2
+              show_wind_forecast: true
+              condition_icons: true
+              round_temp: false
+              type: daily
+              number_of_forecasts: '0'
+              disable_animation: false
+            units:
+              pressure: mmHg
+              speed: m/s
+            locale: ''
           - type: horizontal-stack
             cards:
               - type: custom:mushroom-template-card
-                primary: 'Зима [23C] '
+                primary: 'Зима [23°С] '
                 secondary: |-
                   {% if is_state("input_boolean.heat_chalet_on_off", "on") %}
                   Отопление включено
@@ -420,7 +460,7 @@ views:
                   grey
                   {% endif %}
               - type: custom:mushroom-template-card
-                primary: 'Весна-Осень [21C] '
+                primary: 'Весна-Осень [21°С] '
                 secondary: >-
                   {% if is_state("input_boolean.heat_chalet_spraut_on_off",
                   "on") %}
@@ -462,7 +502,7 @@ views:
           - type: horizontal-stack
             cards:
               - type: custom:mushroom-template-card
-                primary: '2Этаж [20.5C] '
+                primary: '2Этаж [19,5°С] '
                 secondary: |-
                   {% if is_state("input_boolean.heat_2floor_on_off", "on") %}
                   Отопление включено
@@ -487,7 +527,7 @@ views:
                   grey
                   {% endif %}
               - type: custom:mushroom-template-card
-                primary: 'Лето [0C] '
+                primary: 'Лето [0°С] '
                 secondary: >-
                   {% if is_state("input_boolean.heat_chalet_summer_on_off",
                   "on") %}
@@ -720,7 +760,7 @@ views:
                   - type: custom:mushroom-template-card
                     primary: 2 Этаж
                     secondary: >-
-                      {% if is_state("switch.tuya_bfb3f4c51d9786bf13ayma", "on")
+                      {% if is_state("switch.tuyazb_0xa4c1388838702fba", "on")
                       %}
 
                       ВКЛ
@@ -733,9 +773,9 @@ views:
                     layout: vertical
                     tap_action:
                       action: toggle
-                    entity: switch.tuya_bfb3f4c51d9786bf13ayma
+                    entity: switch.tuyazb_0xa4c1388838702fba
                     icon: >-
-                      {% if is_state("switch.tuya_bfb3f4c51d9786bf13ayma", "on")
+                      {% if is_state("switch.tuyazb_0xa4c1388838702fba", "on")
                       %}
 
                       mdi:radiator
@@ -747,7 +787,7 @@ views:
                       {% endif %}
                     multiline_secondary: true
                     icon_color: >-
-                      {% if is_state("switch.tuya_bfb3f4c51d9786bf13ayma", "on")
+                      {% if is_state("switch.tuyazb_0xa4c1388838702fba", "on")
                       %}
 
                       amber
@@ -764,49 +804,6 @@ views:
               - condition: state
                 entity: automation.boiler_00_45_off
                 state: 'off'
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: climate.chalet_kitchen
-                state: heat
-              - condition: state
-                entity: climate.chalet_bedroom
-                state: heat
-              - condition: state
-                entity: climate.chalet_child_parents
-                state: heat
-              - condition: state
-                entity: climate.chalet_wc
-                state: heat
-              - condition: state
-                entity: climate.chalet_hall
-                state: heat
-              - condition: state
-                entity: climate.chalet_2floorp
-                state: heat
-            card:
-              type: entities
-              entities:
-                - entity: climate.chalet_kitchen
-                  secondary_info: last-changed
-                  name: Кухня/Гостинная
-                - entity: climate.chalet_bedroom
-                  name: Спальня
-                  secondary_info: last-changed
-                - entity: climate.chalet_child_parents
-                  name: Дети/Родители
-                  secondary_info: last-changed
-                - entity: climate.chalet_wc
-                  name: WC/Ванная
-                  secondary_info: last-changed
-                - entity: climate.chalet_hall
-                  name: Прихожая
-                  secondary_info: last-changed
-                - entity: climate.chalet_2floorp
-                  name: 2 Этаж [Potato]
-                  secondary_info: last-changed
-              show_header_toggle: false
-              state_color: true
       - type: grid
         cards:
           - type: conditional
@@ -815,7 +812,7 @@ views:
                 entity: automation.boiler_00_05_on
                 state: 'on'
               - condition: state
-                entity: automation.boiler_00_45_off
+                entity: automation.boiler_00_35_off
                 state: 'on'
             card:
               type: horizontal-stack
@@ -846,9 +843,9 @@ views:
                     grey
                     {% endif %}
                 - type: custom:mushroom-template-card
-                  primary: 'Бойлер [00:45] '
+                  primary: 'Бойлер [00:35] '
                   secondary: |-
-                    {% if is_state("automation.boiler_00_45_off", "on") %}
+                    {% if is_state("automation.boiler_00_35_off", "on") %}
                     Обогрев включен
                     {% else %}
                     Обогрев выключен
@@ -856,20 +853,416 @@ views:
                   layout: horizontal
                   tap_action:
                     action: toggle
-                  entity: automation.boiler_00_45_off
+                  entity: automation.boiler_00_35_off
                   icon: |-
-                    {% if is_state("automation.boiler_00_45_off", "on") %}
+                    {% if is_state("automation.boiler_00_35_off", "on") %}
                     mdi:water-boiler
                     {% else %}
                     mdi:water-boiler-off
                     {% endif %}
                   multiline_secondary: true
                   icon_color: |-
-                    {% if is_state("automation.boiler_00_45_off", "on") %}
+                    {% if is_state("automation.boiler_00_35_off", "on") %}
                     amber
                     {% else %}
                     grey
                     {% endif %}
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 'Кухня/Гостинная '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_kitchen", "hvac_action",
+                  "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_kitchen', 'temperature')
+                  | float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_kitchen", "preset_mode",
+                  "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_kitchen',
+                  'temperature') | float}}°С]
+
+                  {% elif is_state("climate.chalet_kitchen", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_kitchen',
+                  'temperature') | float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.snzb_0x90ab96fffe77bfd0_temperature')}}°С
+
+                  {{states ('sensor.snzb_0x90ab96fffe77bfd0_humidity')}}%  
+                  {{states ('sensor.snzb_0x90ab96fffe77bfd0_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_kitchen
+                icon: |-
+                  {% if is_state("climate.chalet_kitchen", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_kitchen", "hvac_action",
+                  "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+              - type: custom:mushroom-template-card
+                primary: 'Спальня '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_bedroom", "hvac_action",
+                  "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_bedroom', 'temperature')
+                  | float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_bedroom", "preset_mode",
+                  "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_bedroom',
+                  'temperature') | float}}°С]
+
+                  {% elif is_state("climate.chalet_bedroom", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_bedroom',
+                  'temperature') | float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.snzb_0x90ab96fffe773411_temperature')}}°С
+
+                  {{states ('sensor.snzb_0x90ab96fffe773411_humidity')}}%  
+                  {{states ('sensor.snzb_0x90ab96fffe773411_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_bedroom
+                icon: |-
+                  {% if is_state("climate.chalet_bedroom", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_bedroom", "hvac_action",
+                  "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 'Дети/Родители '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_child_parents",
+                  "hvac_action", "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_child_parents',
+                  'temperature') | float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_child_parents",
+                  "preset_mode", "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_child_parents',
+                  'temperature') | float}}°С]
+
+                  {% elif is_state("climate.chalet_child_parents", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_child_parents',
+                  'temperature') | float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.snzb_0x842712fffe556ccf_temperature')}}°С
+
+                  {{states ('sensor.snzb_0x842712fffe556ccf_humidity')}}%  
+                  {{states ('sensor.snzb_0x842712fffe556ccf_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_child_parents
+                icon: |-
+                  {% if is_state("climate.chalet_child_parents", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_child_parents",
+                  "hvac_action", "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+              - type: custom:mushroom-template-card
+                primary: 'WC/Ванная '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_wc", "hvac_action",
+                  "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_wc', 'temperature') |
+                  float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_wc", "preset_mode",
+                  "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_wc', 'temperature') |
+                  float}}°С]
+
+                  {% elif is_state("climate.chalet_wc", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_wc', 'temperature') |
+                  float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.snzb_0x9035eafffe0d8227_temperature')}}°С
+
+                  {{states ('sensor.snzb_0x9035eafffe0d8227_humidity')}}%  
+                  {{states ('sensor.snzb_0x9035eafffe0d8227_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_wc
+                icon: |-
+                  {% if is_state("climate.chalet_wc", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_wc", "hvac_action",
+                  "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 'Прихожая '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_hall", "hvac_action",
+                  "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_hall', 'temperature') |
+                  float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_hall", "preset_mode",
+                  "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_hall', 'temperature')
+                  | float}}°С]
+
+                  {% elif is_state("climate.chalet_hall", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_hall', 'temperature')
+                  | float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.aqzb_0x00158d008b04140b_temperature')}}°С
+
+                  {{states ('sensor.aqzb_0x00158d008b04140b_humidity')}}%  
+                  {{states ('sensor.aqzb_0x00158d008b04140b_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_hall
+                icon: |-
+                  {% if is_state("climate.chalet_hall", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_hall", "hvac_action",
+                  "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+              - type: custom:mushroom-template-card
+                primary: '2 Этаж [Potato] '
+                secondary: >-
+                  {% if is_state_attr("climate.chalet_2floorp", "hvac_action",
+                  "off")%}
+
+                  Выкл. [{{ state_attr ('climate.chalet_2floorp', 'temperature')
+                  | float}}°С]
+
+                  {% elif is_state_attr("climate.chalet_2floorp", "preset_mode",
+                  "away") %}
+
+                  Не дома [{{ state_attr ('climate.chalet_2floorp',
+                  'temperature') | float}}°С]
+
+                  {% elif is_state("climate.chalet_2floorp", "heat") %}
+
+                  Обогрев [{{ state_attr ('climate.chalet_2floorp',
+                  'temperature') | float}}°С]
+
+                  {% else %}
+
+                  Выключено
+
+                  {% endif %}Сейчас: {{states
+                  ('sensor.snzb_0x38398ffffe042bf8_temperature')}}°С
+
+                  {{states ('sensor.snzb_0x38398ffffe042bf8_humidity')}}%  
+                  {{states ('sensor.snzb_0x38398ffffe042bf8_battery')}}%
+                tap_action:
+                  action: more-info
+                entity: climate.chalet_2floorp
+                icon: |-
+                  {% if is_state("climate.chalet_2floorp", "heat") %}
+                  mdi:thermostat
+                  {% else %}
+                  mdi:thermostat
+                  {% endif %}
+                multiline_secondary: true
+                icon_color: >-
+                  {% if is_state_attr("climate.chalet_2floorp", "hvac_action",
+                  "heating") %}
+
+                  deep-orange
+
+                  {% else %}
+
+                  grey
+
+                  {% endif %}
+                hold_action:
+                  action: more-info
+                grid_options:
+                  columns: 6
+                  rows: 1
+          - type: custom:mushroom-template-card
+            primary: '2 Этаж '
+            secondary: >-
+              {% if is_state_attr("climate.chalet_2floore", "hvac_action",
+              "off")%}
+
+              Выкл. [{{ state_attr ('climate.chalet_2floore', 'temperature') |
+              float}}°С]
+
+              {% elif is_state_attr("climate.chalet_2floore", "preset_mode",
+              "away") %}
+
+              Не дома [{{ state_attr ('climate.chalet_2floore', 'temperature') |
+              float}}°С]
+
+              {% elif is_state("climate.chalet_2floore", "heat") %}
+
+              Обогрев [{{ state_attr ('climate.chalet_2floore', 'temperature') |
+              float}}°С]
+
+              {% else %}
+
+              Выключено
+
+              {% endif %}Сейчас: {{states
+              ('sensor.aqzb_0x00158d008b0403ca_temperature')}}°С
+
+              {{states ('sensor.aqzb_0x00158d008b0403ca_humidity')}}%   {{states
+              ('sensor.aqzb_0x00158d008b0403ca_battery')}}%
+            tap_action:
+              action: more-info
+            entity: climate.chalet_2floore
+            icon: |-
+              {% if is_state("climate.chalet_2floore", "heat") %}
+              mdi:thermostat
+              {% else %}
+              mdi:thermostat
+              {% endif %}
+            multiline_secondary: true
+            icon_color: >-
+              {% if is_state_attr("climate.chalet_2floore", "hvac_action",
+              "heating") %}
+
+              deep-orange
+
+              {% else %}
+
+              grey
+
+              {% endif %}
+            hold_action:
+              action: more-info
+            fill_container: false
+            visibility:
+              - condition: state
+                entity: switch.tuyazb_0xa4c1388838702fba
+                state: 'on'
+            grid_options:
+              columns: full
+              rows: null
           - type: horizontal-stack
             cards:
               - type: custom:mushroom-template-card
@@ -958,7 +1351,7 @@ views:
               - type: custom:mushroom-template-card
                 primary: 'Cтиральная '
                 secondary: |-
-                  {% if is_state("switch.tuya_bf45a1f22d15a1c0d6vzmt", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c13892a166e859", "on") %}
                   ВКЛ
                   {% else %}
                   ВЫКЛ
@@ -966,16 +1359,16 @@ views:
                 layout: vertical
                 tap_action:
                   action: toggle
-                entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
+                entity: switch.tuyazb_0xa4c13892a166e859
                 icon: |-
-                  {% if is_state("switch.tuya_bf45a1f22d15a1c0d6vzmt", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c13892a166e859", "on") %}
                   mdi:washing-machine
                   {% else %}
                   mdi:washing-machine-off
                   {% endif %}
                 multiline_secondary: true
                 icon_color: |-
-                  {% if is_state("switch.tuya_bf45a1f22d15a1c0d6vzmt", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c13892a166e859", "on") %}
                   amber
                   {% else %}
                   grey
@@ -1041,7 +1434,7 @@ views:
               - type: custom:mushroom-template-card
                 primary: 'Зарядка '
                 secondary: |-
-                  {% if is_state("switch.tuyazb_0x70b3d52b6007e417", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c1388df3fdf480", "on") %}
                   ВКЛ
                   {% else %}
                   ВЫКЛ
@@ -1049,16 +1442,16 @@ views:
                 layout: vertical
                 tap_action:
                   action: toggle
-                entity: switch.tuyazb_0x70b3d52b6007e417
+                entity: switch.tuyazb_0xa4c1388df3fdf480
                 icon: |-
-                  {% if is_state("switch.tuyazb_0x70b3d52b6007e417", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c1388df3fdf480", "on") %}
                   mdi:power-plug-battery
                   {% else %}
                   mdi:power-plug-battery-outline
                   {% endif %}
                 multiline_secondary: true
                 icon_color: |-
-                  {% if is_state("switch.tuyazb_0x70b3d52b6007e417", "on") %}
+                  {% if is_state("switch.tuyazb_0xa4c1388df3fdf480", "on") %}
                   amber
                   {% else %}
                   grey
@@ -1117,98 +1510,29 @@ views:
                   {% endif %}
                 hold_action:
                   action: toggle
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x9035eafffe0d88d6_temperature
-                line_color: '#b58e31'
-                name: 'Колодец '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x9035eafffe0d88d6_humidity
-                line_color: '#2980b9'
-                name: 'Колодец '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x9035eafffe0d88d6_battery
-                line_color: '#70a03c'
-                name: 'Колодец '
-                line_width: 8
-                font_size: 75
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x90ab96fffe773411_temperature
-                line_color: '#b58e31'
-                name: 'Спальня '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x90ab96fffe773411_humidity
-                line_color: '#2980b9'
-                name: 'Спальня '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x90ab96fffe773411_battery
-                line_color: '#70a03c'
-                name: 'Спальня '
-                line_width: 8
-                font_size: 75
-          - type: horizontal-stack
-            cards:
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x842712fffe556ccf_temperature
-                line_color: '#b58e31'
-                name: 'Дети/Родители '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x842712fffe556ccf_humidity
-                line_color: '#2980b9'
-                name: 'Дети/Родители '
-                line_width: 8
-                font_size: 75
-              - type: custom:mini-graph-card
-                entities:
-                  - sensor.snzb_0x842712fffe556ccf_battery
-                line_color: '#70a03c'
-                name: 'Дети/Родители '
-                line_width: 8
-                font_size: 75
       - type: grid
         cards:
           - type: horizontal-stack
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8227_temperature
+                  - sensor.aqzb_0x00158d008b04140b_temperature
                 line_color: '#b58e31'
-                name: 'WC/Ванная '
+                name: 'Прихожая '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8227_humidity
+                  - sensor.aqzb_0x00158d008b04140b_humidity
                 line_color: '#2980b9'
-                name: 'WC/Ванная '
+                name: 'Прихожая '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8227_battery
+                  - sensor.aqzb_0x00158d008b04140b_battery
                 line_color: '#70a03c'
-                name: 'WC/Ванная '
+                name: 'Прихожая '
                 line_width: 8
                 font_size: 75
           - type: horizontal-stack
@@ -1217,42 +1541,42 @@ views:
                 entities:
                   - sensor.snzb_0x38398ffffe042bf8_temperature
                 line_color: '#b58e31'
-                name: 'Прихожая '
+                name: 'Potato '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
                   - sensor.snzb_0x38398ffffe042bf8_humidity
                 line_color: '#2980b9'
-                name: 'Прихожая '
+                name: 'Potato '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
                   - sensor.snzb_0x38398ffffe042bf8_battery
                 line_color: '#70a03c'
-                name: 'Прихожая '
+                name: 'Potato '
                 line_width: 8
                 font_size: 75
           - type: horizontal-stack
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8a73_temperature
+                  - sensor.aqzb_0x00158d008b0403ca_temperature
                 line_color: '#b58e31'
                 name: '2 Этаж '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8a73_humidity
+                  - sensor.aqzb_0x00158d008b0403ca_humidity
                 line_color: '#2980b9'
                 name: '2 Этаж '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x9035eafffe0d8a73_battery
+                  - sensor.aqzb_0x00158d008b0403ca_battery
                 line_color: '#70a03c'
                 name: '2 Этаж '
                 line_width: 8
@@ -1261,23 +1585,46 @@ views:
             cards:
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x00124b0024cc450c_temperature
+                  - sensor.aqzb_0x00158d008afd900a_temperature
                 line_color: '#b58e31'
-                name: 'Веранда '
+                name: 'Колодец '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x00124b0024cc450c_humidity
+                  - sensor.aqzb_0x00158d008afd900a_humidity
                 line_color: '#2980b9'
-                name: 'Веранда '
+                name: 'Колодец '
                 line_width: 8
                 font_size: 75
               - type: custom:mini-graph-card
                 entities:
-                  - sensor.snzb_0x00124b0024cc450c_battery
+                  - sensor.aqzb_0x00158d008afd900a_battery
                 line_color: '#70a03c'
-                name: 'Веранда '
+                name: 'Колодец '
+                line_width: 8
+                font_size: 75
+          - type: horizontal-stack
+            cards:
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_temperature
+                line_color: '#b58e31'
+                name: 'Теплица '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_humidity
+                line_color: '#2980b9'
+                name: 'Теплица '
+                line_width: 8
+                font_size: 75
+              - type: custom:mini-graph-card
+                entities:
+                  - sensor.snzb_0x9035eafffe09709a_battery
+                line_color: '#70a03c'
+                name: 'Теплица '
                 line_width: 8
                 font_size: 75
       - type: grid
@@ -1287,13 +1634,24 @@ views:
     cards: []
     badges:
       - type: entity
-        entity: sensor.snzb_0x90ab96fffe77bfd0_temperature
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: weather.forecast_chalet
+        color: ''
+      - type: entity
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.chalet_average_temperature
         color: orange
         name: в доме
       - type: entity
-        entity: sensor.snzb_0x90ab96fffe77bfd0_humidity
-      - type: entity
-        entity: sensor.snzb_0x90ab96fffe77bfd0_battery
+        show_name: false
+        show_state: true
+        show_icon: true
+        entity: sensor.sensor_chalet_average_humidity
+        color: ''
   - title: Телеметрия
     path: 02_telemetry
     cards: []
@@ -1641,158 +1999,17 @@ views:
                     name: 'в месяц '
                     styles:
                       text-align: center
-      - type: grid
-        cards:
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.snzb_0x00124b0024ccfec3_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:locker-multiple
-                format: precision1
-                name: 'Серверная '
-                styles:
-                  text-align: center
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.snzb_0x00124b0024ccfec3_humidity
-                    format: precision1
-                    name: 'влажность '
-                    styles:
-                      text-align: center
-                  - entity: sensor.snzb_0x00124b0024ccfec3_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
               - type: divider
-              - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04
+              - entity: switch.tuyazb_0xa4c138370c6aa65f
                 type: custom:multiple-entity-row
-                name: 'Оборудование '
+                name: 'Вытяжка '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:network
+                icon: mdi:fan
                 entities:
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: switch.tuyazb_0xa4c1386ada5d51a1
-                type: custom:multiple-entity-row
-                name: 'Телевизор (1этаж) '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:television
-                entities:
-                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuyazb_0xa4c1382311c21bfd
-                type: custom:multiple-entity-row
-                name: 'Холодильник '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:fridge
-                entities:
-                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_kwh_month
-                    format: precision2
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuyazb_0x70b3d52b6007e417
-                type: custom:multiple-entity-row
-                name: 'Зарядка телефонов '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:power-plug-battery
-                entities:
-                  - entity: sensor.tuyazb_0x70b3d52b6007e417_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuyazb_0xa4c13819c55f376f
-                type: custom:multiple-entity-row
-                name: 'Бойлер '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:water-boiler
-                entities:
-                  - entity: sensor.tuyazb_0xa4c13819c55f376f_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
-                type: custom:multiple-entity-row
-                name: 'Стиральная машина '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:washing-machine
-                entities:
-                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuya_bf4c784722392a6dc5gqiu
-                type: custom:multiple-entity-row
-                name: 'Рассада (Ванная) '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:flower
-                entities:
-                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'в месяц '
-                    styles:
-                      text-align: center
-              - type: divider
-              - entity: switch.tuyazb_0xa4c138e764255ca2
-                type: custom:multiple-entity-row
-                name: 'Телевизор (2этаж) '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:television
-                entities:
-                  - entity: sensor.tuyazb_0xa4c138e764255ca2_kwh_month
+                  - entity: sensor.tuyazb_0xa4c138370c6aa65f_kwh_month
                     format: precision1
                     unit: 'kWh '
                     name: 'в месяц '
@@ -1848,7 +2065,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.snzb_0x38398ffffe042bf8_humidity
+                      entity: sensor.aqzb_0x00158d008b04140b_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -1868,7 +2085,7 @@ views:
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.snzb_0x38398ffffe042bf8_battery
+                      entity: sensor.aqzb_0x00158d008b04140b_battery
               - type: divider
               - entity: switch.tuyazb_0xa4c138cb1877b97d
                 type: custom:multiple-entity-row
@@ -1889,30 +2106,9 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.snzb_0x00124b0024cc450c_temperature
-                type: custom:multiple-entity-row
-                icon: mdi:balcony
-                format: precision1
-                name: 'Веранда (м) '
-                styles:
-                  text-align: center
-                  font-weight: bold
-                state_header: 'температура '
-                entities:
-                  - entity: sensor.snzb_0x00124b0024cc450c_humidity
-                    format: precision1
-                    name: 'влажность '
-                    styles:
-                      text-align: center
-                  - entity: sensor.snzb_0x00124b0024cc450c_battery
-                    format: precision0
-                    name: 'заряд '
-                    styles:
-                      text-align: center
-              - type: divider
               - entity: switch.tuyazb_0xa4c13876cc154025
                 type: custom:multiple-entity-row
-                name: 'Светильник '
+                name: 'Веранда '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -1925,6 +2121,120 @@ views:
                     name: 'связь '
                     styles:
                       text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c1386ada5d51a1
+                type: custom:multiple-entity-row
+                name: 'Телевизор (1этаж) '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:television
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c1382311c21bfd
+                type: custom:multiple-entity-row
+                name: 'Холодильник '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:fridge
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_kwh_month
+                    format: precision2
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c1388df3fdf480
+                type: custom:multiple-entity-row
+                name: 'Зарядка телефонов '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:power-plug-battery
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1388df3fdf480_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c13819c55f376f
+                type: custom:multiple-entity-row
+                name: 'Бойлер '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:water-boiler
+                entities:
+                  - entity: sensor.tuyazb_0xa4c13819c55f376f_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c13892a166e859
+                type: custom:multiple-entity-row
+                name: 'Стиральная машина '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:washing-machine
+                entities:
+                  - entity: sensor.tuyazb_0xa4c13892a166e859_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuya_bf4c784722392a6dc5gqiu
+                type: custom:multiple-entity-row
+                name: 'Рассада (Ванная) '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:flower
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+              - type: divider
+              - entity: switch.tuyazb_0xa4c138e764255ca2
+                type: custom:multiple-entity-row
+                name: 'Телевизор (2этаж) '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:television
+                entities:
+                  - entity: sensor.tuyazb_0xa4c138e764255ca2_kwh_month
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'в месяц '
+                    styles:
+                      text-align: center
+      - type: grid
+        cards:
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -1995,7 +2305,7 @@ views:
                     source:
                       entity: sensor.snzb_0x9035eafffe0d8a73_battery
               - type: divider
-              - entity: switch.tuya_bfb3f4c51d9786bf13ayma
+              - entity: switch.tuyazb_0xa4c1388838702fba
                 type: custom:multiple-entity-row
                 name: 'Обогреватель-E '
                 state_header: 'off/on '
@@ -2004,7 +2314,7 @@ views:
                 secondary_info: last-changed
                 icon: mdi:radiator
                 entities:
-                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
+                  - entity: sensor.tuyazb_0xa4c1388838702fba_kwh_month
                     format: precision1
                     unit: 'kWh '
                     name: 'в месяц '
@@ -2058,7 +2368,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.snzb_0x842712fffe38349b_humidity
+                      entity: sensor.snzb_0x38398ffffe042bf8_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -2078,9 +2388,9 @@ views:
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.snzb_0x842712fffe38349b_battery
+                      entity: sensor.snzb_0x38398ffffe042bf8_battery
               - type: divider
-              - entity: switch.tuya_bf608e1bc6a7af57cas39n
+              - entity: switch.tuyazb_0x70b3d52b6007e417
                 type: custom:multiple-entity-row
                 name: 'Обогреватель-P '
                 state_header: 'off/on '
@@ -2089,14 +2399,12 @@ views:
                 secondary_info: last-changed
                 icon: mdi:radiator
                 entities:
-                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
+                  - entity: sensor.tuyazb_0x70b3d52b6007e417_kwh_month
                     format: precision1
                     unit: 'kWh '
                     name: 'в месяц '
                     styles:
                       text-align: center
-      - type: grid
-        cards:
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -2145,7 +2453,7 @@ views:
                     unit: '%'
                     round: 1
                     source:
-                      entity: sensor.snzb_0x9035eafffe0d88d6_humidity
+                      entity: sensor.aqzb_0x00158d008afd900a_humidity
                   power_consumption:
                     icon:
                       template: >
@@ -2165,7 +2473,7 @@ views:
                     unit: '%'
                     round: 0
                     source:
-                      entity: sensor.snzb_0x9035eafffe0d88d6_battery
+                      entity: sensor.aqzb_0x00158d008afd900a_battery
               - type: divider
               - entity: switch.tuyazb_0xa4c138f1c91c9534
                 type: custom:multiple-entity-row
@@ -2269,6 +2577,8 @@ views:
                       text-align: center
       - type: grid
         cards: []
+      - type: grid
+        cards: []
     max_columns: 4
     icon: mdi:keyboard
     badges: []
@@ -2314,7 +2624,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2337,7 +2647,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138a15bffa190
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Кухня '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2381,7 +2691,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2404,7 +2714,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138cc25ab23e9
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Спальня L '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2448,7 +2758,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2471,7 +2781,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138a93aa705e7
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Спальня R '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2482,77 +2792,6 @@ views:
                     toggle: true
                     state_color: true
                     name: 'child lock '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'WSP-ChWashing '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:washing-machine
-                entities:
-                  - entity: lock.tuya_bf45a1f22d15a1c0d6vzmt_childlock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-                  - entity: switch.tuya_bf45a1f22d15a1c0d6vzmt_overchange
-                    toggle: true
-                    state_color: true
-                    name: 'overchange '
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -2586,7 +2825,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2609,7 +2848,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138e764255ca2
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'ТВ 2 Этаж '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2620,6 +2859,77 @@ views:
                     toggle: true
                     state_color: true
                     name: 'child lock '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'WSP-Flowers '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuya_bf4c784722392a6dc5gqiu
+                type: custom:multiple-entity-row
+                name: 'Рассада '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:flower
+                entities:
+                  - entity: lock.tuya_bf4c784722392a6dc5gqiu_childlock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+                  - entity: switch.tuya_bf4c784722392a6dc5gqiu_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
       - type: grid
         cards:
           - type: entities
@@ -2655,7 +2965,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2678,7 +2988,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c13804d16f439b
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Дети/Родители '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2722,7 +3032,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -2745,7 +3055,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138b501305b3e
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Туалет/Ванная '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -2760,24 +3070,24 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.tuyazb_0xa4c1382311c21bfd_power
+              - entity: sensor.tuyazb_0xa4c13892a166e859_power
                 type: custom:multiple-entity-row
                 icon: mdi:power-socket-eu
                 format: precision0
-                name: 'TZB-ChRefrigerator '
+                name: 'TZB-ChWashing '
                 state_header: 'мощность '
                 unit: 'W '
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_current
+                  - entity: sensor.tuyazb_0xa4c13892a166e859_current
                     format: precision1
                     unit: 'A '
                     name: 'ток '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_voltage
+                  - entity: sensor.tuyazb_0xa4c13892a166e859_voltage
                     format: precision0
                     unit: 'V '
                     name: 'напряжение '
@@ -2785,24 +3095,24 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: sensor.tuyazb_0xa4c1382311c21bfd_kwh_month
+              - entity: sensor.tuyazb_0xa4c13892a166e859_kwh_month
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_tariff_day
+                  - entity: sensor.tuyazb_0xa4c13892a166e859_tariff_day
                     format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_tariff_night
+                  - entity: sensor.tuyazb_0xa4c13892a166e859_tariff_night
                     format: precision1
                     unit: 'kWh '
                     name: 'ночь '
@@ -2810,24 +3120,28 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: switch.tuyazb_0xa4c1382311c21bfd
+              - entity: switch.tuyazb_0xa4c13892a166e859
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Стиральная машина '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
-                icon: mdi:fridge
+                icon: mdi:washing-machine
                 entities:
-                  - entity: lock.tuyazb_0xa4c1382311c21bfd_child_lock
+                  - entity: lock.tuyazb_0xa4c13892a166e859_child_lock
                     toggle: true
                     state_color: true
                     name: 'child lock '
+                  - entity: switch.tuyazb_0xa4c13892a166e859_overchange
+                    toggle: true
+                    state_color: true
+                    name: 'overchange '
           - type: entities
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.tuyazb_0x70b3d52b6007e417_power
+              - entity: sensor.tuyazb_0xa4c1388df3fdf480_power
                 type: custom:multiple-entity-row
                 icon: mdi:power-socket-eu
                 format: precision0
@@ -2837,14 +3151,14 @@ views:
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuyazb_0x70b3d52b6007e417_current
+                  - entity: sensor.tuyazb_0xa4c1388df3fdf480_current
                     format: precision1
                     unit: 'A '
                     name: 'ток '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuyazb_0x70b3d52b6007e417_voltage
+                  - entity: sensor.tuyazb_0xa4c1388df3fdf480_voltage
                     format: precision0
                     unit: 'V '
                     name: 'напряжение '
@@ -2852,24 +3166,24 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: sensor.tuyazb_0x70b3d52b6007e417_kwh_month
+              - entity: sensor.tuyazb_0xa4c1388df3fdf480_kwh_month
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuyazb_0x70b3d52b6007e417_tariff_day
+                  - entity: sensor.tuyazb_0xa4c1388df3fdf480_tariff_day
                     format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuyazb_0x70b3d52b6007e417_tariff_night
+                  - entity: sensor.tuyazb_0xa4c1388df3fdf480_tariff_night
                     format: precision1
                     unit: 'kWh '
                     name: 'ночь '
@@ -2877,359 +3191,14 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: switch.tuyazb_0x70b3d52b6007e417
+              - entity: switch.tuyazb_0xa4c1388df3fdf480
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Зарядка/Торшер '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:power-plug-battery
-                entities:
-                  - entity: lock.tuyazb_0x70b3d52b6007e417_child_lock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuyazb_0xa4c138f1c91c9534_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'TZB-ChWell '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuyazb_0xa4c138f1c91c9534_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuyazb_0xa4c138f1c91c9534
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:water-well
-      - type: grid
-        cards:
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'WSP-ChHAssSrv '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:locker-multiple
-                entities:
-                  - entity: lock.tuya_bf2c9dc0d4c197f2b7tz04_childlock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-                  - entity: switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
-                    toggle: true
-                    state_color: true
-                    name: 'overchange '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuyazb_0xa4c1386ada5d51a1_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'TZB-Ch1FloorTV '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuyazb_0xa4c1386ada5d51a1_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuyazb_0xa4c1386ada5d51a1
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:television
-                entities:
-                  - entity: lock.tuyazb_0xa4c1386ada5d51a1_child_lock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuyazb_0xa4c13819c55f376f_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'TZB-ChBoiler '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c13819c55f376f_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c13819c55f376f_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuyazb_0xa4c13819c55f376f_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuyazb_0xa4c13819c55f376f_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuyazb_0xa4c13819c55f376f_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuyazb_0xa4c13819c55f376f
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:water-boiler
-                entities:
-                  - entity: lock.tuyazb_0xa4c13819c55f376f_child_lock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'WSP-Flowers '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bf4c784722392a6dc5gqiu_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuya_bf4c784722392a6dc5gqiu
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:flower
-                entities:
-                  - entity: lock.tuya_bf4c784722392a6dc5gqiu_childlock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-                  - entity: switch.tuya_bf4c784722392a6dc5gqiu_overchange
-                    toggle: true
-                    state_color: true
-                    name: 'overchange '
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -3263,7 +3232,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -3286,7 +3255,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138c326596775
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Теплица 2 '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -3332,7 +3301,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -3355,12 +3324,344 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138370c6aa65f
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Вытяжка WC '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:television
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuyazb_0xa4c1382311c21bfd_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'TZB-ChRefrigerator '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuyazb_0xa4c1382311c21bfd_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c1382311c21bfd_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuyazb_0xa4c1382311c21bfd
+                type: custom:multiple-entity-row
+                name: 'Холодильник '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:fridge
+                entities:
+                  - entity: lock.tuyazb_0xa4c1382311c21bfd_child_lock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuyazb_0xa4c138f1c91c9534_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'TZB-ChWell '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuyazb_0xa4c138f1c91c9534_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c138f1c91c9534_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuyazb_0xa4c138f1c91c9534
+                type: custom:multiple-entity-row
+                name: 'Колодец '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:water-well
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuyazb_0x70b3d52b6007e417_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'TZB-Ch2FloorP '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0x70b3d52b6007e417_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0x70b3d52b6007e417_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuyazb_0x70b3d52b6007e417_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0x70b3d52b6007e417_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0x70b3d52b6007e417_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuyazb_0x70b3d52b6007e417
+                type: custom:multiple-entity-row
+                name: 'Картошка '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:home-floor-2
+                entities:
+                  - entity: lock.tuyazb_0x70b3d52b6007e417_child_lock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+      - type: grid
+        cards:
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuyazb_0xa4c1386ada5d51a1_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'TZB-Ch1FloorTV '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuyazb_0xa4c1386ada5d51a1_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c1386ada5d51a1_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuyazb_0xa4c1386ada5d51a1
+                type: custom:multiple-entity-row
+                name: 'ТВ 1 Этаж '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:television
+                entities:
+                  - entity: lock.tuyazb_0xa4c1386ada5d51a1_child_lock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
+          - type: entities
+            show_header_toggle: false
+            state_color: true
+            entities:
+              - entity: sensor.tuyazb_0xa4c13819c55f376f_power
+                type: custom:multiple-entity-row
+                icon: mdi:power-socket-eu
+                format: precision0
+                name: 'TZB-ChBoiler '
+                state_header: 'мощность '
+                unit: 'W '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c13819c55f376f_current
+                    format: precision1
+                    unit: 'A '
+                    name: 'ток '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c13819c55f376f_voltage
+                    format: precision0
+                    unit: 'V '
+                    name: 'напряжение '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: sensor.tuyazb_0xa4c13819c55f376f_kwh_month
+                type: custom:multiple-entity-row
+                icon: mdi:meter-electric
+                format: precision1
+                name: 'Tariff '
+                state_header: 'в месяц '
+                unit: 'kWh '
+                styles:
+                  text-align: center
+                entities:
+                  - entity: sensor.tuyazb_0xa4c13819c55f376f_tariff_day
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'день '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+                  - entity: sensor.tuyazb_0xa4c13819c55f376f_tariff_night
+                    format: precision1
+                    unit: 'kWh '
+                    name: 'ночь '
+                    styles:
+                      text-align: center
+                      font-weight: bold
+              - type: divider
+              - entity: switch.tuyazb_0xa4c13819c55f376f
+                type: custom:multiple-entity-row
+                name: 'Бойлер '
+                state_header: 'off/on '
+                toggle: true
+                state_color: true
+                secondary_info: last-changed
+                icon: mdi:water-boiler
+                entities:
+                  - entity: lock.tuyazb_0xa4c13819c55f376f_child_lock
+                    toggle: true
+                    state_color: true
+                    name: 'child lock '
           - type: entities
             show_header_toggle: false
             state_color: true
@@ -3394,7 +3695,7 @@ views:
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
@@ -3417,7 +3718,7 @@ views:
               - type: divider
               - entity: switch.tuyazb_0xa4c138cb1877b97d
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: 'Прихожая '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
@@ -3432,24 +3733,24 @@ views:
             show_header_toggle: false
             state_color: true
             entities:
-              - entity: sensor.tuya_bf608e1bc6a7af57cas39n_power
+              - entity: sensor.tuyazb_0xa4c1388838702fba_power
                 type: custom:multiple-entity-row
                 icon: mdi:power-socket-eu
                 format: precision0
-                name: 'WSP-Ch2FloorP '
+                name: 'TZB-Ch2FloorE '
                 state_header: 'мощность '
                 unit: 'W '
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_current
+                  - entity: sensor.tuyazb_0xa4c1388838702fba_current
                     format: precision1
                     unit: 'A '
                     name: 'ток '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_voltage
+                  - entity: sensor.tuyazb_0xa4c1388838702fba_voltage
                     format: precision0
                     unit: 'V '
                     name: 'напряжение '
@@ -3457,24 +3758,24 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
+              - entity: sensor.tuyazb_0xa4c1388838702fba_kwh_month
                 type: custom:multiple-entity-row
                 icon: mdi:meter-electric
                 format: precision1
-                name: 'Electricity '
+                name: 'Tariff '
                 state_header: 'в месяц '
                 unit: 'kWh '
                 styles:
                   text-align: center
                 entities:
-                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_tariff_day
+                  - entity: sensor.tuyazb_0xa4c1388838702fba_tariff_day
                     format: precision1
                     unit: 'kWh '
                     name: 'день '
                     styles:
                       text-align: center
                       font-weight: bold
-                  - entity: sensor.tuya_bf608e1bc6a7af57cas39n_tariff_night
+                  - entity: sensor.tuyazb_0xa4c1388838702fba_tariff_night
                     format: precision1
                     unit: 'kWh '
                     name: 'ночь '
@@ -3482,94 +3783,19 @@ views:
                       text-align: center
                       font-weight: bold
               - type: divider
-              - entity: switch.tuya_bf608e1bc6a7af57cas39n
+              - entity: switch.tuyazb_0xa4c1388838702fba
                 type: custom:multiple-entity-row
-                name: 'Power Setting '
+                name: '2 Этаж E '
                 state_header: 'off/on '
                 toggle: true
                 state_color: true
                 secondary_info: last-changed
                 icon: mdi:home-floor-2
                 entities:
-                  - entity: lock.tuya_bf608e1bc6a7af57cas39n_childlock
+                  - entity: lock.tuyazb_0xa4c1388838702fba_child_lock
                     toggle: true
                     state_color: true
                     name: 'child lock '
-                  - entity: switch.tuya_bf608e1bc6a7af57cas39n_overchange
-                    toggle: true
-                    state_color: true
-                    name: 'overchange '
-          - type: entities
-            show_header_toggle: false
-            state_color: true
-            entities:
-              - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_power
-                type: custom:multiple-entity-row
-                icon: mdi:power-socket-eu
-                format: precision0
-                name: 'WSP-Ch2FloorE '
-                state_header: 'мощность '
-                unit: 'W '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_current
-                    format: precision1
-                    unit: 'A '
-                    name: 'ток '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_voltage
-                    format: precision0
-                    unit: 'V '
-                    name: 'напряжение '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
-                type: custom:multiple-entity-row
-                icon: mdi:meter-electric
-                format: precision1
-                name: 'Electricity '
-                state_header: 'в месяц '
-                unit: 'kWh '
-                styles:
-                  text-align: center
-                entities:
-                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_day
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'день '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-                  - entity: sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_night
-                    format: precision1
-                    unit: 'kWh '
-                    name: 'ночь '
-                    styles:
-                      text-align: center
-                      font-weight: bold
-              - type: divider
-              - entity: switch.tuya_bfb3f4c51d9786bf13ayma
-                type: custom:multiple-entity-row
-                name: 'Power Setting '
-                state_header: 'off/on '
-                toggle: true
-                state_color: true
-                secondary_info: last-changed
-                icon: mdi:home-floor-2
-                entities:
-                  - entity: lock.tuya_bfb3f4c51d9786bf13ayma_childlock
-                    toggle: true
-                    state_color: true
-                    name: 'child lock '
-                  - entity: switch.tuya_bfb3f4c51d9786bf13ayma_overchange
-                    toggle: true
-                    state_color: true
-                    name: 'overchange '
     visible:
       - user: 3f656dbb70c44fcbaeb09315e103b7f9
       - user: a300f7cb59064875a978a85603f2ff3b
