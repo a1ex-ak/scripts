@@ -24,12 +24,12 @@ homeassistant:
       #trusted_users:
         #192.168.1.80: !secret ha_user_id #Nest Hub Display
       #allow_bypass_login: true
-  #packages: !include_dir_merge_named includes
+  packages: !include_dir_merge_named includes/packages
 
 # eWeLink (Sonoff)
-sonoff:
-  username: !secret ewelink_login
-  password: !secret ewelink_pswd
+#sonoff:
+#  username: !secret ewelink_login
+#  password: !secret ewelink_pswd
   
 #hikvison:
 #  username: !secret hikvision_login
@@ -54,6 +54,7 @@ climate: !include includes/climate.yaml
 camera: !include includes/camera.yaml
 # Загрузка платформы recorder
 recorder: !include includes/recorder.yaml
+#sensors: !include includes/system_sensors.yaml
 
 # Кнопка 'Система' в левом меню
 panel_custom:
