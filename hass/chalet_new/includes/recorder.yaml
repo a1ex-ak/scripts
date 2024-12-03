@@ -1,7 +1,8 @@
   db_url: !secret db_link
+#  db_url: sqlite:////config/home-assistant_v2.db
+  purge_keep_days: 3
   auto_purge: true
   auto_repack: true
-  purge_keep_days: 10
   #commit_interval: 10
   include:
     entities:
@@ -15,6 +16,8 @@
        #- sensor.adguard_home_average_processing_speed
        #- sensor.adguard_home_dns_queries
     # Погодный сенсор
+       #- weather.yandex_pogoda
+       #- weather.yandex_weather
        - weather.forecast_chalet
     # Системные сенсоры
        - sensor.system_monitor_processor_use
@@ -26,6 +29,11 @@
        - sensor.system_monitor_swap_use
        - sensor.local_ip
        - sensor.uptime
+       - sensor.system_monitor_last_boot
+       - sensor.last_boot_custom
+       - sensor.last_month
+       - sensor.chalet_average_temperature
+       - sensor.sensor_chalet_average_humidity
     # ZigBee brodge (sonoff)
        #- sensor.sonoff_10010954d7_rssi
     # ZHA
@@ -65,11 +73,11 @@
        - update.mini_climate_card_update
        - update.mini_graph_card_update
        - update.auto_entities_update
-       - update.sonoff_lan_update
+       #- update.sonoff_lan_update
        - update.mosquitto_broker_update
        - update.zigbee2mqtt_update
     # RPi Power Status
-       - binary_sensor.rpi_power_status
+       #- binary_sensor.rpi_power_status
     # Скрипты и автоматизация
        - input_boolean.heat_chalet_on_off
        - input_boolean.heat_2floor_on_off
@@ -80,10 +88,10 @@
        - script.heat_2floor_off
        - script.heat_chalet_off
        - input_boolean.heat_chalet_on_off
-       - automation.well_1_6c_on
-       - automation.well_7c_off
+       #- automation.well_1_6c_on
+       #- automation.well_7c_off
        - automation.boiler_00_05_on
-       - automation.boiler_00_45_off
+       - automation.boiler_00_35_off
        - automation.heat_chalet_none_away
        - automation.heat_chalet_spraut_none_away
        - automation.heat_2floor_on
@@ -92,32 +100,35 @@
        - automation.tariff_day
        - automation.tariff_night
        - automation.localtuya_restart
+       - automation.flowers_on
+       - automation.flowers_off
        - automation.wc_hood_on
        - automation.wc_hood_off
+       - automation.chergepilot_on
+       - automation.chergepilot_off
     # Суммарное потребление
-        #WSP-ChHAssSrv
-       - switch.tuya_bf2c9dc0d4c197f2b7tz04
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_kwh_month
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_riemann
-       - select.tuya_bf2c9dc0d4c197f2b7tz04_tariff
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_day
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_tariff_night
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_current
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_voltage
-       - sensor.tuya_bf2c9dc0d4c197f2b7tz04_power
-       - lock.tuya_bf2c9dc0d4c197f2b7tz04_childlock
-       - switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
-        #WSP-ChKitchen
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_kwh_month
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_riemann
-       - select.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_day
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_tariff_night
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_current
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_voltage
-       - sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_power
-       - lock.tuya_bfd0ceb9f0a4ba7a8bkxlh_childlock
-       - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_overchange
+       #WSP-ChNetwork
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_riemann
+       #- select.tuya_bf45a1f22d15a1c0d6vzmt_tariff
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_day
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_night
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_current
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_voltage
+       #- sensor.tuya_bf45a1f22d15a1c0d6vzmt_power
+       #- lock.tuya_bf45a1f22d15a1c0d6vzmt_childlock
+       #- switch.tuya_bf45a1f22d15a1c0d6vzmt_overchange
+        #TZB-ChKitchen
+       #- sensor.tuyazb_0xa4c138a15bffa190_kwh_month
+       #- sensor.tuya_bfd0ceb9f0a4ba7a8bkxlh_riemann
+       - select.tuyazb_0xa4c138a15bffa190_tariff
+       - sensor.tuyazb_0xa4c138a15bffa190_tariff_day
+       - sensor.tuyazb_0xa4c138a15bffa190_tariff_night
+       - sensor.tuyazb_0xa4c138a15bffa190_current
+       - sensor.tuyazb_0xa4c138a15bffa190_voltage
+       - sensor.tuyazb_0xa4c138a15bffa190_power
+       - lock.tuyazb_0xa4c138a15bffa190_child_lock
+       #- switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_overchange
        #TZB-Ch1FloorTV
        - sensor.tuyazb_0xa4c1386ada5d51a1_energy
        - sensor.tuyazb_0xa4c1386ada5d51a1_kwh_month
@@ -139,54 +150,70 @@
        - sensor.tuyazb_0xa4c1382311c21bfd_voltage
        - sensor.tuyazb_0xa4c1382311c21bfd_power
        - lock.tuyazb_0xa4c1382311c21bfd_child_lock
-       #WSP_ChBRoomLR
-       - sensor.wsp_chbroomlr_kwh_month
-       #WSP-ChBRoomL
-       - sensor.tuya_bf0cce6ceeabebea140svk_kwh_month
-       - sensor.tuya_bf0cce6ceeabebea140svk_riemann
-       - select.tuya_bf0cce6ceeabebea140svk_tariff
-       - sensor.tuya_bf0cce6ceeabebea140svk_tariff_day
-       - sensor.tuya_bf0cce6ceeabebea140svk_tariff_night
-       - sensor.tuya_bf0cce6ceeabebea140svk_current
-       - sensor.tuya_bf0cce6ceeabebea140svk_voltage
-       - sensor.tuya_bf0cce6ceeabebea140svk_power
-       - lock.tuya_bf0cce6ceeabebea140svk_childlock
-       - switch.tuya_bf0cce6ceeabebea140svk_overchange
-       #WSP-ChBRoomR
-       - sensor.tuya_bfd5954077e67c6a46f8z8_kwh_month
-       - sensor.tuya_bfd5954077e67c6a46f8z8_riemann
-       - select.tuya_bfd5954077e67c6a46f8z8_tariff
-       - sensor.tuya_bfd5954077e67c6a46f8z8_tariff_day
-       - sensor.tuya_bfd5954077e67c6a46f8z8_tariff_night
-       - sensor.tuya_bfd5954077e67c6a46f8z8_current
-       - sensor.tuya_bfd5954077e67c6a46f8z8_voltage
-       - sensor.tuya_bfd5954077e67c6a46f8z8_power
-       - lock.tuya_bfd5954077e67c6a46f8z8_childlock
-       - switch.tuya_bfd5954077e67c6a46f8z8_overchange
-       #WSP-ChChildParents
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_kwh_month
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_riemann
-       - select.tuya_bf84e09d7ec8ec727a0ert_tariff
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_day
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_tariff_night
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_current
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_voltage
-       - sensor.tuya_bf84e09d7ec8ec727a0ert_power
-       - lock.tuya_bf84e09d7ec8ec727a0ert_childlock
-       - switch.tuya_bf84e09d7ec8ec727a0ert_overchange
-       #WSP-ChBathroom
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_kwh_month
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_riemann
-       - select.tuya_bfa7aa5ee649c62cf1l5tz_tariff
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_day
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_tariff_night
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_current
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_voltage
-       - sensor.tuya_bfa7aa5ee649c62cf1l5tz_power
-       - lock.tuya_bfa7aa5ee649c62cf1l5tz_childlock
-       - switch.tuya_bfa7aa5ee649c62cf1l5tz_overchange
-       #TZB-ChHoodWC
-       - switch.tuyazb_0xa4c13876cc154025
+       #TZB-ChCharge
+       - switch.tuyazb_0xa4c1388df3fdf480
+       - sensor.tuyazb_0xa4c1388df3fdf480_kwh_month
+       - select.tuyazb_0xa4c1388df3fdf480_tariff
+       - sensor.tuyazb_0xa4c1388df3fdf480_tariff_day
+       - sensor.tuyazb_0xa4c1388df3fdf480_tariff_night
+       - sensor.tuyazb_0xa4c1388df3fdf480_current
+       - sensor.tuyazb_0xa4c1388df3fdf480_voltage
+       - sensor.tuyazb_0xa4c1388df3fdf480_power
+       #TZB_ChBRoomLR
+       - sensor.tuyazb_chbroomlr_kwh_month
+       #TZB-ChBRoomL
+       - sensor.tuyazb_0xa4c138cc25ab23e9_kwh_month
+       #- sensor.tuya_bf0cce6ceeabebea140svk_riemann
+       - select.tuyazb_0xa4c138cc25ab23e9_tariff
+       - sensor.tuyazb_0xa4c138cc25ab23e9_tariff_day
+       - sensor.tuyazb_0xa4c138cc25ab23e9_tariff_night
+       - sensor.tuyazb_0xa4c138cc25ab23e9_current
+       - sensor.tuyazb_0xa4c138cc25ab23e9_voltage
+       - sensor.tuyazb_0xa4c138cc25ab23e9_power
+       - lock.tuyazb_0xa4c138cc25ab23e9_child_lock
+       #- switch.tuya_bf0cce6ceeabebea140svk_overchange
+       #TZB-ChBRoomR
+       - sensor.tuyazb_0xa4c138a93aa705e7_kwh_month
+       #- sensor.tuya_bfd5954077e67c6a46f8z8_riemann
+       - select.tuyazb_0xa4c138a93aa705e7_tariff
+       - sensor.tuyazb_0xa4c138a93aa705e7_tariff_day
+       - sensor.tuyazb_0xa4c138a93aa705e7_tariff_night
+       - sensor.tuyazb_0xa4c138a93aa705e7_current
+       - sensor.tuyazb_0xa4c138a93aa705e7_voltage
+       - sensor.tuyazb_0xa4c138a93aa705e7_power
+       - lock.tuyazb_0xa4c138a93aa705e7_child_lock
+       #- switch.tuya_bfd5954077e67c6a46f8z8_overchange
+       #TZB-ChChildParents
+       - sensor.tuyazb_0xa4c13804d16f439b_kwh_month
+       #- sensor.tuya_bf84e09d7ec8ec727a0ert_riemann
+       - select.tuyazb_0xa4c13804d16f439b_tariff
+       - sensor.tuyazb_0xa4c13804d16f439b_tariff_day
+       - sensor.tuyazb_0xa4c13804d16f439b_tariff_night
+       - sensor.tuyazb_0xa4c13804d16f439b_current
+       - sensor.tuyazb_0xa4c13804d16f439b_voltage
+       - sensor.tuyazb_0xa4c13804d16f439b_power
+       - lock.tuyazb_0xa4c13804d16f439b_child_lock
+       #- switch.tuya_bf84e09d7ec8ec727a0ert_overchange
+       #TZB-ChBathroom
+       - sensor.tuyazb_0xa4c138b501305b3e_kwh_month
+       #- sensor.tuya_bfa7aa5ee649c62cf1l5tz_riemann
+       - select.tuyazb_0xa4c138b501305b3e_tariff
+       - sensor.tuyazb_0xa4c138b501305b3e_tariff_day
+       - sensor.tuyazb_0xa4c138b501305b3e_tariff_night
+       - sensor.tuyazb_0xa4c138b501305b3e_current
+       - sensor.tuyazb_0xa4c138b501305b3e_voltage
+       - sensor.tuyazb_0xa4c138b501305b3e_power
+       - lock.ttuyazb_0xa4c138b501305b3e_child_lock
+       #- switch.tuya_bfa7aa5ee649c62cf1l5tz_overchange
+       #TZB-ChHumidWC
+       - switch.tuyazb_0xa4c138370c6aa65f
+       - sensor.tuyazb_0xa4c138370c6aa65f_kwh_month
+       - select.tuyazb_0xa4c138370c6aa65f_tariff
+       - sensor.tuyazb_0xa4c138370c6aa65f_tariff_day
+       - sensor.tuyazb_0xa4c138370c6aa65f_tariff_night
+       - sensor.tuyazb_0xa4c138370c6aa65f_current
+       - sensor.tuyazb_0xa4c138370c6aa65f_voltage
+       - sensor.tuyazb_0xa4c138370c6aa65f_power
        #WSP-ChFlowers
        - sensor.tuya_bf4c784722392a6dc5gqiu_kwh_month
        - sensor.tuya_bf4c784722392a6dc5gqiu_riemann
@@ -209,48 +236,49 @@
        - sensor.tuyazb_0xa4c13819c55f376f_voltage
        - sensor.tuyazb_0xa4c13819c55f376f_power
        - lock.tuyazb_0xa4c13819c55f376f_child_lock
-       #WSP-ChWashing
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_kwh_month
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_riemann
-       - select.tuya_bfe8a953b2dda2f5f7kdmj_tariff
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_day
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_tariff_night
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_current
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_voltage
-       - sensor.tuya_bfe8a953b2dda2f5f7kdmj_power
-       #WSP-ChHall
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_kwh_month
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_riemann
-       - select.tuya_bf45a1f22d15a1c0d6vzmt_tariff
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_day
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_tariff_night
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_current
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_voltage
-       - sensor.tuya_bf45a1f22d15a1c0d6vzmt_power
-       - lock.tuya_bf45a1f22d15a1c0d6vzmt_childlock
-       - switch.tuya_bf45a1f22d15a1c0d6vzmt_overchange
-       #WSP-Ch2FloorE
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_kwh_month
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_riemann
-       - select.tuya_bfb3f4c51d9786bf13ayma_tariff
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_day
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_tariff_night
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_current
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_voltage
-       - sensor.tuya_bfb3f4c51d9786bf13ayma_power
-       - lock.tuya_bfb3f4c51d9786bf13ayma_childlock
-       - switch.tuya_bfb3f4c51d9786bf13ayma_overchange
-       #WSP-Ch2FloorP (Potato)
-       - sensor.tuya_bf608e1bc6a7af57cas39n_kwh_month
-       - sensor.tuya_bf608e1bc6a7af57cas39n_riemann
-       - select.tuya_bf608e1bc6a7af57cas39n_tariff
-       - sensor.tuya_bf608e1bc6a7af57cas39n_tariff_day
-       - sensor.tuya_bf608e1bc6a7af57cas39n_tariff_night
-       - sensor.tuya_bf608e1bc6a7af57cas39n_current
-       - sensor.tuya_bf608e1bc6a7af57cas39n_voltage
-       - sensor.tuya_bf608e1bc6a7af57cas39n_power
-       - lock.tuya_bf608e1bc6a7af57cas39n_childlock
-       - switch.tuya_bf608e1bc6a7af57cas39n_overchange
+       #TZB-ChWashing
+       - switch.tuyazb_0xa4c13892a166e859
+       - sensor.tuyazb_0xa4c13892a166e859_kwh_month
+       #- sensor.tuya_bf2c9dc0d4c197f2b7tz04_riemann
+       - select.tuyazb_0xa4c13892a166e859_tariff
+       - sensor.tuyazb_0xa4c13892a166e859_tariff_day
+       - sensor.tuyazb_0xa4c13892a166e859_tariff_night
+       - sensor.tuyazb_0xa4c13892a166e859_current
+       - sensor.tuyazb_0xa4c13892a166e859_voltage
+       - sensor.tuyazb_0xa4c13892a166e859_power
+       - lock.tuyazb_0xa4c13892a166e859_child_lock
+       #- switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
+       #TZB-ChHall
+       - sensor.tuyazb_0xa4c138cb1877b97d_kwh_month
+       - select.tuyazb_0xa4c138cb1877b97d_tariff
+       - sensor.tuyazb_0xa4c138cb1877b97d_tariff_day
+       - sensor.tuyazb_0xa4c138cb1877b97d_tariff_night
+       - sensor.tuyazb_0xa4c138cb1877b97d_current
+       - sensor.tuyazb_0xa4c138cb1877b97d_voltage
+       - sensor.tuyazb_0xa4c138cb1877b97d_power
+       - lock.tuyazb_0xa4c138cb1877b97d_child_lock
+       #TZB-Ch2FloorE
+       - sensor.tuyazb_0xa4c1388838702fba_kwh_month
+       #- sensor.tuya_bfb3f4c51d9786bf13ayma_riemann
+       - select.tuyazb_0xa4c1388838702fba_tariff
+       - sensor.tuyazb_0xa4c1388838702fba_tariff_day
+       - sensor.tuyazb_0xa4c1388838702fba_tariff_night
+       - sensor.tuyazb_0xa4c1388838702fba_current
+       - sensor.tuyazb_0xa4c1388838702fba_voltage
+       - sensor.tuyazb_0xa4c1388838702fba_power
+       - lock.tuyazb_0xa4c1388838702fba_child_lock
+       #- switch.tuya_bfb3f4c51d9786bf13ayma_overchange
+       #TZB-Ch2FloorP
+       #- switch.tuyazb_0x70b3d52b6007e417
+       - sensor.tuyazb_0x70b3d52b6007e417_energy
+       - sensor.tuyazb_0x70b3d52b6007e417_kwh_month
+       - select.tuyazb_0x70b3d52b6007e417_tariff
+       - sensor.tuyazb_0x70b3d52b6007e417_tariff_day
+       - sensor.tuyazb_0x70b3d52b6007e417_tariff_night
+       - sensor.tuyazb_0x70b3d52b6007e417_current
+       - sensor.tuyazb_0x70b3d52b6007e417_voltage
+       - sensor.tuyazb_0x70b3d52b6007e417_power
+       - lock.tuyazb_0x70b3d52b6007e417_child_lock
        #TZB-Ch2FloorTV
        - sensor.tuyazb_0xa4c138e764255ca2_energy
        - sensor.tuyazb_0xa4c138e764255ca2_kwh_month
@@ -271,58 +299,79 @@
        - sensor.tuyazb_0xa4c138c326596775_voltage
        - sensor.tuyazb_0xa4c138c326596775_power
        - lock.tuyazb_0xa4c138c326596775_child_lock
+       #TZB-ChWell
+       - sensor.tuyazb_0xa4c138f1c91c9534_energy
+       - sensor.tuyazb_0xa4c138f1c91c9534_kwh_month
+       - select.tuyazb_0xa4c138f1c91c9534_tariff
+       - sensor.tuyazb_0xa4c138f1c91c9534_tariff_day
+       - sensor.tuyazb_0xa4c138f1c91c9534_tariff_night
+       - sensor.tuyazb_0xa4c138f1c91c9534_current
+       - sensor.tuyazb_0xa4c138f1c91c9534_voltage
+       - sensor.tuyazb_0xa4c138f1c91c9534_power
     # Термостаты
        # Кухня/Гостинная
        - climate.chalet_kitchen
-       - switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+       #- switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+       - switch.tuyazb_0xa4c138a15bffa190
        - sensor.snzb_0x90ab96fffe77bfd0_temperature
        - sensor.snzb_0x90ab96fffe77bfd0_humidity
        - sensor.snzb_0x90ab96fffe77bfd0_battery
        # Спальня
        - climate.chalet_bedroom
-       - switch.group_wsp_chbroomlr
-       - switch.tuya_bf0cce6ceeabebea140svk
-       - switch.tuya_bfd5954077e67c6a46f8z8
+       #- switch.group_wsp_chbroomlr
+       - switch.group_tuyazb_chbroomlr
+       #- switch.tuya_bf0cce6ceeabebea140svk
+       - switch.tuyazb_0xa4c138cc25ab23e9
+       #- switch.tuya_bfd5954077e67c6a46f8z8
+       - switch.tuyazb_0xa4c138a93aa705e7
        - sensor.snzb_0x90ab96fffe773411_temperature
        - sensor.snzb_0x90ab96fffe773411_humidity
        - sensor.snzb_0x90ab96fffe773411_battery
        # Дети/Родители
        - climate.chalet_child_parents
-       - switch.tuya_bf84e09d7ec8ec727a0ert
+       #- switch.tuya_bf84e09d7ec8ec727a0ert
+       - switch.tuyazb_0xa4c13804d16f439b
        - sensor.snzb_0x842712fffe556ccf_temperature
        - sensor.snzb_0x842712fffe556ccf_humidity
        - sensor.snzb_0x842712fffe556ccf_battery
        # WC/Ванная
        - climate.chalet_wc
-       - switch.tuya_bfa7aa5ee649c62cf1l5tz
+       #- switch.tuya_bfa7aa5ee649c62cf1l5tz
+       - switch.tuyazb_0xa4c138b501305b3e
        - sensor.snzb_0x9035eafffe0d8227_temperature
        - sensor.snzb_0x9035eafffe0d8227_humidity
        - sensor.snzb_0x9035eafffe0d8227_battery
        # Прихожая
        - climate.chalet_hall
-       - switch.tuya_bf45a1f22d15a1c0d6vzmt
+       #- switch.tuya_bf45a1f22d15a1c0d6vzmt
+       - switch.tuyazb_0xa4c138cb1877b97d
+       - sensor.aqzb_0x00158d008b04140b_temperature
+       - sensor.aqzb_0x00158d008b04140b_humidity
+       - sensor.aqzb_0x00158d008b04140b_battery
+       # 2 этаж
+       - climate.chalet_2floore
+       #- switch.sonoff_1001fdf40d
+       #- switch.tuya_bfb3f4c51d9786bf13ayma
+       - switch.tuyazb_0xa4c1388838702fba
+       #- sensor.snzb_0x9035eafffe0d8a73_temperature
+       #- sensor.snzb_0x9035eafffe0d8a73_humidity
+       #- sensor.snzb_0x9035eafffe0d8a73_battery
+       - sensor.aqzb_0x00158d008b0403ca_temperature
+       - sensor.aqzb_0x00158d008b0403ca_humidity
+       - sensor.aqzb_0x00158d008b0403ca_battery
+       # 2 этаж (Potato)
+       - climate.chalet_2floorp
+       - switch.tuyazb_0x70b3d52b6007e417
        - sensor.snzb_0x38398ffffe042bf8_temperature
        - sensor.snzb_0x38398ffffe042bf8_humidity
        - sensor.snzb_0x38398ffffe042bf8_battery
-       # 2 этаж
-       - climate.chalet_2floore
-       - switch.sonoff_1001fdf40d
-       - switch.tuya_bfb3f4c51d9786bf13ayma
-       - sensor.snzb_0x9035eafffe0d8a73_temperature
-       - sensor.snzb_0x9035eafffe0d8a73_humidity
-       - sensor.snzb_0x9035eafffe0d8a73_battery
-       # 2 этаж (Potato)
-       - climate.chalet_2floorp
-       - switch.tuya_bf608e1bc6a7af57cas39n
-       - sensor.snzb_0x842712fffe38349b_temperature
-       - sensor.snzb_0x842712fffe38349b_humidity
-       - sensor.snzb_0x842712fffe38349b_battery
        # Колодец
        - climate.chalet_well
-       - switch.sonoff_100141361d
-       - sensor.snzb_0x9035eafffe0d88d6_temperature
-       - sensor.snzb_0x9035eafffe0d88d6_humidity
-       - sensor.snzb_0x9035eafffe0d88d6_battery
+       #- switch.sonoff_100141361d
+       - switch.tuyazb_0xa4c138f1c91c9534
+       - sensor.aqzb_0x00158d008afd900a_temperature
+       - sensor.aqzb_0x00158d008afd900a_humidity
+       - sensor.aqzb_0x00158d008afd900a_battery
        # Теплица
        - climate.chalet_glasshouse
        #- switch.tuya_bfe8a953b2dda2f5f7kdmj
@@ -331,9 +380,9 @@
        - sensor.snzb_0x9035eafffe09709a_humidity
        - sensor.snzb_0x9035eafffe09709a_battery
        # Теплица (Old)
-       - sensor.snzb_0x00124b00234e72e6_temperature
-       - sensor.snzb_0x00124b00234e72e6_humidity
-       - sensor.snzb_0x00124b00234e72e6_battery
+       #- sensor.snzb_0x00124b00234e72e6_temperature
+       #- sensor.snzb_0x00124b00234e72e6_humidity
+       #- sensor.snzb_0x00124b00234e72e6_battery
     # Первый этаж
        #- switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_childlock
        #- switch.tuya_bfd0ceb9f0a4ba7a8bkxlh_overchange
@@ -357,22 +406,23 @@
        #- switch.tuya_bf2c9dc0d4c197f2b7tz04
        #- switch.tuya_bf2c9dc0d4c197f2b7tz04_childlock
        #- switch.tuya_bf2c9dc0d4c197f2b7tz04_overchange
-       - sensor.snzb_0x00124b0024ccfec3_temperature
-       - sensor.snzb_0x00124b0024ccfec3_humidity
-       - sensor.snzb_0x00124b0024ccfec3_battery
+       #- sensor.snzb_0x00124b0024ccfec3_temperature
+       #- sensor.snzb_0x00124b0024ccfec3_humidity
+       #- sensor.snzb_0x00124b0024ccfec3_battery
     # Веранда
-       - switch.sonoff_100124de93
-       - sensor.snzb_0x00124b0024cc450c_temperature
-       - sensor.snzb_0x00124b0024cc450c_humidity
-       - sensor.snzb_0x00124b0024cc450c_battery
+       #- switch.sonoff_100124de93
+       - switch.tuyazb_0xa4c13876cc154025
+       #- sensor.snzb_0x9035eafffe0d88d6_temperature
+       #- sensor.snzb_0x9035eafffe0d88d6_humidity
+       #- sensor.snzb_0x9035eafffe0d88d6_battery
     # Видео-камеры
-       #- sensor.hikvision_ds_2cd2043g0_i_200_last_reset
-       - binary_sensor.hikvision_ds_2cd2043g0_i_200_storage_failure
-       - binary_sensor.hikvision_ds_2cd2043g0_i_200_cell_motion_detection
-       #- sensor.hikvision_ds_2cd2043g0_i_201_last_reset
-       - binary_sensor.hikvision_ds_2cd2043g0_i_201_storage_failure
-       - binary_sensor.hikvision_ds_2cd2043g0_i_201_cell_motion_detection
-       #- sensor.hikvision_ds_2cd2043g0_i_202_last_reset
-       - binary_sensor.hikvision_ds_2cd2043g0_i_202_storage_failure
-       - binary_sensor.hikvision_ds_2cd2043g0_i_202_cell_motion_detection
+       ##- sensor.hikvision_ds_2cd2043g0_i_200_last_reset
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam1_storage_failure
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam1_cell_motion_detection
+       ##- sensor.hikvision_ds_2cd2043g0_i_201_last_reset
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam2_storage_failure
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam2_cell_motion_detection
+       ##- sensor.hikvision_ds_2cd2043g0_i_202_last_reset
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam3_storage_failure
+       #- binary_sensor.hikvision_ds_2cd2043g0_cam3_cell_motion_detection
        
