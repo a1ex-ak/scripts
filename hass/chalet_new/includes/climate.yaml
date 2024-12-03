@@ -5,7 +5,8 @@
     unique_id: kitchen_generic_thermostat
     # heater: – это устройство, которое включает/выключает отопительный прибор.
     #heater: switch.sonoff_1001676f3c
-    heater: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+    #heater: switch.tuya_bfd0ceb9f0a4ba7a8bkxlh
+    heater: switch.tuyazb_0xa4c138a15bffa190
     # target_sensor: – это датчик температуры, по которому будем управлять отоплением.
     target_sensor: sensor.snzb_0x90ab96fffe77bfd0_temperature
     # min_temp: / max_temp: - это минимальная и максимальная температуры на нашем терморегуляторе.
@@ -21,7 +22,7 @@
     #                                   термостат нагревая отключится при превышении температуры 22.5 градуса, и будет выключен, пока температура не 
     #                                   опустится ниже 21.7 градуса (22-0.3). 
     cold_tolerance: 0.3
-    hot_tolerance: 0.6
+    hot_tolerance: 0.5
     # min_cycle_duration: - этим параметром мы устанавливаем минимальное время, в котором обогреватель должен находиться в положении вкл или выкл.
     min_cycle_duration:
       seconds: 5
@@ -42,14 +43,14 @@
     name: chalet_bedroom
     unique_id: bedroom_generic_thermostat
     #heater: switch.group_s26r2_chbroomlr
-    heater: switch.group_wsp_chbroomlr
+    heater: switch.group_tuyazb_chbroomlr
     target_sensor: sensor.snzb_0x90ab96fffe773411_temperature
     min_temp: 6
     max_temp: 30
     ac_mode: false
     #target_temp: 23
-    cold_tolerance: 0.3
-    hot_tolerance: 0.6
+    cold_tolerance: 0.2
+    hot_tolerance: 0.4
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -63,14 +64,15 @@
     name: chalet_child_parents
     unique_id: parents_generic_thermostat
     #heater: switch.sonoff_1001675cf6
-    heater: switch.tuya_bf84e09d7ec8ec727a0ert
+    #heater: switch.tuya_bf84e09d7ec8ec727a0ert
+    heater: switch.tuyazb_0xa4c13804d16f439b
     target_sensor: sensor.snzb_0x842712fffe556ccf_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
     #target_temp: 23.1
-    cold_tolerance: 0.3
-    hot_tolerance: 0.6
+    cold_tolerance: 0.2
+    hot_tolerance: 0.4
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -84,14 +86,15 @@
     name: chalet_wc
     unique_id: wc_generic_thermostat
     #heater: switch.sonoff_1001dd9fbe
-    heater: switch.tuya_bfa7aa5ee649c62cf1l5tz
+    #heater: switch.tuya_bfa7aa5ee649c62cf1l5tz
+    heater: switch.tuyazb_0xa4c138b501305b3e
     target_sensor: sensor.snzb_0x9035eafffe0d8227_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
     #target_temp: 23
-    cold_tolerance: 0.3
-    hot_tolerance: 0.6
+    cold_tolerance: 0.2
+    hot_tolerance: 0.4
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -105,14 +108,16 @@
     name: chalet_hall
     unique_id: hall_generic_thermostat
     #heater: switch.sonoff_1001418312
-    heater: switch.tuya_bf45a1f22d15a1c0d6vzmt
-    target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
+    heater: switch.tuyazb_0xa4c138cb1877b97d
+    #heater: switch.tuya_bf45a1f22d15a1c0d6vzmt
+    #target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
+    target_sensor: sensor.aqzb_0x00158d008b04140b_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
     #target_temp: 14.4
     cold_tolerance: 0.3
-    hot_tolerance: 0.6
+    hot_tolerance: 0.5
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -125,14 +130,15 @@
   - platform: generic_thermostat
     name: chalet_2floore
     unique_id: 2floor_generic_thermostat
-    #heater: switch.sonoff_100167729c
-    heater: switch.tuya_bfb3f4c51d9786bf13ayma
-    target_sensor: sensor.snzb_0x9035eafffe0d8a73_temperature
+    #heater: switch.tuya_bfb3f4c51d9786bf13ayma
+    heater: switch.tuyazb_0xa4c1388838702fba
+    #target_sensor: sensor.snzb_0x9035eafffe0d8a73_temperature
+    target_sensor: sensor.aqzb_0x00158d008b0403ca_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
     #target_temp: 22.1
-    cold_tolerance: 0.4
+    cold_tolerance: 0.5
     hot_tolerance: 0.5
     min_cycle_duration:
       seconds: 5
@@ -146,14 +152,15 @@
   - platform: generic_thermostat
     name: chalet_2floorp
     unique_id: potato_generic_thermostat
-    heater: switch.tuya_bf608e1bc6a7af57cas39n
-    target_sensor: sensor.snzb_0x842712fffe38349b_temperature
+    heater: switch.tuyazb_0x70b3d52b6007e417
+    #target_sensor: sensor.snzb_0x842712fffe38349b_temperature
+    target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
     min_temp: 3
     max_temp: 15
     ac_mode: false
     #target_temp: 4
-    cold_tolerance: 0.3
-    hot_tolerance: 0.5
+    cold_tolerance: 0.2
+    hot_tolerance: 0.4
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -166,9 +173,11 @@
   - platform: generic_thermostat
     name: chalet_well
     unique_id: well_generic_thermostat
-    heater: switch.sonoff_100141361d
-    target_sensor: sensor.snzb_0x9035eafffe0d88d6_temperature
-    min_temp: 1
+    #heater: switch.sonoff_100141361d
+    heater: switch.tuyazb_0xa4c138f1c91c9534
+    #target_sensor: sensor.snzb_0x9035eafffe0d88d6_temperature
+    target_sensor: sensor.aqzb_0x00158d008afd900a_temperature
+    min_temp: 0
     max_temp: 8
     ac_mode: false
     target_temp: 4
@@ -177,7 +186,7 @@
     min_cycle_duration:
       seconds: 5
     keep_alive:
-      minutes: 1
+      minutes: 3
     initial_hvac_mode: "heat"
     #away_temp: 4
     precision: 0.1
@@ -199,7 +208,7 @@
       seconds: 5
     keep_alive:
       minutes: 3
-    #initial_hvac_mode: "off"
-    away_temp: 10
+    initial_hvac_mode: "off"
+    #away_temp: 10
     precision: 0.1
     
