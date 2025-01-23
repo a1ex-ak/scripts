@@ -16,6 +16,11 @@ sudo apt-get install gnome-remote-desktop
 sudo apt-get install NetworkManager-applet-gtk
 ```
 ----------------------------------
+:ballot_box_with_check: Установка расширений
+```yaml
+sudo apt-get install gnome-shell-extension-appindicator gnome-shell-extension-dash-to-dock gnome-shell-extension-blur-my-shell gnome-shell-extension-gtk4-desktop-icons-ng
+```
+----------------------------------
 :ballot_box_with_check: Установка шрифтов
 ```yaml
 sudo apt-get install fonts-ttf-ms fonts-cascadia-code fonts-ttf-google-crosextra-carlito fonts-ttf-google-noto-emoji fonts-ttf-google-noto-emoji-color
@@ -24,6 +29,9 @@ sudo apt-get install fonts-ttf-ms fonts-cascadia-code fonts-ttf-google-crosextra
 :ballot_box_with_check: Установка архиваторов
 ```yaml
 sudo apt-get install 7-zip lzip bzip3 -y
+```
+```yaml
+sudo apt-get remove --purge p7zip
 ```
 ----------------------------------
 :ballot_box_with_check: Установка шрифтов Microsoft ClearType (Calibri, Cambria, Candara, Consolas, Constantia, Corbel)
@@ -96,7 +104,7 @@ sudo apt-get install zerotier-one
 ```
 через epm
 ```yaml
-epm -i zerotier-one
+epm play --force zerotier-one
 ```
 
 :ballot_box_with_check: Запуск сервиса ZeroTier-One
