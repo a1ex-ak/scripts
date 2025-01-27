@@ -1,4 +1,13 @@
-
+:ballot_box_with_check: Обновление SecureBoot
+```yaml
+fwupdmgr refresh --force
+```
+```yaml
+fwupdmgr get-updates
+```
+```yaml
+fwupdmgr update
+```
 :ballot_box_with_check: Настройка -> Общий доступ к файлам
 ```yaml
 sudo apt-get install gnome-user-share
