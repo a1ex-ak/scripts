@@ -72,7 +72,7 @@
     ac_mode: false
     #target_temp: 23.1
     cold_tolerance: 0.2
-    hot_tolerance: 0.4
+    hot_tolerance: 0.5
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -94,7 +94,7 @@
     ac_mode: false
     #target_temp: 23
     cold_tolerance: 0.2
-    hot_tolerance: 0.4
+    hot_tolerance: 0.3
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -110,14 +110,13 @@
     #heater: switch.sonoff_1001418312
     heater: switch.tuyazb_0xa4c138cb1877b97d
     #heater: switch.tuya_bf45a1f22d15a1c0d6vzmt
-    #target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
-    target_sensor: sensor.aqzb_0x00158d008b04140b_temperature
+    target_sensor: sensor.snzb_0x842712fffe38349b_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
     #target_temp: 14.4
-    cold_tolerance: 0.3
-    hot_tolerance: 0.5
+    cold_tolerance: 0.2
+    hot_tolerance: 0.3
     min_cycle_duration:
       seconds: 5
     keep_alive:
@@ -132,8 +131,7 @@
     unique_id: 2floor_generic_thermostat
     #heater: switch.tuya_bfb3f4c51d9786bf13ayma
     heater: switch.tuyazb_0xa4c1388838702fba
-    #target_sensor: sensor.snzb_0x9035eafffe0d8a73_temperature
-    target_sensor: sensor.aqzb_0x00158d008b0403ca_temperature
+    target_sensor: sensor.snzb_0x9035eafffe0d8a73_temperature
     min_temp: 3
     max_temp: 30
     ac_mode: false
@@ -155,18 +153,18 @@
     heater: switch.tuyazb_0x70b3d52b6007e417
     #target_sensor: sensor.snzb_0x842712fffe38349b_temperature
     target_sensor: sensor.snzb_0x38398ffffe042bf8_temperature
-    min_temp: 3
+    min_temp: 1
     max_temp: 15
     ac_mode: false
     #target_temp: 4
     cold_tolerance: 0.2
-    hot_tolerance: 0.4
+    hot_tolerance: 0.3
     min_cycle_duration:
       seconds: 5
     keep_alive:
       minutes: 3
     #initial_hvac_mode: "off"
-    away_temp: 4
+    away_temp: 2.5
     precision: 0.1
     
 #Колодец термостат
@@ -198,8 +196,8 @@
     #heater: switch.tuya_bfe8a953b2dda2f5f7kdmj
     heater: switch.tuyazb_0xa4c138c326596775
     target_sensor: sensor.snzb_0x9035eafffe09709a_temperature
-    min_temp: 3
-    max_temp: 30
+    min_temp: 1
+    max_temp: 40
     ac_mode: false
     #target_temp: 4
     cold_tolerance: 0.3
