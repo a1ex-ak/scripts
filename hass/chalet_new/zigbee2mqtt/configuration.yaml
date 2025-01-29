@@ -1,0 +1,118 @@
+mqtt:
+  server: mqtt://core-mosquitto:1883
+  base_topic: zigbee2mqtt_1
+  version: 5
+  user: addons
+  password: !secret_pass
+serial:
+  port: tcp://!secret_ip:6638
+  baudrate: 115200
+  disable_led: false
+  adapter: zstack
+advanced:
+  transmit_power: 20
+  channel: 15
+  pan_id: 49591
+  network_key:
+    - 67
+    - 62
+    - 11
+    - 254
+    - 177
+    - 144
+    - 138
+    - 1
+    - 113
+    - 69
+    - 241
+    - 135
+    - 109
+    - 31
+    - 194
+    - 190
+  last_seen: ISO_8601
+  log_level: info
+  homeassistant_legacy_entity_attributes: false
+  homeassistant_legacy_triggers: false
+  legacy_api: false
+  legacy_availability_payload: false
+homeassistant:
+  enabled: true
+frontend:
+  enabled: true
+  port: 8099
+device_options:
+  legacy: false
+devices:
+  '0xa4c138c326596775':
+    friendly_name: TuyaZB-ChGlassHouse
+  '0x9035eafffe09709a':
+    friendly_name: SNZB-02P-ChGlassHouse
+    description: Теплица
+    temperature_precision: 1
+    humidity_precision: 1
+  '0xa4c13819c55f376f':
+    friendly_name: TuyaZB-ChBoiler
+  '0xa4c1382311c21bfd':
+    friendly_name: TuyaZB-ChRefrigerator
+  '0x90ab96fffe77bfd0':
+    friendly_name: SNZB-02D-ChKitchen
+    temperature_precision: 1
+    humidity_precision: 1
+  '0x90ab96fffe773411':
+    friendly_name: SNZB-02D-ChBRoom
+    temperature_precision: 1
+    humidity_precision: 1
+  '0x842712fffe556ccf':
+    friendly_name: SNZB-02D-ChChildParents
+    temperature_precision: 1
+    humidity_precision: 1
+  '0x9035eafffe0d8227':
+    friendly_name: SNZB-02P-ChWC
+    temperature_precision: 1
+    humidity_precision: 1
+  '0x38398ffffe042bf8':
+    friendly_name: SNZB-02P-ChPotato
+    temperature_precision: 1
+    humidity_precision: 1
+  '0x9035eafffe0d8a73':
+    friendly_name: SNZB-02P-Ch2Floor
+    temperature_precision: 1
+    humidity_precision: 1
+  '0xa4c138e764255ca2':
+    friendly_name: TuyaZB-Ch1FloorTV
+  '0xa4c13876cc154025':
+    friendly_name: TuyaZB-ChEnter
+  '0xa4c138cb1877b97d':
+    friendly_name: TuyaZB-ChHall
+  '0xa4c138f1c91c9534':
+    friendly_name: TuyaZB-ChWell
+  '0xa4c138a15bffa190':
+    friendly_name: TuyaZB-ChKitchen
+  '0x70b3d52b6007e417':
+    friendly_name: TuyaZB-Ch2FloorP
+  '0xa4c138370c6aa65f':
+    friendly_name: TuyaZB-ChHumidWC
+  '0xa4c138cc25ab23e9':
+    friendly_name: TuyaZB-ChBRoomL
+  '0xa4c138a93aa705e7':
+    friendly_name: TuyaZB-ChBRoomR
+  '0xa4c13804d16f439b':
+    friendly_name: TuyaZB-ChChildParents
+  '0xa4c138b501305b3e':
+    friendly_name: TuyaZB-ChBathroom
+  '0xa4c1388df3fdf480':
+    friendly_name: TuyaZB-ChCharge
+  '0xa4c1388838702fba':
+    friendly_name: TuyaZB-Ch2FloorE
+  '0xa4c13892a166e859':
+    friendly_name: TuyaZB-ChWashing
+  '0x00158d008afd900a':
+    friendly_name: AQZB-WSDC-ChWell
+  '0xa4c13878b0aaba5e':
+    friendly_name: TuyaZB-ChFlowers
+  '0x842712fffe38349b':
+    friendly_name: SNZB-02P-ChHall
+  '0xa4c1386ada5d51a1':
+    friendly_name: '0xa4c1386ada5d51a1'
+version: 4
