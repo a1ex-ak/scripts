@@ -8,6 +8,11 @@ fwupdmgr get-updates
 ```yaml
 fwupdmgr update
 ```
+:ballot_box_with_check: DNS-over-TLS/DNSSec
+https://www.linux.org.ru/articles/admin/17596138
+```yaml
+sudo apt-get install systemd-networkd
+```
 :ballot_box_with_check: Настройка -> Общий доступ к файлам
 ```yaml
 sudo apt-get install gnome-user-share
