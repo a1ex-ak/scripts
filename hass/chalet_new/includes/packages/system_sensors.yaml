@@ -41,15 +41,15 @@ system_sensors:
                 {{ month_of_year }}
 
     # Время с последней перезагрузки Home Assistant
-          - name: online_custom
-            unique_id: online_custom
+          - name: uptime_custom
+            unique_id: uptime_custom
             state: >
-               {% set s = (states("sensor.time_1_sec") | int - as_timestamp(states('sensor.online')) | int) %}
-               {{ '{:d} дн. {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
+               {% set s = (states("sensor.time_1_sec") | int - as_timestamp(states('sensor.uptime')) | int) %}
+               {{ '{:d} д {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
 
     # Время с последней перезагрузки сервера
           - name: last_boot_custom
             unique_id: last_boot_custom
             state: >
                {% set s = (states("sensor.time_1_sec") | int - as_timestamp(states('sensor.system_monitor_last_boot')) | int) %}
-               {{ '{:d} дн. {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
+               {{ '{:d} д {:02d}:{:02d}:{:02d}'.format (s // 86400, s % 86400 // 3600, s % 3600 // 60, s % 60) }}
