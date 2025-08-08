@@ -15,7 +15,8 @@ systemctl enable NetworkManager
 sudo nano /etc/systemd/resolved.conf
 ```
 `Ctrl X` - для выхода    
-`Y` для сохранения    
+`Y` для сохранения
+
 :ballot_box_with_check: Перезапуск DNS    
 ```yaml
 sudo systemctl restart systemd-resolved
