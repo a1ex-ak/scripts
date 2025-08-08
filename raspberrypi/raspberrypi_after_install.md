@@ -6,7 +6,8 @@ sudo apt-get install -y jq wget curl udisks2 apparmor-utils libglib2.0-bin netwo
 :ballot_box_with_check: Запуск Network Manager    
 ```yaml
 systemctl start NetworkManager
- 
+```
+```yaml
 systemctl enable NetworkManager
 ```
 :ballot_box_with_check: Прописываем DNS    
