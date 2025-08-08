@@ -15,7 +15,7 @@ systemctl enable NetworkManager
 sudo nano /etc/systemd/resolved.conf
 ```
 
-`Прописываем данные DNS`
+`данные DNS`
 ```yaml
 DNS=10.47.100.1 77.88.8.8
 FallbackDNS=77.88.8.1#common.dot.dns.yandex.net 8.8.8.8#dns.google
