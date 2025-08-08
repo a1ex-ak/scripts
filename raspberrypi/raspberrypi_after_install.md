@@ -24,7 +24,7 @@ FallbackDNS=77.88.8.1#common.dot.dns.yandex.net 8.8.8.8#dns.google
 DNSSEC=yes
 DNSOverTLS=yes
 ```
-Далее
+
 `Ctrl X` - для выхода    
 `Y` для сохранения
 
