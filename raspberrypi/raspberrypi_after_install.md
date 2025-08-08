@@ -1,4 +1,25 @@
 # *** Настройка Raspberry PI OS после установки ***
+:ballot_box_with_check: Установка необходимых пакетов    
+```yaml
+sudo apt-get install -y jq wget curl udisks2 apparmor-utils libglib2.0-bin network-manager dbus systemd-journal-remote systemd-resolved
+```
+:ballot_box_with_check: Запуск Network Manager    
+```yaml
+systemctl start NetworkManager
+ 
+systemctl enable NetworkManager
+```
+:ballot_box_with_check: Прописываем DNS    
+```yaml
+sudo nano /etc/systemd/resolved.conf
+```
+`Ctrl X` - для выхода    
+`Y` для сохранения    
+:ballot_box_with_check: Перезапуск DNS    
+```yaml
+sudo systemctl restart systemd-resolved
+```
+
 
 ----------------------------------
 :ballot_box_with_check: TorrServer (https://github.com/YouROK/TorrServer)
