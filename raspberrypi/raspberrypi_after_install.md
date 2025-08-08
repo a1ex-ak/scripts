@@ -17,7 +17,7 @@ sudo nano /etc/systemd/resolved.conf
 
 `DNS`
 ```yaml
-DNS=localdns 77.88.8.8
+DNS=77.88.8.8
 FallbackDNS=77.88.8.1#common.dot.dns.yandex.net 8.8.8.8#dns.google
 ```
 `и`
