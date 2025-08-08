@@ -1,4 +1,4 @@
-:ballot_box_with_check: Обновление SecureBoot
+:ballot_box_with_check: Установка ZSH
 ```yaml
 sudo apt-get install git zsh
 ```
