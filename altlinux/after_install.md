@@ -8,6 +8,12 @@ fwupdmgr get-updates
 ```yaml
 fwupdmgr update
 ```
+
+:ballot_box_with_check: Удаление nVidia
+```yaml
+sudo apt-get remove --purge nvidia-settings nvidia_glx_390.157 nvidia_glx_470.256.02 nvidia_glx_570.133.07 nvidia_glx_common
+```
+
 :ballot_box_with_check: DNS-over-TLS/DNSSec
 https://www.linux.org.ru/articles/admin/17596138
 ```yaml
