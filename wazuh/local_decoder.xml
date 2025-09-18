@@ -1,0 +1,321 @@
+<!-- Local Decoders -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!--
+  - Allowed static fields:
+  - location   - where the log came from (only on FTS)
+  - srcuser    - extracts the source username
+  - dstuser    - extracts the destination (target) username
+  - user       - an alias to dstuser (only one of the two can be used)
+  - srcip      - source ip
+  - dstip      - dst ip
+  - srcport    - source port
+  - dstport    - destination port
+  - protocol   - protocol
+  - id         - event id
+  - url        - url of the event
+  - action     - event action (deny, drop, accept, etc)
+  - status     - event status (success, failure, etc)
+  - extra_data - Any extra data
+-->
+
+<decoder name="local_decoder_example">
+    <program_name>local_decoder_example</program_name>
+</decoder>
+
+<!-- /var/ossec/etc/decoders/local_decoder.xml -->
+
+<!-- KSC Custom Decoders -->
+
+<decoder name="Kaspersky">
+  <prematch>event@23668</prematch>
+</decoder>
+
+<!-- или доменное имя сервера KSC, идущее в логах перед |11.0.0.0 - например: KES для лога KES|11.0.0.0
+<decoder name="Kaspersky">
+  <prematch>KES</prematch>
+</decoder>
+-->
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>hdn="(\S+)"</regex>
+  <order>host</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>hip="(\d+.\d+.\d+.\d+)"</regex>
+  <order>dstip</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>tdn="(\.*)"</regex>
+  <order>KES.module</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>etdn="(\.*)"</regex>
+  <order>KES.module.action</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>gn="(\.*)"</regex>
+  <order>KES.group</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>kscfqdn="(\.*)"</regex>
+  <order>KES.server</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>event@(\d+)</regex>
+  <order>KES.event</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>https://(\.*)"|http://(\.*)"</regex>
+  <order>url</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p1="(\.*)"</regex>
+  <order>KES.p1</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p2="(\.*)"</regex>
+  <order>KES.p2</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p3="(\.*)"</regex>
+  <order>KES.p3</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p4="(\.*)"</regex>
+  <order>KES.p4</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p5="(\.*)"</regex>
+  <order>KES.p5</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p6="(\.*)"</regex>
+  <order>KES.p6</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p7="(\.*)"</regex>
+  <order>KES.p7</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>p8="(\.*)"</regex>
+  <order>KES.p8</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>\\\\(\.*)"</regex>
+  <order>dstuser</order>
+</decoder>
+
+<decoder name="Kaspersky-field">
+  <parent>Kaspersky</parent>
+  <regex>et="(\.*)"</regex>
+  <order>KES.event.code</order>
+</decoder>
+
+<!-- Cisco SG decoder -->
+
+<decoder name="cisco_sg">
+  <prematch>%\w+-\w+-\w+:</prematch>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>%\w+-(\w+)-(\w+): </regex>
+  <order>type,action</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>User (\w+) session for user (\w+) over ssh , source (\d+.\d+.\d+.\d+) destination  (\d+.\d+.\d+.\d+)</regex>
+  <order>conn,user,sourceip,destip</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex> Access attempted by unauthorized NMS: (\d+.\d+.\d+.\d+)</regex>
+  <order>sourceip</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>(\w+/\d+/\d+)</regex>
+  <order>portdown</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>%NT_GREEN-W-EeeLldp(\w+)Neighbour</regex>
+  <order>typelldp</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>(\w+/\d+/\d+)</regex>
+  <order>portlldp</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>(\w+)$</regex>
+  <order>statuslldp</order>
+</decoder>
+
+<decoder name="cisco_sg-child">
+  <parent>cisco_sg</parent>
+  <regex>New ssh connection, source (\d+.\d+.\d+.\d+) destination (\d+.\d+.\d+.\d+)  REJECTED</regex>
+  <order>sourceip,destip</order>
+</decoder>
+
+<!-- UserGate decoders -->
+<decoder name="usergate_1">
+  <prematch type="pcre2">\S+ \S+ utm-loganalyzer traffic - - \S+CEF:0\|\S+\|\S+\|\d\|traffic\|\S+\|\d\|.+ src=\d+.\d+.\d+.\d+ spt=\d+ .+ proto=\S+ dst=\d+.\d+.\d+.\d+ dpt=\d+ .+</prematch>
+</decoder>
+
+<decoder name="usergate_1_child">
+  <parent>usergate_1</parent>
+  <regex type="pcre2">\S+ (\S+) utm-loganalyzer traffic - - \S+CEF:0\|\S+\|\S+\|(\d)\|traffic\|(\S+)\|(\d)\|.+ src=(\d+.\d+.\d+.\d+) spt=(\d+) .+ proto=(\S+) dst=(\d+.\d+.\d+.\d+) dpt=(\d+) (.+)</regex>
+  <order>usergate.node,usergate.version,traffic_type,usergate.severity,srcip,srcport,src_proto,dstip,dstport,traffic_msg</order>
+</decoder>
+
+<decoder name="usergate_2">
+  <prematch type="pcre2">\S+ \S+ utm-loganalyzer events - - \S+CEF:0\|\S+\|\S+\|\d\|events\|\S+\|\d\|.+ suser=\S+ cat=\S+ act=\S+ src=\d+.\d+.\d+.\d+ .+</prematch>
+</decoder>
+
+<decoder name="usergate_2_child">
+  <parent>usergate_2</parent>
+  <regex type="pcre2">\S+ (\S+) utm-loganalyzer events - - \S+CEF:0\|\S+\|\S+\|(\d)\|events\|(\S+)\|(\d)\|.+ suser=(\S+) cat=(\S+) act=(\S+) src=(\d+.\d+.\d+.\d+) (.+)</regex>
+  <order>usergate.node,usergate.version,event_type,usergate.severity,srcuser,event_event,event_action,srcip,event_msg</order>
+</decoder>
+
+<!-- UserGate IDPS decoder -->
+
+<decoder name="usergate_idps">
+  <prematch type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|idps\|</prematch>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex type="pcre2">CEF:\d+\|([\w\d-]+)\|[\w\d-]+\|\d+\|([\w\d-]+)\|([\w\d\s=@.-]+)|[\w\d\s|=@\[\].-]+app</regex>
+  <order>utmname,utmtype,attackname</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex type="pcre2">app=([\w\d\s|=@\[\].-]+)\s+proto</regex>
+  <order>appname</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex>proto=(\w+)\s+src=(\d+.\d+.\d+.\d+)\s+spt=(\d+)\s+</regex>
+  <order>proto,sourceip,sourceport</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex type="pcre2">cs2=([\w\d@.-]+)\s+</regex>
+  <order>sourcezone</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex>cs3=(\w+)\s+</regex>
+  <order>sourcecountry</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex>dst=(\d+.\d+.\d+.\d+)\s+dpt=(\d+)\s+</regex>
+  <order>dstip,dstport</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex type="pcre2">cs4=([\w\d@.-]+)\s+</regex>
+  <order>dstzone</order>
+</decoder>
+
+<decoder name="usergate_idps-child">
+  <parent>usergate_idps</parent>
+  <regex>cs5=(\w+)\s+</regex>
+  <order>dstcountry</order>
+</decoder>
+
+<decoder name="usergate_vpn">
+  <prematch type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|events\|vpn_server\|</prematch>
+</decoder>
+
+<decoder name="usergate_vpn-child">
+  <parent>usergate_vpn</parent>
+  <regex type="pcre2">CEF:\d+\|([\w\d-]+)\|UTM\|\d+\|(events)\|(vpn_server)\|</regex>
+  <order>utmname,utmtype,eventstype</order>
+</decoder>
+
+<decoder name="usergate_vpn-child">
+  <parent>usergate_vpn</parent>
+  <regex type="osregex">suser=\.+\s+\((\w+\.+)\)|suser=(\w+\.+)\s+</regex>
+  <order>vpnuser</order>
+</decoder>
+
+<decoder name="usergate_vpn-child">
+  <parent>usergate_vpn</parent>
+  <regex type="pcre2">cat=(\w+)\s+act=(\w+)\s+src=(\d+.\d+.\d+.\d+)</regex>
+  <order>category,action,sourceip</order>
+</decoder>
+
+<decoder name="usergate_admin_console">
+  <prematch type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|events\|admin_console\|</prematch>
+</decoder>
+
+<decoder name="usergate_admin_console-child">
+  <parent>usergate_admin_console</parent>
+  <regex type="pcre2">CEF:\d+\|([\w\d-]+)\|UTM\|\d+\|(events)\|(admin_console)\|</regex>
+  <order>utmname,utmtype,eventstype,adminconsoleuser</order>
+</decoder>
+
+<decoder name="usergate_admin_console-child">
+  <parent>usergate_admin_console</parent>
+  <regex type="pcre2">\(([\w.\\]+)\)\s+</regex>
+  <order>adminconsoleuser</order>
+</decoder>
+
+<decoder name="usergate_admin_console-child">
+  <parent>usergate_admin_console</parent>
+  <regex type="pcre2">act=(\w+)\s+src=(\d+.\d+.\d+.\d+)</regex>
+  <order>action,sourceip</order>
+</decoder>
