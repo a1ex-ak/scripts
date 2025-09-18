@@ -1,0 +1,679 @@
+<!-- Local rules -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!-- Example -->
+<group name="local,syslog,sshd,">
+
+  <!--
+  Dec 10 01:02:02 host sshd[1234]: Failed none for root from 1.1.1.1 port 1066 ssh2
+  -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+</group>
+
+<!-- /var/ossec/etc/rules/local_rules.xml -->
+
+<!-- KES rules -->
+
+<group name="KES.rules,">
+  <rule id="100001" level="5">
+    <field name="KES.event.code">0000013a</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(dhost)</description>
+  </rule>
+
+  <rule id="100002" level="14">
+    <field name="KES.event.code">GNRL_EV_OBJECT_BLOCKED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1204.002</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100003" level="14">
+    <field name="KES.event.code">GNRL_EV_VIRUS_FOUND</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100004" level="5">
+    <field name="KES.event.code">0000003c</field>
+    <mitre><id>T1587.003</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100005" level="14">
+    <field name="KES.event.code">GNRL_EV_WEB_URL_BLOCKED</field>
+    <mitre><id>T1204.001</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100006" level="5">
+    <field name="KES.event.code">00000039</field>
+    <mitre><id>T1587.003</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100007" level="14">
+    <field name="KES.event.code">GNRL_EV_SUSPICIOUS_OBJECT_FOUND</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100008" level="10">
+    <field name="KES.event.code">GNRL_EV_OBJECT_CURED</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100009" level="10">
+    <field name="KES.event.code">GNRL_EV_OBJECT_NOTCURED</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100010" level="10">
+    <field name="KES.event.code">GNRL_EV_PASSWD_ARCHIVE_FOUND</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100011" level="14">
+    <field name="KES.event.code">GNRL_EV_ATTACK_DETECTED</field>
+    <mitre><id>T1046</id>
+    <id>T1016</id>
+    <id>T1049</id></mitre>
+    <group>attack</group>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100012" level="14">
+    <field name="KES.event.code">GNRL_EV_APPLICATION_LAUNCH_DENIED</field>
+    <mitre><id>T1072</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100013" level="10">
+    <field name="KES.event.code">GNRL_EV_WEB_URL_WARNING</field>
+    <mitre><id>T1204.001</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100014" level="5">
+    <field name="KES.event.code">GNRL_EV_DEVCTRL_DEV_PLUGGED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100015" level="5">
+    <field name="KES.event.code">GNRL_EV_DEVCTRL_DEV_UNPLUGGED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100016" level="14">
+    <field name="KES.event.code">GNRL_EV_DEVCTRL_DEV_PLUG_DENIED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100017" level="14">
+    <field name="KES.event.code">000000d1</field>
+    <mitre><id>T1562</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100018" level="14">
+    <field name="KES.event.code">000000e7</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100019" level="14">
+    <field name="KES.event.code">00000139</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1204.002</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100020" level="14">
+    <field name="KES.event.code">GNRL_EV_VIRUS_FOUND_AND_REPORTED</field>
+    <mitre><id>T1204.001</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100021" level="14">
+    <field name="KES.event.code">GNRL_EV_VIRUS_FOUND_AND_PASSED</field>
+    <mitre><id>T1204.001</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100022" level="14">
+    <field name="KES.event.code">00000803</field>
+    <mitre><id>T1200</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100023" level="14">
+    <field name="KES.event.code">00000898</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100024" level="14">
+    <field name="KES.event.code">00000329</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100025" level="14">
+    <field name="KES.event.code">000002c6</field>
+    <mitre><id>T1562</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100026" level="14">
+    <field name="KES.event.code">GNRL_EV_WEB_URL_BLOCKED_BY_KSN</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1204.001</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100027" level="14">
+    <field name="KES.event.code">000000d3</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1562</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100028" level="10">
+    <field name="KES.event.code">GNRL_EV_OBJECT_DELETED</field>
+    <mitre><id>T1204.002</id></mitre>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100029" level="10">
+    <field name="KES.event.code">000000d2</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100030" level="10">
+    <field name="KES.event.code">000000d7</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(host) $(KES.module.action) </description>
+  </rule>
+
+  <rule id="100031" level="10">
+    <field name="KES.event.code">000000e8</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100032" level="10">
+    <field name="KES.event.code">000000e9</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100033" level="10">
+    <field name="KES.event.code">000007d1</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1046</id>
+    <id>T1016</id>
+    <id>T1049</id></mitre>
+    <group>attack</group>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100034" level="5">
+    <field name="KES.event.code">00000140</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100035" level="10">
+    <field name="KES.event.code">00000141</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100036" level="10">
+    <field name="KES.event.code">00000804</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100037" level="10">
+    <field name="KES.event.code">000002f2</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100038" level="10">
+    <field name="KES.event.code">000003f8</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100039" level="14">
+    <field name="KES.event.code">000000d6</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1562</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100040" level="10">
+    <field name="KES.event.code">00000abe</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100041" level="10">
+    <field name="KES.event.code">FSEE_AKPLUGIN_OBJECT_BACKED_UP</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1204.002</id></mitre>
+    <description>KES ($(KES.module)): $(KES.module.action) на $(host)</description>
+  </rule>
+
+  <rule id="100060" level="5">
+    <field name="KES.event.code">KLAUD_EV_SERVERCONNECT</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <mitre><id>T1078</id></mitre>
+    <description>KSC. $(KES.module): успешно (login: $(KES.p3) src: $(KES.p2))</description>
+    <group>authentication_success,</group>
+  </rule>
+
+  <rule id="100061" level="10">
+    <if_sid>100060</if_sid>
+    <match type="pcre2">invalid|не удалось подключиться к Серверу администрирования</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): ошибка (login: $(KES.p3) src: $(KES.p2))</description>
+    <mitre><id>T1110</id></mitre>
+    <group>authentication_failed,</group>
+  </rule>
+
+  <rule id="100062" level="5">
+    <field name="KES.event.code">KLSRV_UPD_BASES_UPDATED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module)</description>
+  </rule>
+
+  <rule id="100063" level="3">
+    <field name="KES.event.code">KLSRV_EVENT_HOSTS_NOT_VISIBLE</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module) (Хост: $(KES.p1) дней: $(KES.p2))</description>
+  </rule>
+
+  <rule id="100064" level="5">
+    <field name="KES.event.code">KLSRV_HOST_STATUS_WARNING</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.p1)</description>
+  </rule>
+
+  <rule id="100065" level="5">
+    <field name="KES.event.code">KLSRV_HOST_STATUS_CRITICAL</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.p1)</description>
+  </rule>
+
+  <rule id="100066" level="5">
+    <field name="KES.event.code">KLAUD_EV_TASK_STATE_CHANGED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Объект: "$(KES.p1)", Пользователь: $(KES.p3)</description>
+  </rule>
+
+  <rule id="100067" level="5">
+    <field name="KES.event.code">KLSRV_HOST_MOVED_WITH_RULE_EX</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Правило: "$(KES.p2)", Хост: $(KES.p1)</description>
+  </rule>
+
+  <rule id="100068" level="5">
+    <field name="KES.event.code">KLAUD_EV_ADMGROUP_CHANGED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Хост $(KES.p5) перемещён в группу $(KES.p1) пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100069" level="5">
+    <if_sid>100068</if_sid>
+    <match type="pcre2">удалено</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Хост $(KES.p5) удалён из группы $(KES.p1) пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100070" level="5">
+    <if_sid>100066</if_sid>
+    <match type="pcre2">запущена</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Задача "$(KES.p1)" была запущена пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100071" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">добавлена</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Задача "$(KES.p1)" была добавлена пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100072" level="5">
+    <field name="KES.event.code">KLSRV_EV_LICENSE_CHECK_90</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module) ($(KES.p1))</description>
+  </rule>
+
+  <rule id="100073" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">Пакет .+ был добавлен пользователем</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Пакет "$(KES.p1)" был добавлен пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100074" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">Задача .+ была изменена пользователем</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Задача "$(KES.p1)" была изменена пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100075" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">Задача .+ была удалена пользователем</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Задача "$(KES.p1)" была удалена пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100076" level="5">
+    <field name="KES.event.code">KLSRV_EVENT_SPAM_EVENTS_DETECTED</field>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module) Событие будет заблокировано и перемещено в список частых событий</description>
+  </rule>
+
+  <rule id="100077" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">Отчет .+ был добавлен пользователем</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Отчет "$(KES.p1)" был добавлен пользователем $(KES.p3)</description>
+  </rule>
+
+  <rule id="100078" level="5">
+    <field name="KES.event.code">KLAUD_EV_OBJECTMODIFY</field>
+    <match type="pcre2">Политика .+ была изменена пользователем</match>
+    <decoded_as>Kaspersky</decoded_as>
+    <description>KSC. $(KES.module): Политика "$(KES.p1)" была изменена пользователем $(KES.p3)</description>
+  </rule>
+
+</group>
+
+<!-- USB storage monitoring -->
+
+<group name="Windows-usb-detect.rules,">
+  <rule id="111000" level="7">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^6416$</field>
+    <match>USBSTOR\\Disk</match>
+    <options>no_full_log</options>
+    <description>Windows: PNP устройство $(win.eventdata.deviceDescription) подключено к $(win.system.computer)</description>
+    <options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<!-- REWRITE RULES -->
+
+<group name="LinuxKernel.rules,">
+  <rule id="5104" level="8" overwrite="yes">
+    <if_sid>5100</if_sid>
+    <regex>Promiscuous mode enabled|</regex>
+    <regex>device \S+ entered promiscuous mode</regex>
+    <description>Интерфейс вошел в беспорядочный(сниффинг) режим.</description>
+    <mitre>
+      <id>T1040</id>
+    </mitre>
+    <group>promisc,pci_dss_10.6.1,pci_dss_11.4,gpg13_4.13,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,nist_800_53_SI.4,tsc_CC7.2,tsc_CC7.3,tsc_CC6.1,tsc_CC6.8,</group>
+    <options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<group name="Windows_Security,IPSec.rules,">
+  <rule id="60227" level="8" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^6416$</field>
+    <description>Система распознала новое внешнее устройство</description>
+    <options>no_full_log</options>
+    <mitre>
+      <id>T1092</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+</group>
+
+<group name="Windows_Security.rules,">
+  <rule id="60109" level="8" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^624$|^626$|^4720$|^4722$</field>
+    <description>Учетная запись пользователя включена или создана</description>
+    <options>no_full_log</options>
+    <group>adduser,account_changed,</group>
+    <group>pci_dss_8.1.2,pci_dss_10.2.5,gpg13_7.10,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.a.2.I,hipaa_164.312.a.2.II,hipaa_164.312.b,nist_800_53_AC.2,nist_800_53_IA.4,nist_800_53_AU.14,nist_800_53_AC.7,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60110" level="8" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^628$|^642$|^685$|^4738$|^4781$</field>
+    <description>Учетная запись пользователя изменена</description>
+    <options>no_full_log</options>
+    <group>account_changed,</group>
+    <group>pci_dss_8.1.2,pci_dss_10.2.5,gpg13_7.10,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.a.2.I,hipaa_164.312.a.2.II,hipaa_164.312.b,nist_800_53_AC.2,nist_800_53_IA.4,nist_800_53_AU.14,nist_800_53_AC.7,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+  <rule id="60112" level="8" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^612$|^643$|^4719$|^4907$|^4912$|^4719$</field>
+    <description>Политика аудита Windows изменена</description>
+    <options>no_full_log</options>
+    <group>policy_changed,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.6,tsc_CC7.2,tsc_CC7.3,</group>
+    <options>alert_by_email</options>
+  </rule>
+
+<!--
+  <rule id="60121" level="5" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^646$|^645$|^647$|^4741$|^4742$|^4743$</field>
+    <description>Computer account added/changed/deleted</description>
+    <options>no_full_log</options>
+    <group>account_changed,pci_dss_8.1.2,pci_dss_10.2.5,gpg13_7.10,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.a.2.I,hipaa_164.312.a.2.II,hipaa_164.312.b,nist_800_53_AC.2,nist_800_53_IA.4,nist_800_53_AU.14,nist_800_53_AC.7,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <mitre>
+      <id>T1098</id>
+    </mitre>
+    <mitre>
+      <id>T1136</id>
+    </mitre>
+    <mitre>
+      <id>T1531</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+-->
+<!--
+  <rule id="60115" level="9" overwrite="yes">
+    <if_sid>60103</if_sid>
+    <field name="win.system.eventID">^644$|^4740$</field>
+    <description>User account locked out (multiple login errors)</description>
+    <group>authentication_failures,pci_dss_8.1.6,pci_dss_11.4,gpg13_7.5,gdpr_IV_35.7.d,hipaa_164.312.a.1,nist_800_53_AC.7,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <mitre>
+      <id>T1531</id>
+    </mitre>
+    <options>no_full_log</options>
+  </rule>
+-->
+
+  <rule id="60124" level="5" overwrite="yes">
+    <if_sid>60105</if_sid>
+    <field name="win.system.eventID">^531$</field>
+    <description>Ошибка входа в систему — учетная запись в настоящее время отключена</description>
+    <options>no_full_log</options>
+    <group>authentication_failed,login_denied,pci_dss_10.2.5,pci_dss_8.1.4,gpg13_7.5,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,hipaa_164.312.a.1,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_AC.2,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,tsc_CC6.2,tsc_CC6.3,tsc_CC6.4,</group>
+    <mitre>
+      <id>T1531</id>
+    </mitre>
+    <options>alert_by_email</options>
+  </rule>
+
+
+  <rule id="200001" level="3">
+    <field name="win.system.eventID">^4776$</field>
+    <description>Учетные данные проверены в AD.</description>
+  </rule>
+
+</group>
+
+<!-- UserGate rules -->
+
+<group name="UserGate.rules,">
+  <rule id="100101" level="3">
+    <decoded_as>usergate_1</decoded_as>
+    <options>no_full_log</options>
+    <description>UserGate [$(usergate.node)]: $(traffic_type) -> соединение от $(srcip):$(srcport) к $(dstip):$(dstport) обнаружено.</description>
+  </rule>
+
+  <rule id="100102" level="8">
+    <if_sid>100101</if_sid>
+    <field name="traffic_type">ddos_protection</field>
+    <options>no_full_log</options>
+    <description>UserGate [$(usergate.node)]: $(traffic_type) от $(srcip):$(srcport) к $(dstip):$(dstport) обнаружен.</description>
+  </rule>
+
+  <rule id="100103" level="3">
+    <decoded_as>usergate_2</decoded_as>
+    <options>no_full_log</options>
+    <description>UserGate [$(usergate.node)]: $(event_type) -> соединение от $(srcip) пользователя $(srcuser) $(event_event) $(event_action) обнаружено.</description>
+  </rule>
+
+  <rule id="100104" level="10">
+    <if_sid>100103</if_sid>
+    <field name="event_type">admin_console</field>
+    <options>no_full_log</options>
+    <description>UserGate [$(usergate.node)]: администартор $(srcuser) из $(srcip) обработал $(event_action).</description>
+  </rule>
+  
+</group>
+
+<!-- UserGate IDPS rules -->
+
+<group name="UserGat_idps.rules,">
+  <rule id="120001" level="14">
+    <match type="pcre2">CEF:\d+|[\w\d-]+|UTM|\d+|idps|[\w\d\s=@.-]+|</match>
+    <decoded_as>usergate_idps</decoded_as>
+    <description>Usergate ($(utmname)) обнаружил атаку $(attackname) из зоны $(sourcezone) IP $(sourceip) порт $(sourceport) в зону $(dstzone) ip $(dstip) port $(dstport)</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="120002" level="8">
+    <match type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|events\|vpn_server\|</match>
+    <match>user_login_success|user_disconnected</match>
+    <decoded_as>usergate_vpn</decoded_as>
+    <description>Usergate ($(utmname)). VPN-сервис. Пользователь $(vpnuser) $(action) с IP $(sourceip).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="120003" level="8">
+    <match type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|events\|vpn_server\|</match>
+    <match>user_login_failed</match>
+    <decoded_as>usergate_vpn</decoded_as>
+    <description>Usergate ($(utmname)). VPN-сервис. Пользователь $(vpnuser) $(action) с IP $(sourceip).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="120004" level="8">
+    <match type="pcre2">CEF:\d+\|[\w\d-]+\|UTM\|\d+\|events\|admin_console\|</match>
+    <decoded_as>usergate_admin_console</decoded_as>
+    <description>Usergate ($(utmname)). Настроить. Пользователь $(adminconsoleuser) $(action) с IP $(sourceip).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+</group>
+
+<!-- Cisco SG rules -->
+
+<group name="Cisco_SG.rules,">
+  <rule id="110001" level="14">
+    <match>%AAA-I-CONNECT:</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG подключен. Статус $(action) ($(conn)). Пользователь $(dstuser). Исходный IP: $(sourceip)</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="110002" level="3">
+    <match>%AAA-I-DISCONNECT:</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG отключен. Статус $(action) ($(conn)). Пользователь $(dstuser). Исходный IP: $(sourceip)</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="110003" level="14">
+    <match>%SNMP-W-SNMPAUTHFAIL:</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG SNMP ошибка аутентификации с IP $(sourceip).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="110004" level="14">
+    <match>%LINK-W-Down:</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG. Порт $(portdown) $(action).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="110005" level="14">
+    <match type="pcre2">%NT_GREEN-W-EeeLldp\w+Neighbour</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG LLDP. Тип $(typelldp) порт $(portlldp) статус $(statuslldp).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+  <rule id="110006" level="14">
+    <match>%AAA-W-REJECT:</match>
+    <decoded_as>cisco_sg</decoded_as>
+    <description>Cisco SG подключен. Отклонено подключение ssh с $(sourceip) к $(destip).</description>
+    <!-- <options>alert_by_email</options> -->
+  </rule>
+
+</group>
