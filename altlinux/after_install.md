@@ -18,12 +18,15 @@ sudo apt-get remove --purge nvidia-settings nvidia_glx_390.157 nvidia_glx_470.25
 ```yaml
 sudo apt-get remove --purge epiphany epiphany-data
 ```
-
-:ballot_box_with_check: DNS-over-TLS/DNSSec
-https://www.linux.org.ru/articles/admin/17596138
 ```yaml
 sudo apt-get install systemd-networkd
 ```
+:ballot_box_with_check: DNS-over-TLS/DNSSec
+https://www.linux.org.ru/articles/admin/17596138
+```yaml
+sudo nano /etc/lib/systemd/resolved.conf
+```
+
 :ballot_box_with_check: Настройка -> Общий доступ к файлам
 ```yaml
 sudo apt-get install gnome-user-share
