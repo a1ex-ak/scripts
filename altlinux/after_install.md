@@ -24,7 +24,7 @@ sudo apt-get install systemd-networkd
 :ballot_box_with_check: DNS-over-TLS/DNSSec
 https://www.linux.org.ru/articles/admin/17596138
 ```yaml
-sudo nano /etc/lib/systemd/resolved.conf
+sudo nano /etc/systemd/resolved.conf
 ```
 
 :ballot_box_with_check: Настройка -> Общий доступ к файлам
