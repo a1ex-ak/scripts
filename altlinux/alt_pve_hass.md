@@ -1,6 +1,9 @@
+```bash
 wget https://github.com/home-assistant/operating-system/releases/download/18.2/haos_ova-18.2.qcow2.xz
-
+```
+```yaml
 unxz haos_ova-18.2.qcow2.xz
+```
 
 Create the VM
 
