@@ -4,6 +4,7 @@ wget https://github.com/home-assistant/operating-system/releases/download/18.2/h
 ```bash
 unxz haos_ova-18.2.qcow2.xz
 ```
+----
 
 Create the VM
 
@@ -34,6 +35,7 @@ Network:
 
 
 Confirm and finish. Do not start the VM yet.
+
 ----
 
 ```bash
