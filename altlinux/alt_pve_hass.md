@@ -1,7 +1,7 @@
 ```bash
 wget https://github.com/home-assistant/operating-system/releases/download/18.2/haos_ova-18.2.qcow2.xz
 ```
-```yaml
+```bash
 unxz haos_ova-18.2.qcow2.xz
 ```
 
@@ -35,9 +35,9 @@ Network:
 
 Confirm and finish. Do not start the VM yet.
 
-----
-
+```bash
 qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
+```
 
 - Close the node's console and select your HA VM
 
@@ -64,5 +64,6 @@ qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
 Done. Everything should be up and running now.
 
 
-
+```bash
 https://forum.proxmox.com/threads/guide-install-home-assistant-os-in-a-vm.143251/
+```
