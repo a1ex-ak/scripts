@@ -34,6 +34,7 @@ Network:
 
 
 Confirm and finish. Do not start the VM yet.
+----
 
 ```bash
 qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
