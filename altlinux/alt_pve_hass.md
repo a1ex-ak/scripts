@@ -1,4 +1,12 @@
-#### Ресурсы:
+#### Создание VM HAOS в Альт Виртуализации:
+
+:white_check_mark: Obtain the VM image
+
+- Navigate to the installation page on the HA website: [Alternative](https://www.home-assistant.io/installation/alternative)
+
+- Simply right-click the "KVM/Proxmox (.qcow2)" link and copy the address
+
+- In your Proxmox console (Shell), use wget to download the file
 
 ```yaml
 wget https://github.com/home-assistant/operating-system/releases/download/18.2/haos_ova-18.2.qcow2.xz
