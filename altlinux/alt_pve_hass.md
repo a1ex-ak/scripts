@@ -66,7 +66,73 @@ qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
 
 Done. Everything should be up and running now.
 
-
 ```bash
 https://forum.proxmox.com/threads/guide-install-home-assistant-os-in-a-vm.143251/
+```
+
+#### Ресурсы:    
+
+:white_check_mark: **Оригинальный скрипт съема данных** - [github](https://gist.github.com/dmslabsbr/08970d068e2e021312055e7560bcac9a)    
+
+:white_check_mark: **Скрипт показанный в уроке** - [github](https://raw.githubusercontent.com/a1ex-ak/scripts/refs/heads/main/altlinux/ha_post_temp.sh)    
+
+#### Команды и ссылки из урока:  
+
+
+:ballot_box_with_check: Установка lm sensors в Proxmox    
+```yaml
+apt-get install lm-sensors -y
+```
+:ballot_box_with_check: Команда для получения данных с датчиков температуры    
+```yaml
+sensors-detect
+```
+
+```yaml
+sensors
+```
+
+:ballot_box_with_check: Создаем файл для скрипта    
+```yaml
+nano ha_post_temp.sh
+```
+Вставляем код [скрипта](https://raw.githubusercontent.com/a1ex-ak/scripts/refs/heads/main/altlinux/ha_post_temp.sh)    
+`Ctrl X` - для выхода    
+`Y` для сохранения    
+
+:ballot_box_with_check: Права на запуск    
+```yaml
+chmod +x ha_post_temp.sh
+```
+
+:ballot_box_with_check: Ручной запуск    
+```yaml
+/root/ha_post_temp.sh
+```
+
+:ballot_box_with_check: Открываем в редакторе nano
+```yaml
+export EDITOR=nano
+```
+
+:ballot_box_with_check: Планировщик cron    
+```yaml
+crontab -e
+```
+
+:ballot_box_with_check: Ежеминутный запуск    
+```yaml
+*/1 * * * * /root/ha_post_temp.sh
+```
+`Ctrl X` - для выхода    
+`Y` для сохранения    
+
+:ballot_box_with_check: Перезагрузка сервиса cron    
+```yaml
+systemctl restart crond
+```
+
+:ballot_box_with_check: Проверка    
+```yaml
+systemctl status crond
 ```
