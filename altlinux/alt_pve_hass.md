@@ -81,7 +81,7 @@ https://forum.proxmox.com/threads/guide-install-home-assistant-os-in-a-vm.143251
 
 :ballot_box_with_check: Установка lm sensors в Proxmox    
 ```yaml
-apt-get install lm-sensors -y
+apt-get install lm_sensors -y
 ```
 :ballot_box_with_check: Команда для получения данных с датчиков температуры    
 ```yaml
