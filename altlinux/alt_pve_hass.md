@@ -81,7 +81,7 @@ https://forum.proxmox.com/threads/guide-install-home-assistant-os-in-a-vm.143251
 
 :ballot_box_with_check: Установка lm sensors в Proxmox    
 ```yaml
-apt-get install lm_sensors -y
+apt-get install lm_sensors
 ```
 :ballot_box_with_check: Команда для получения данных с датчиков температуры    
 ```yaml
@@ -135,4 +135,9 @@ systemctl restart crond
 :ballot_box_with_check: Проверка    
 ```yaml
 systemctl status crond
+```
+
+:ballot_box_with_check: Увеличение диска
+```yaml
+qm resize 100 scsi0 +32G
 ```
