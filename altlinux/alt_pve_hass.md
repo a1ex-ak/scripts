@@ -6,7 +6,7 @@ unxz haos_ova-18.2.qcow2.xz
 ```
 ----
 
-Create the VM
+:ballot_box_with_check: Create the VM
 
 General:
 - Select your VM name and ID
@@ -42,19 +42,19 @@ Confirm and finish. Do not start the VM yet.
 qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
 ```
 
-- Close the node's console and select your HA VM
+:ballot_box_with_check: - Close the node's console and select your HA VM
 
-- Go to the 'Hardware' tab
+:ballot_box_with_check: - Go to the 'Hardware' tab
 
-- Select the 'Unused Disk' and click the 'Edit' button
+:ballot_box_with_check: - Select the 'Unused Disk' and click the 'Edit' button
 
-- Check the 'Discard' box if you're using an SSD then click 'Add'
+:ballot_box_with_check: - Check the 'Discard' box if you're using an SSD then click 'Add'
 
-- Select the 'Options' tab
+:ballot_box_with_check: - Select the 'Options' tab
 
-- Select 'Boot Order' and hit 'Edit'
+:ballot_box_with_check: - Select 'Boot Order' and hit 'Edit'
 
-- Check the newly created drive (likely scsi0) and uncheck everything else
+:ballot_box_with_check: - Check the newly created drive (likely scsi0) and uncheck everything else
 
 ----
 
