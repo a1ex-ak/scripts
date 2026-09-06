@@ -1,3 +1,5 @@
+#### Ресурсы:
+
 ```yaml
 wget https://github.com/home-assistant/operating-system/releases/download/18.2/haos_ova-18.2.qcow2.xz
 ```
@@ -6,37 +8,38 @@ unxz haos_ova-18.2.qcow2.xz
 ```
 ----
 
-:ballot_box_with_check: Create the VM
+:white_check_mark: Create the VM
 
-General:
+:ballot_box_with_check: General:
 - Select your VM name and ID
 - Select 'start at boot'
 
-OS:
+:ballot_box_with_check: OS:
 - Select 'Do not use any media'
 
-System:
+:ballot_box_with_check: System:
 - Change 'machine' to 'q35'
 - Change BIOS to OVMF (UEFI)
 - Select the EFI storage (typically local-lvm)
 - Uncheck 'Pre-Enroll keys'
 
-Disks:
+:ballot_box_with_check: Disks:
 - Delete the SCSI drive and any other disks
 
-CPU:
+:ballot_box_with_check: CPU:
 - Set minimum 2 cores
 
-Memory:
+:ballot_box_with_check: Memory:
 - Set minimum 4096 MB
 
-Network:
+:ballot_box_with_check: Network:
 - Leave default unless you have special requirements (static, VLAN, etc)
 
 
 Confirm and finish. Do not start the VM yet.
 
-----
+
+:white_check_mark: Import Disk
 
 ```yaml
 qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
@@ -56,9 +59,9 @@ qm importdisk 100 haos_ova-18.2.qcow2 local-lvm
 
 :ballot_box_with_check: - Check the newly created drive (likely scsi0) and uncheck everything else
 
-----
 
-- Start the VM
+
+:white_check_mark: Start the VM
 
 - Check the shell of the VM. If it booted up correctly, you should be greeted with the link to access the Web UI.
 
