@@ -74,7 +74,7 @@ https://forum.proxmox.com/threads/guide-install-home-assistant-os-in-a-vm.143251
 
 :white_check_mark: **Оригинальный скрипт съема данных** - [github](https://gist.github.com/dmslabsbr/08970d068e2e021312055e7560bcac9a)    
 
-:white_check_mark: **Скрипт показанный в уроке** - [github](https://raw.githubusercontent.com/a1ex-ak/scripts/refs/heads/main/altlinux/ha_post_temp.sh)    
+:white_check_mark: **Скрипт правленный съема данных** - [github](https://raw.githubusercontent.com/a1ex-ak/scripts/refs/heads/main/altlinux/ha_post_temp.sh)    
 
 #### Команды и ссылки из урока:  
 
