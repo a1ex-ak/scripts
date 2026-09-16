@@ -29,3 +29,5 @@
 --rgb-black-color: 0, 0, 0;
 --rgb-white-color: 255, 255, 255;
 ```
+
+https://github.com/home-assistant/frontend/blob/master/src/resources/theme/color/color.globals.ts
